@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxm80iyisc8x2"]
+
+[ext_resource type="PackedScene" uid="uid://dudv16k6braqw" path="res://scenes/fight/fight.tscn" id="1_8dt13"]
+[ext_resource type="Script" path="res://scenes/main.gd" id="1_wvlti"]
+[ext_resource type="Shader" path="res://scenes/colors.gdshader" id="2_nxiao"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xe47a"]
+shader = ExtResource("2_nxiao")
+shader_parameter/c1 = Vector4(1, 1, 1, 1)
+shader_parameter/c2 = Vector4(0.66, 0.66, 0.66, 1)
+shader_parameter/c3 = Vector4(0.25, 0.25, 0.25, 1)
+shader_parameter/c4 = Vector4(0, 0, 0, 1)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_wvlti")
+
+[node name="Fight" parent="." instance=ExtResource("1_8dt13")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_xe47a")
+offset_right = 160.0
+offset_bottom = 144.0

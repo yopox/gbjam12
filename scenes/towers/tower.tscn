@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://cqbjrqej3qixt"]
+
+[ext_resource type="Texture2D" uid="uid://cu5tci0afa4s2" path="res://assets/towers.png" id="1_0r6xf"]
+[ext_resource type="Script" path="res://scenes/towers/tower_node.gd" id="1_v66ie"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlsib"]
+atlas = ExtResource("1_0r6xf")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_owra1"]
+size = Vector2(8, 8)
+
+[sub_resource type="Animation" id="Animation_sro2x"]
+resource_name = "blink"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.75),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"update"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_b75x4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wc6yb"]
+_data = {
+"RESET": SubResource("Animation_b75x4"),
+"blink": SubResource("Animation_sro2x")
+}
+
+[node name="Tower" type="Node2D"]
+script = ExtResource("1_v66ie")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = SubResource("AtlasTexture_qlsib")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="Rectangle" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_owra1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wc6yb")
+}
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

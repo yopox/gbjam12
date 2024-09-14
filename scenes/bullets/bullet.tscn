@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1gvi5tfw1we3"]
+
+[ext_resource type="Script" path="res://scenes/bullets/bullet.gd" id="1_ow2ts"]
+[ext_resource type="Texture2D" uid="uid://ub8ocl1uikah" path="res://assets/bullets.png" id="1_pkgec"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78ouv"]
+atlas = ExtResource("1_pkgec")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_miq5q"]
+size = Vector2(2, 2)
+
+[node name="Bullet" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_ow2ts")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_78ouv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_miq5q")

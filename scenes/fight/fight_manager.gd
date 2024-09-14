@@ -17,6 +17,8 @@ func fight():
 	var finished = false
 	var active_column = 0
 	
+	await Util.wait(Values.FIGHT_START_DELAY)
+	
 	while not finished:
 		# Enable next zone
 		zone_1.visible = active_column == 0
@@ -25,9 +27,8 @@ func fight():
 		zone_4.visible = active_column == 3
 		
 		# Trigger towers
-		player_board.activate_column(active_column)
-		enemy_board.activate_column(active_column)
+		FightUtil.activate_column.emit(active_column)
 		
 		# TODO: Fight end condition
-		await Util.wait(2)
+		await Util.wait(Values.TURN_DELAY)
 		active_column = (active_column + 1) % 4

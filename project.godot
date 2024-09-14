@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 Util="*res://autoload/util.gd"
 Palette="*res://autoload/palette.gd"
+FightUtil="*res://autoload/fight_util.gd"
+Values="*res://autoload/values.gd"
 
 [display]
 
@@ -28,7 +30,13 @@ window/size/window_width_override=960
 window/size/window_height_override=864
 window/stretch/mode="viewport"
 
+[layer_names]
+
+2d_physics/layer_1="towers"
+2d_physics/layer_2="bullets"
+
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)

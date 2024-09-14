@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkmugdk3auss6"]
+[gd_scene load_steps=3 format=3 uid="uid://dkmugdk3auss6"]
 
 [ext_resource type="Script" path="res://scenes/towers/slot.gd" id="1_3fo47"]
+[ext_resource type="PackedScene" uid="uid://cqbjrqej3qixt" path="res://scenes/towers/tower.tscn" id="2_cbe8a"]
 
 [node name="Slot" type="Node2D"]
 script = ExtResource("1_3fo47")
@@ -16,3 +17,6 @@ offset_top = 1.0
 offset_right = 15.0
 offset_bottom = 15.0
 color = Color(0, 0, 0, 1)
+
+[node name="Tower" parent="." instance=ExtResource("2_cbe8a")]
+position = Vector2(8, 8)

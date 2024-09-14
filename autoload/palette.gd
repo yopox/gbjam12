@@ -12,4 +12,5 @@ func get_palette(p: Palettes) -> Array:
 	match p:
 		Palettes.YOPOX:
 			return [Color("201e33"), Color("ab1a5d"), Color("ffbc43"), Color("808a94")]
-		_:  return [Color("000000"), Color("666666"), Color("aaaaaa"), WHITE]
+		_:
+			return [Color("000000"), Color("666666"), Color("aaaaaa"), WHITE]

@@ -35,10 +35,10 @@ offset_bottom = 144.0
 color = Color(0.4, 0.4, 0.4, 1)
 
 [node name="PlayerBoard" parent="." instance=ExtResource("2_iiyqf")]
-position = Vector2(36, 80)
+position = Vector2(24, 80)
 
 [node name="EnemyBoard" parent="." instance=ExtResource("2_iiyqf")]
-position = Vector2(36, 24)
+position = Vector2(24, 24)
 
 [node name="FightManager" type="Node" parent="."]
 script = ExtResource("3_mfus5")

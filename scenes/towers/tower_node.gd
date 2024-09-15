@@ -16,6 +16,10 @@ func update():
 	sprite_2d.visible = tower != null and tower.HP > 0
 
 
+func check_alive():
+	if tower.HP <= 0: FightUtil.tower_hide.emit(tower)
+
+
 func is_alive() -> bool:
 	if tower == null: return false
 	return tower.HP > 0

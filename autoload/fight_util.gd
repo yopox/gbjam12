@@ -3,8 +3,9 @@ extends Node
 signal activate_column(column: int)
 signal tower_shoot(tower: Tower, damage: int)
 signal tower_hit(tower: Tower, damage: int)
-signal tower_stats_up(tower: Tower, delta_atk: int, delta_hp)
+signal tower_stats_changed(tower: Tower, delta_atk: int, delta_hp: int)
 signal tower_destroyed(tower: Tower)
+signal tower_hide(tower: Tower)
 
 
 var player_board = {}

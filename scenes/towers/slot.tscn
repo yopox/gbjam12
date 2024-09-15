@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkmugdk3auss6"]
+[gd_scene load_steps=5 format=3 uid="uid://dkmugdk3auss6"]
 
 [ext_resource type="Script" path="res://scenes/towers/slot.gd" id="1_3fo47"]
 [ext_resource type="PackedScene" uid="uid://cqbjrqej3qixt" path="res://scenes/towers/tower.tscn" id="2_cbe8a"]
+[ext_resource type="FontFile" uid="uid://mup52d3dmupf" path="res://assets/Axones 6p.ttf" id="3_cf6er"]
+
+[sub_resource type="Theme" id="Theme_slkmo"]
+default_font = ExtResource("3_cf6er")
 
 [node name="Slot" type="Node2D"]
 script = ExtResource("1_3fo47")
@@ -20,3 +24,27 @@ color = Color(0, 0, 0, 1)
 
 [node name="Tower" parent="." instance=ExtResource("2_cbe8a")]
 position = Vector2(8, 8)
+
+[node name="Stats" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ATK" type="Label" parent="Stats"]
+offset_left = -13.0
+offset_top = -5.0
+offset_right = -1.0
+offset_bottom = 11.0
+theme = SubResource("Theme_slkmo")
+text = "1"
+horizontal_alignment = 2
+
+[node name="HP" type="Label" parent="Stats"]
+offset_left = -13.0
+offset_top = 3.0
+offset_right = -1.0
+offset_bottom = 19.0
+theme = SubResource("Theme_slkmo")
+text = "10"
+horizontal_alignment = 2

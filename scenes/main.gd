@@ -5,7 +5,7 @@ extends Node2D
 
 func _ready():
 	var m = color_rect.material as ShaderMaterial
-	var p = Palette.get_palette(Palette.Palettes.YOPOX)
+	var p = Palette.get_palette(Palette.Palettes.GRAYSCALE)
 	m.set_shader_parameter("c1", p[0])
 	m.set_shader_parameter("c2", p[1])
 	m.set_shader_parameter("c3", p[2])

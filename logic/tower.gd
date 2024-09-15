@@ -1,6 +1,6 @@
 class_name Tower extends Node
 
-enum Type { S1_1, S2_1, K1_1, K2_1, G1_1, G2_1, G4_1, P1_1, P1_2, P2_1, P3_1, P4_1 }
+enum Type { S1_1, S2_1, S3_1, K1_1, K2_1, K3_1, G1_1, G2_1, G4_1, P1_1, P1_2, P2_1, P3_1, P4_1 }
 enum Class { Spider, Skeleton, Ghost, Pumpkin }
 
 var team: int
@@ -41,11 +41,21 @@ func clone() -> Tower:
 	return t
 
 
+func boost(atk: int, hp: int, perma: bool, secondary: bool) -> void:
+	if HP == 0: return
+	ATK += atk
+	HP += hp
+	if perma:
+		ATK_boost += atk
+		HP_boost += hp
+	FightUtil.tower_stats_changed.emit(self, atk, hp, secondary)
+
+
 func hit(damage: int) -> void:
 	var d = min(HP, damage)
 	HP -= d
 	FightUtil.tower_hit.emit(self, d)
-	FightUtil.tower_stats_changed.emit(self, 0, -d)
+	FightUtil.tower_stats_changed.emit(self, 0, -d, false)
 	#print("[%s %s-%s] Hit for %s (%s HP left)" % [team, column, row, d, HP])
 	if HP == 0:
 		die()

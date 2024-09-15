@@ -62,7 +62,7 @@ func _on_tower_shoot(tower: Tower, damage: int) -> void:
 	state = State.Idle
 
 
-func _on_tower_stats_changed(tower: Tower, _datk: int, _dhp: int) -> void:
+func _on_tower_stats_changed(tower: Tower, _datk: int, _dhp: int, _secondary: bool) -> void:
 	if not match_tower(tower): return
 	update_stats(tower)
 

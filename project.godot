@@ -21,6 +21,7 @@ Util="*res://autoload/util.gd"
 Palette="*res://autoload/palette.gd"
 FightUtil="*res://autoload/fight_util.gd"
 Values="*res://autoload/values.gd"
+TowerEffects="*res://logic/tower_effects.gd"
 
 [display]
 

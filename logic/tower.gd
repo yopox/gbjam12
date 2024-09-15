@@ -11,6 +11,9 @@ var type: Type: set = _set_type
 var HP: int
 var ATK: int
 
+var HP_boost: int = 0
+var ATK_boost: int = 0
+
 
 func set_slot(slot: Slot) -> void:
 	column = slot.column
@@ -43,6 +46,14 @@ func hit(damage: int) -> void:
 	HP -= d
 	FightUtil.tower_hit.emit(self, d)
 	FightUtil.tower_stats_changed.emit(self, 0, -d)
-	print("[%s %s-%s] Hit for %s (%s HP left)" % [team, column, row, d, HP])
+	#print("[%s %s-%s] Hit for %s (%s HP left)" % [team, column, row, d, HP])
 	if HP == 0:
-		FightUtil.tower_destroyed.emit(self)
+		die()
+	else:
+		if FightUtil.tower_class(type) == Class.Pumpkin:
+			await Util.wait(Values.PUMPKIN_DELAY)
+			FightUtil.tower_shoot.emit(self, ATK)
+
+
+func die() -> void:
+	FightUtil.tower_destroyed.emit(self)

@@ -9,10 +9,13 @@ var tower: Tower
 
 func _ready():
 	FightUtil.tower_hit.connect(_on_tower_hit)
+	sprite_2d.texture = sprite_2d.texture.duplicate()
 	update()
 
 
 func update():
+	if tower != null:
+		(sprite_2d.texture as AtlasTexture).region.position.x = FightUtil.tower_sprite_x(tower.type)
 	sprite_2d.visible = tower != null and tower.HP > 0
 
 

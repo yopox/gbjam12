@@ -11,7 +11,7 @@ func set_towers(towers: Dictionary, flip: bool, team: int) -> void:
 	for i in range(8):
 		var key = i if not flip else (i + 4) % 8
 		if not towers.has(i): slots[key].set_tower(null, team)
-		else: slots[key].set_tower(towers[i].clone(), team)
+		else: slots[key].set_tower(towers[i], team)
 
 
 func activate_column(c: int) -> void:

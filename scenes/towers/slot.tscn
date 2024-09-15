@@ -32,6 +32,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ATK" type="Label" parent="Stats"]
+layout_mode = 0
 offset_left = -13.0
 offset_top = -5.0
 offset_right = -1.0
@@ -41,6 +42,7 @@ text = "1"
 horizontal_alignment = 2
 
 [node name="HP" type="Label" parent="Stats"]
+layout_mode = 0
 offset_left = -13.0
 offset_top = 3.0
 offset_right = -1.0

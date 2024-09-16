@@ -23,22 +23,20 @@ func _ready():
 	t.type = Tower.Type.S1_1
 	enemy_board[0] = t.clone()
 	t.type = Tower.Type.S3_1
-	enemy_board[4] = t.clone()
-	enemy_board[6] = t.clone()
-	enemy_board[3] = t.clone()
+	enemy_board[1] = t.clone()
 	
 	var t2 = Tower.new()
 	t2.type = Tower.Type.P1_1
-	player_board[4] = t2.clone()
-	t2.type = Tower.Type.K3_1
-	player_board[5] = t2.clone()
+	player_board[0] = t2.clone()
+	#t2.type = Tower.Type.K3_1
+	#player_board[5] = t2.clone()
 
 
 func adjacent_towers(tower: Tower) -> Array:
 	var board = player_board if tower.team == 0 else enemy_board
 	var adjacent = []
 	var col = tower.column
-	var row = tower.row if tower.team == 0 else 1 - tower.row
+	var row = tower.row
 	var i = col + row * 4
 	if col > 0 and board.has(i - 1): adjacent.append(board[i - 1])
 	if col < 3 and board.has(i + 1): adjacent.append(board[i + 1])

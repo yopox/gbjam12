@@ -49,6 +49,7 @@ func boost(atk: int, hp: int, perma: bool, secondary: bool) -> void:
 		ATK_boost += atk
 		HP_boost += hp
 	FightUtil.tower_stats_changed.emit(self, atk, hp, secondary)
+	FightUtil.tower_reaction.emit(self, Slot.Reaction.Exclamation)
 
 
 func hit(damage: int) -> void:

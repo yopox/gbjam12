@@ -13,11 +13,11 @@ func set_towers(towers: Dictionary, flip: bool, team: int) -> void:
 	flipped = flip
 	for i in range(8):
 		var key = i if not flip else (i + 4) % 8
-		if not towers.has(i): slots[i].set_tower(null, team)
+		@warning_ignore("integer_division")
+		slots[key].row = i / 4
+		if not towers.has(i):
+			slots[key].set_tower(null, team)
 		else:
-			if flip:
-				@warning_ignore("integer_division")
-				towers[i].row = 1 - key / 4
 			slots[key].set_tower(towers[i], team)
 
 

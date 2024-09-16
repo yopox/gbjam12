@@ -26,7 +26,6 @@ func _ready():
 	FightUtil.tower_stats_changed.connect(_on_tower_stats_changed)
 	FightUtil.tower_hide.connect(_on_tower_hide)
 	FightUtil.tower_reaction.connect(_on_tower_reaction)
-	stats.visible = false
 	reaction.texture = reaction.texture.duplicate()
 	update_rect()
 
@@ -54,7 +53,7 @@ func _set_state(value: State) -> void:
 
 
 func match_tower(tower: Tower) -> bool:
-	return tower.column == column and tower.row == row and tower.team == team
+	return tower.team == team and tower.column == column and tower.row == row
 
 
 func _on_tower_shoot(tower: Tower, damage: int) -> void:

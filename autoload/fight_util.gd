@@ -1,6 +1,8 @@
 extends Node
 
 @warning_ignore("unused_signal")
+signal fight_start()
+@warning_ignore("unused_signal")
 signal activate_column(column: int)
 @warning_ignore("unused_signal")
 signal tower_shoot(tower: Tower, damage: int)
@@ -26,10 +28,11 @@ func _ready():
 	enemy_board[1] = t.clone()
 	
 	var t2 = Tower.new()
-	t2.type = Tower.Type.P1_1
+	t2.type = Tower.Type.ROCK
 	player_board[0] = t2.clone()
-	#t2.type = Tower.Type.K3_1
-	#player_board[5] = t2.clone()
+	t2.type = Tower.Type.S1_1
+	player_board[1] = t2.clone()
+	#player_board[4] = t2.clone()
 
 
 func adjacent_towers(tower: Tower) -> Array:
@@ -47,19 +50,44 @@ func adjacent_towers(tower: Tower) -> Array:
 
 func base_stats(type: Tower.Type) -> Array:
 	match type:
-		Tower.Type.S1_1: return [1, 3]
+		Tower.Type.S1_1: return [2, 2]
+		Tower.Type.S1_2: return [1, 1]
 		Tower.Type.S2_1: return [2, 4]
+		Tower.Type.S2_2: return [2, 3]
 		Tower.Type.S3_1: return [4, 3]
-		Tower.Type.K1_1: return [1, 2]
-		Tower.Type.K2_1: return [1, 3]
-		Tower.Type.K3_1: return [2, 2]
-		Tower.Type.G1_1: return [3, 1]
-		Tower.Type.G2_1: return [1, 1]
+		Tower.Type.S3_2: return [4, 4]
+		Tower.Type.S4_1: return [5, 5]
+		Tower.Type.S4_2: return [5, 3]
+
+		Tower.Type.K1_1: return [3, 1]
+		Tower.Type.K1_2: return [2, 1]
+		Tower.Type.K2_1: return [1, 2]
+		Tower.Type.K2_2: return [1, 3]
+		Tower.Type.K3_1: return [4, 4]
+		Tower.Type.K3_2: return [1, 5]
+		Tower.Type.K4_1: return [3, 8]
+		Tower.Type.K4_2: return [3, 6]
+
+		Tower.Type.G1_1: return [2, 1]
+		Tower.Type.G1_2: return [1, 1]
+		Tower.Type.G2_1: return [3, 1]
+		Tower.Type.G2_2: return [2, 1]
+		Tower.Type.G3_1: return [5, 1]
+		Tower.Type.G3_2: return [4, 1]
 		Tower.Type.G4_1: return [0, 1]
-		Tower.Type.P1_1: return [3, 3]
-		Tower.Type.P2_1: return [0, 2]
+		Tower.Type.G4_2: return [6, 1]
+
+		Tower.Type.P1_1: return [3, 2]
+		Tower.Type.P1_2: return [1, 1]
+		Tower.Type.P2_1: return [2, 2]
+		Tower.Type.P2_2: return [2, 4]
 		Tower.Type.P3_1: return [1, 5]
+		Tower.Type.P3_2: return [4, 4]
 		Tower.Type.P4_1: return [0, 10]
+		Tower.Type.P4_2: return [7, 7]
+
+		Tower.Type.ROCK: return [0, 5]
+		Tower.Type.MIRROR: return [0, 8]
 		_:
 			printerr("Stats not defined")
 			return [999, 999]
@@ -71,15 +99,35 @@ func tower_sprite_x(type: Tower.Type) -> int:
 		_: return 0
 
 
-func tower_class(type: Tower.Type) -> Tower.Class:
-	if type in [Tower.Type.S1_1, Tower.Type.S2_1, Tower.Type.S3_1]:
-		return Tower.Class.Spider
-	if type in [Tower.Type.K1_1, Tower.Type.K2_1, Tower.Type.K3_1]:
-		return Tower.Class.Skeleton
-	if type in [Tower.Type.G1_1, Tower.Type.G2_1, Tower.Type.G4_1]:
-		return Tower.Class.Ghost
-	return Tower.Class.Pumpkin
+func tower_class(type: Tower.Type) -> Array:
+	# Multi class
+	if type == Tower.Type.K4_1: return [Tower.Class.Skeleton, Tower.Class.Spider]
+	if type == Tower.Type.G2_1: return [Tower.Class.Ghost, Tower.Class.Skeleton]
+	if type == Tower.Type.P2_2: return [Tower.Class.Pumpkin, Tower.Class.Skeleton]
+	if type == Tower.Type.P3_2: return [Tower.Class.Pumpkin, Tower.Class.Ghost]
+	if type == Tower.Type.P4_2: return [Tower.Class.Pumpkin, Tower.Class.Spider]
+	# Simple class
+	if type in [Tower.Type.S1_1, Tower.Type.S1_2, Tower.Type.S2_1, Tower.Type.S2_2, Tower.Type.S3_1, Tower.Type.S3_2, Tower.Type.S4_1, Tower.Type.S4_2]:
+		return [Tower.Class.Spider]
+	if type in [Tower.Type.K1_1, Tower.Type.K1_2, Tower.Type.K2_1, Tower.Type.K2_2, Tower.Type.K3_1, Tower.Type.K3_2, Tower.Type.K4_2]:
+		return [Tower.Class.Skeleton]
+	if type in [Tower.Type.G1_1, Tower.Type.G1_2, Tower.Type.G2_2, Tower.Type.G3_1, Tower.Type.G3_2, Tower.Type.G4_1, Tower.Type.G4_2]:
+		return [Tower.Class.Ghost]
+	if type in [Tower.Type.P1_1, Tower.Type.P1_2, Tower.Type.P2_1, Tower.Type.P3_1, Tower.Type.P4_1]:
+		return [Tower.Class.Ghost]
+	# No class
+	return []
 
 
 func shoots(type: Tower.Type) -> bool:
-	return tower_class(type) != Tower.Class.Pumpkin
+	var c: Array = tower_class(type)
+	return len(c) > 0 and not Tower.Class.Pumpkin in c
+
+
+func get_all(type: Tower.Type) -> Array:
+	var found: Array[Tower.Type] = []
+	for board in [player_board, enemy_board]:
+		for i in range(8):
+			if board.has(i) and board[i].type == type:
+				found.append(board[i])
+	return found

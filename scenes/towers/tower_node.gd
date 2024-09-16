@@ -42,4 +42,5 @@ func _on_hitbox_body_entered(body):
 
 func _on_tower_hit(t: Tower, _damage: int) -> void:
 	if tower == t:
+		animation.stop()
 		animation.play("blink")

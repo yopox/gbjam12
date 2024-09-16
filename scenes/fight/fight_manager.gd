@@ -18,6 +18,8 @@ func fight():
 	var active_column = 0
 	
 	await Util.wait(Values.FIGHT_START_DELAY)
+	FightUtil.fight_start.emit()
+	await Util.wait(Values.FIGHT_ABILITES_DELAY)
 	
 	while not finished:
 		# Enable next zone

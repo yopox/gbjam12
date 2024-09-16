@@ -1,6 +1,12 @@
 class_name Tower extends Node
 
-enum Type { S1_1, S2_1, S3_1, K1_1, K2_1, K3_1, G1_1, G2_1, G4_1, P1_1, P1_2, P2_1, P3_1, P4_1 }
+enum Type {
+	S1_1, S1_2, S2_1, S2_2, S3_1, S3_2, S4_1, S4_2,
+	K1_1, K1_2, K2_1, K2_2, K3_1, K3_2, K4_1, K4_2,
+	G1_1, G1_2, G2_1, G2_2, G3_1, G3_2, G4_1, G4_2,
+	P1_1, P1_2, P2_1, P2_2, P3_1, P3_2, P4_1, P4_2,
+	ROCK, MIRROR
+}
 enum Class { Spider, Skeleton, Ghost, Pumpkin }
 
 var team: int
@@ -45,9 +51,8 @@ func boost(atk: int, hp: int, perma: bool, secondary: bool) -> void:
 	if HP == 0: return
 	ATK += atk
 	HP += hp
-	if perma:
-		ATK_boost += atk
-		HP_boost += hp
+	if perma: ATK_boost += atk
+	if perma or type == Type.P1_2: HP_boost += hp
 	FightUtil.tower_stats_changed.emit(self, atk, hp, secondary)
 	FightUtil.tower_reaction.emit(self, Slot.Reaction.Exclamation)
 
@@ -61,9 +66,9 @@ func hit(damage: int) -> void:
 	if HP == 0:
 		die()
 	else:
-		if FightUtil.tower_class(type) == Class.Pumpkin:
-			await Util.wait(Values.PUMPKIN_DELAY)
+		if Class.Pumpkin in FightUtil.tower_class(type):
 			FightUtil.tower_reaction.emit(self, Slot.Reaction.Exclamation)
+			await Util.wait(Values.PUMPKIN_DELAY)
 			FightUtil.tower_shoot.emit(self, ATK)
 
 

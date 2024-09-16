@@ -16,6 +16,7 @@ func set_towers(towers: Dictionary, flip: bool, team: int) -> void:
 		if not towers.has(i): slots[i].set_tower(null, team)
 		else:
 			if flip:
+				@warning_ignore("integer_division")
 				towers[i].row = 1 - key / 4
 			slots[key].set_tower(towers[i], team)
 

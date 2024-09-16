@@ -1,12 +1,18 @@
 extends Node
 
+@warning_ignore("unused_signal")
 signal activate_column(column: int)
+@warning_ignore("unused_signal")
 signal tower_shoot(tower: Tower, damage: int)
+@warning_ignore("unused_signal")
 signal tower_hit(tower: Tower, damage: int)
+@warning_ignore("unused_signal")
 signal tower_stats_changed(tower: Tower, delta_atk: int, delta_hp: int, secondary: bool)
+@warning_ignore("unused_signal")
 signal tower_destroyed(tower: Tower)
+@warning_ignore("unused_signal")
 signal tower_hide(tower: Tower)
-
+@warning_ignore("unused_signal")
 signal tower_reaction(tower: Tower, reaction: Slot.Reaction)
 
 var player_board: Dictionary = {}

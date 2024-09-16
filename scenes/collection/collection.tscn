@@ -137,3 +137,6 @@ offset_right = 56.0
 offset_bottom = 27.0
 theme = ExtResource("2_2uekx")
 text = "ALL TOWERS"
+
+[node name="ShootTimer" type="Timer" parent="."]
+autostart = true

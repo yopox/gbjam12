@@ -49,7 +49,7 @@ func _on_tower_hit(t: Tower, _damage: int) -> void:
 		animation.play("blink")
 
 
-func _on_tower_shoot(t: Tower, damage: int) -> void:
+func _on_tower_shoot(t: Tower, _damage: int) -> void:
 	if t != tower: return
 	animation.stop()
 	sprite_2d.visible = true

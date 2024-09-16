@@ -20,6 +20,7 @@ signal tower_reaction(tower: Tower, reaction: Slot.Reaction)
 var player_board: Dictionary = {}
 var enemy_board: Dictionary = {}
 
+
 func _ready():
 	enemy_board[0] = Tower.new(Tower.Type.S1_1)
 	enemy_board[1] = Tower.new(Tower.Type.S1_1)

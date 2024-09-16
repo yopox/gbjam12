@@ -1,6 +1,6 @@
 extends Node
 
-enum GameState { Shop, Fight }
+enum GameState { Shop, Fight, Collection }
 
 var state: GameState = GameState.Fight
 

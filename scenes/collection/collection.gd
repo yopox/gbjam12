@@ -8,10 +8,14 @@ extends Node2D
 @onready var pumpkin_slots = $PumpkinSlots
 @onready var other_slots = $OtherSlots
 
+@onready var shoot_timer: Timer = $ShootTimer
+
 var selected = [0, 0]
 
 
 func _ready():
+	Util.state = Util.GameState.Collection
+	
 	var spiders = [Tower.Type.S1_1, Tower.Type.S1_2, Tower.Type.S2_1, Tower.Type.S2_2, Tower.Type.S3_1, Tower.Type.S3_2, Tower.Type.S4_1, Tower.Type.S4_2]
 	var skeletons = [Tower.Type.K1_1, Tower.Type.K1_2, Tower.Type.K2_1, Tower.Type.K2_2, Tower.Type.K3_1, Tower.Type.K3_2, Tower.Type.K4_1, Tower.Type.K4_2]
 	var ghosts = [Tower.Type.G1_1, Tower.Type.G1_2, Tower.Type.G2_1, Tower.Type.G2_2, Tower.Type.G3_1, Tower.Type.G3_2, Tower.Type.G4_1, Tower.Type.G4_2]
@@ -25,6 +29,7 @@ func _ready():
 		if i < 2: other_slots.get_child(i).set_tower(Tower.new(others[i]), 0)
 	
 	update()
+	shoot_timer.timeout.connect(fake_shoot)
 
 
 func update():
@@ -34,3 +39,9 @@ func update():
 		ghost_slots.get_child(i).state = Slot.State.Active if selected == [i, 2] else Slot.State.Idle
 		pumpkin_slots.get_child(i).state = Slot.State.Active if selected == [i, 3] else Slot.State.Idle
 		if i < 2: other_slots.get_child(i).state = Slot.State.Active if selected == [i, 4] else Slot.State.Idle
+
+
+func fake_shoot() -> void:
+	var slots = [spider_slots, skeleton_slots, ghost_slots, pumpkin_slots, other_slots]
+	var tower = slots[selected[1]].get_child(selected[0]).tower_node.tower
+	FightUtil.tower_shoot.emit(tower, 0)

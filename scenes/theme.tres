@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://vtdirou58ehe"]
+
+[ext_resource type="FontFile" uid="uid://mup52d3dmupf" path="res://assets/Axones 6p.ttf" id="1_d3j0n"]
+
+[resource]
+default_font = ExtResource("1_d3j0n")

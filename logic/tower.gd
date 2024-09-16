@@ -21,6 +21,9 @@ var HP_boost: int = 0
 var ATK_boost: int = 0
 
 
+func _init(tower_type: Type):
+	type = tower_type
+
 func set_slot(slot: Slot) -> void:
 	column = slot.column
 	row = slot.row
@@ -40,8 +43,7 @@ func activate() -> void:
 
 
 func clone() -> Tower:
-	var t = Tower.new()
-	t.type = type
+	var t = Tower.new(type)
 	t.HP = HP
 	t.ATK = ATK
 	return t

@@ -21,18 +21,10 @@ var player_board: Dictionary = {}
 var enemy_board: Dictionary = {}
 
 func _ready():
-	var t = Tower.new()
-	t.type = Tower.Type.S1_1
-	enemy_board[0] = t.clone()
-	t.type = Tower.Type.S3_1
-	enemy_board[1] = t.clone()
-	
-	var t2 = Tower.new()
-	t2.type = Tower.Type.S1_1
-	player_board[0] = t2.clone()
-	t2.type = Tower.Type.P3_1
-	player_board[2] = t2.clone()
-	#player_board[4] = t2.clone()
+	enemy_board[0] = Tower.new(Tower.Type.S1_1)
+	enemy_board[1] = Tower.new(Tower.Type.S1_1)
+	player_board[0] = Tower.new(Tower.Type.S1_1)
+	player_board[5] = Tower.new(Tower.Type.P3_1)
 
 
 func adjacent_towers(tower: Tower) -> Array:
@@ -95,7 +87,38 @@ func base_stats(type: Tower.Type) -> Array:
 
 func tower_sprite_x(type: Tower.Type) -> int:
 	match type:
-		Tower.Type.P1_1: return 2 * 16
+		Tower.Type.S1_1: return 0 * 16
+		Tower.Type.S1_2: return 0 * 16
+		Tower.Type.S2_1: return 0 * 16
+		Tower.Type.S2_2: return 0 * 16
+		Tower.Type.S3_1: return 0 * 16
+		Tower.Type.S3_2: return 0 * 16
+		Tower.Type.S4_1: return 0 * 16
+		Tower.Type.S4_2: return 0 * 16
+		Tower.Type.K1_1: return 2 * 16
+		Tower.Type.K1_2: return 2 * 16
+		Tower.Type.K2_1: return 2 * 16
+		Tower.Type.K2_2: return 2 * 16
+		Tower.Type.K3_1: return 2 * 16
+		Tower.Type.K3_2: return 2 * 16
+		Tower.Type.K4_1: return 2 * 16
+		Tower.Type.K4_2: return 2 * 16
+		Tower.Type.G1_1: return 4 * 16
+		Tower.Type.G1_2: return 4 * 16
+		Tower.Type.G2_1: return 4 * 16
+		Tower.Type.G2_2: return 4 * 16
+		Tower.Type.G3_1: return 4 * 16
+		Tower.Type.G3_2: return 4 * 16
+		Tower.Type.G4_1: return 4 * 16
+		Tower.Type.G4_2: return 4 * 16
+		Tower.Type.P1_1: return 6 * 16
+		Tower.Type.P1_2: return 6 * 16
+		Tower.Type.P2_1: return 6 * 16
+		Tower.Type.P2_2: return 6 * 16
+		Tower.Type.P3_1: return 6 * 16
+		Tower.Type.P3_2: return 6 * 16
+		Tower.Type.P4_1: return 6 * 16
+		Tower.Type.P4_2: return 6 * 16
 		_: return 0
 
 
@@ -114,7 +137,7 @@ func tower_class(type: Tower.Type) -> Array:
 	if type in [Tower.Type.G1_1, Tower.Type.G1_2, Tower.Type.G2_2, Tower.Type.G3_1, Tower.Type.G3_2, Tower.Type.G4_1, Tower.Type.G4_2]:
 		return [Tower.Class.Ghost]
 	if type in [Tower.Type.P1_1, Tower.Type.P1_2, Tower.Type.P2_1, Tower.Type.P3_1, Tower.Type.P4_1]:
-		return [Tower.Class.Ghost]
+		return [Tower.Class.Pumpkin]
 	# No class
 	return []
 

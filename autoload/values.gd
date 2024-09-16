@@ -7,7 +7,8 @@ const TURN_DELAY = 2
 #endregion
 
 #region Fight - Towers
-const PUMPKIN_DELAY = 0.5
+const TOWER_SHOOT_FRAME_DURATION = 0.25
+const PUMPKIN_DELAY = 0.25
 const REACTION = 1.0
 #endregion
 

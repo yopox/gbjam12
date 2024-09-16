@@ -16,7 +16,7 @@ func _on_fight_start() -> void:
 			t2.boost(1, 1, false, false)
 
 
-func _on_tower_shoot(tower: Tower, damage: int) -> void:
+func _on_tower_shoot(tower: Tower, _damage: int) -> void:
 	for t in FightUtil.get_all(Tower.Type.P3_1):
 		if tower.team == t.team and tower.row == t.row:
 			FightUtil.tower_reaction.emit(t, Slot.Reaction.Exclamation)

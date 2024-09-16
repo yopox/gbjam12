@@ -1,0 +1,139 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2s23iu4gm55b"]
+
+[ext_resource type="PackedScene" uid="uid://dkmugdk3auss6" path="res://scenes/towers/slot.tscn" id="1_a6lj6"]
+[ext_resource type="Script" path="res://scenes/collection/collection.gd" id="1_p6od8"]
+[ext_resource type="Theme" uid="uid://vtdirou58ehe" path="res://scenes/theme.tres" id="2_2uekx"]
+
+[node name="Collection" type="Node2D"]
+script = ExtResource("1_p6od8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(80, 72)
+
+[node name="SpiderSlots" type="Node2D" parent="."]
+position = Vector2(16, 24)
+
+[node name="Slot" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
+
+[node name="Slot2" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(32, 0)
+
+[node name="Slot3" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(64, 0)
+
+[node name="Slot4" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(96, 0)
+
+[node name="Slot5" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(128, 0)
+
+[node name="Slot6" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(160, 0)
+
+[node name="Slot7" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(192, 0)
+
+[node name="Slot8" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(224, 0)
+
+[node name="SkeletonSlots" type="Node2D" parent="."]
+position = Vector2(16, 48)
+
+[node name="Slot" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
+
+[node name="Slot2" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(32, 0)
+
+[node name="Slot3" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(64, 0)
+
+[node name="Slot4" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(96, 0)
+
+[node name="Slot5" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(128, 0)
+
+[node name="Slot6" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(160, 0)
+
+[node name="Slot7" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(192, 0)
+
+[node name="Slot8" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(224, 0)
+
+[node name="GhostSlots" type="Node2D" parent="."]
+position = Vector2(16, 72)
+
+[node name="Slot" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
+
+[node name="Slot2" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(32, 0)
+
+[node name="Slot3" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(64, 0)
+
+[node name="Slot4" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(96, 0)
+
+[node name="Slot5" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(128, 0)
+
+[node name="Slot6" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(160, 0)
+
+[node name="Slot7" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(192, 0)
+
+[node name="Slot8" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(224, 0)
+
+[node name="PumpkinSlots" type="Node2D" parent="."]
+position = Vector2(16, 96)
+
+[node name="Slot" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
+
+[node name="Slot2" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(32, 0)
+
+[node name="Slot3" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(64, 0)
+
+[node name="Slot4" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(96, 0)
+
+[node name="Slot5" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(128, 0)
+
+[node name="Slot6" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(160, 0)
+
+[node name="Slot7" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(192, 0)
+
+[node name="Slot8" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(224, 0)
+
+[node name="OtherSlots" type="Node2D" parent="."]
+position = Vector2(16, 120)
+
+[node name="Slot" parent="OtherSlots" instance=ExtResource("1_a6lj6")]
+
+[node name="Slot2" parent="OtherSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(64, 0)
+
+[node name="Slot3" parent="OtherSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(128, 0)
+
+[node name="Slot4" parent="OtherSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(192, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 4.0
+offset_right = 56.0
+offset_bottom = 27.0
+theme = ExtResource("2_2uekx")
+text = "ALL TOWERS"

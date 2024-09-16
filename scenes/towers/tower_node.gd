@@ -6,9 +6,12 @@ class_name TowerNode extends Node2D
 var empty: bool = true
 var tower: Tower
 
+var shoot_id: int = 0
+
 
 func _ready():
 	FightUtil.tower_hit.connect(_on_tower_hit)
+	FightUtil.tower_shoot.connect(_on_tower_shoot)
 	sprite_2d.texture = sprite_2d.texture.duplicate()
 	update()
 
@@ -44,3 +47,16 @@ func _on_tower_hit(t: Tower, _damage: int) -> void:
 	if tower == t:
 		animation.stop()
 		animation.play("blink")
+
+
+func _on_tower_shoot(t: Tower, damage: int) -> void:
+	if t != tower: return
+	animation.stop()
+	sprite_2d.visible = true
+	shoot_id += 1
+	var id = shoot_id
+	(sprite_2d.texture as AtlasTexture).region.position.x = FightUtil.tower_sprite_x(tower.type) + 16
+	await Util.wait(Values.TOWER_SHOOT_FRAME_DURATION)
+	if shoot_id == id:
+		(sprite_2d.texture as AtlasTexture).region.position.x = FightUtil.tower_sprite_x(tower.type)
+	pass

@@ -2,11 +2,12 @@ extends Node2D
 
 @onready var title = $CanvasLayer/Title
 
-@onready var spider_slots = $SpiderSlots
-@onready var skeleton_slots = $SkeletonSlots
-@onready var ghost_slots = $GhostSlots
-@onready var pumpkin_slots = $PumpkinSlots
-@onready var other_slots = $OtherSlots
+@onready var slots: Node2D = $Slots
+@onready var spider_slots = $Slots/SpiderSlots
+@onready var skeleton_slots = $Slots/SkeletonSlots
+@onready var ghost_slots = $Slots/GhostSlots
+@onready var pumpkin_slots = $Slots/PumpkinSlots
+@onready var other_slots = $Slots/OtherSlots
 
 @onready var shoot_timer: Timer = $ShootTimer
 
@@ -32,6 +33,27 @@ func _ready():
 	shoot_timer.timeout.connect(fake_shoot)
 
 
+func _process(_delta):
+	if Input.is_action_just_pressed("up"):
+		selected[1] = posmod(selected[1] - 1, 5)
+		if selected[1] == 3: selected[0] *= 2
+		if selected[1] == 4: selected[0] /= 2
+		update()
+	elif Input.is_action_just_pressed("down"):
+		selected[1] = posmod(selected[1] + 1, 5)
+		if selected[1] == 0: selected[0] *= 2
+		if selected[1] == 4: selected[0] /= 2
+		update()
+	if Input.is_action_just_pressed("left"):
+		selected[0] = posmod(selected[0] - 1, 8)
+		if selected[1] == 4 and selected[0] > 3: selected[0] = 3
+		update()
+	elif Input.is_action_just_pressed("right"):
+		selected[0] = posmod(selected[0] + 1, 8)
+		if selected[1] == 4 and selected[0] > 3: selected[0] = 0
+		update()
+
+
 func update():
 	for i in range(8):
 		set_active(spider_slots.get_child(i), selected == [i, 0])
@@ -39,6 +61,14 @@ func update():
 		set_active(ghost_slots.get_child(i), selected == [i, 2])
 		set_active(pumpkin_slots.get_child(i), selected == [i, 3])
 		if i < 2: set_active(other_slots.get_child(i), selected == [i, 4])
+	var tween = get_tree().create_tween()
+	tween.tween_property(slots, "position", Vector2(get_scroll_x(), 24), 0.35)
+
+
+func get_scroll_x() -> int:
+	var x = selected[0] * (1 if selected[1] != 4 else 2)
+	if x < 2: return 16
+	return 16 - 32 * (x - 1)
 
 
 func set_active(slot: Slot, active: bool) -> void:
@@ -47,6 +77,6 @@ func set_active(slot: Slot, active: bool) -> void:
 
 
 func fake_shoot() -> void:
-	var slots = [spider_slots, skeleton_slots, ghost_slots, pumpkin_slots, other_slots]
-	var tower = slots[selected[1]].get_child(selected[0]).tower_node.tower
+	var all_slots = [spider_slots, skeleton_slots, ghost_slots, pumpkin_slots, other_slots]
+	var tower = all_slots[selected[1]].get_child(selected[0]).tower_node.tower
 	FightUtil.tower_shoot.emit(tower, 0)

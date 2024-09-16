@@ -53,7 +53,7 @@ func _on_tower_hit(t: Tower, _damage: int) -> void:
 
 
 func _on_tower_shoot(t: Tower, _damage: int) -> void:
-	if t != tower: return
+	if t != tower or t == null: return
 	animation.stop()
 	sprite_2d.visible = true
 	shoot_id += 1
@@ -65,9 +65,15 @@ func _on_tower_shoot(t: Tower, _damage: int) -> void:
 	pass
 
 
-func show_popup(show: bool) -> void:
+func show_popup(show_popup: bool) -> void:
 	if tower == null:
 		popup.visible = false
 		return
-	if show: popup.set_tower(tower)
-	popup.visible = show
+	if show_popup: popup.set_tower(tower)
+	
+	popup.reset_size()
+	
+	if global_position.y > 60: popup.position.y = -popup.size.y + 8
+	else: popup.position.y = -8
+	
+	popup.visible = show_popup

@@ -53,6 +53,7 @@ func _set_state(value: State) -> void:
 
 
 func match_tower(tower: Tower) -> bool:
+	if tower == null: return false
 	return tower.team == team and tower.column == column and tower.row == row
 
 

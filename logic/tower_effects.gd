@@ -45,7 +45,7 @@ func effect_s1_2(tower: Tower) -> void:
 
 
 func effect_s3_1(tower: Tower, adjacent: Tower) -> void:
-	if Tower.Class.Spider in FightUtil.tower_class(tower.type):
+	if Tower.Family.Spider in FightUtil.tower_families(tower.type):
 		if adjacent.type == Tower.Type.S3_1:
 			adjacent.boost(1, 1, true, false)
 

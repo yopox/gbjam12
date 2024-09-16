@@ -7,7 +7,7 @@ enum Type {
 	P1_1, P1_2, P2_1, P2_2, P3_1, P3_2, P4_1, P4_2,
 	ROCK, MIRROR
 }
-enum Class { Spider, Skeleton, Ghost, Pumpkin }
+enum Family { Spider, Skeleton, Ghost, Pumpkin }
 
 var team: int
 var column: int
@@ -68,7 +68,7 @@ func hit(damage: int) -> void:
 	if HP == 0:
 		die()
 	else:
-		if Class.Pumpkin in FightUtil.tower_class(type):
+		if Family.Pumpkin in FightUtil.tower_families(type):
 			FightUtil.tower_reaction.emit(self, Slot.Reaction.Exclamation)
 			await Util.wait(Values.PUMPKIN_DELAY)
 			FightUtil.tower_shoot.emit(self, ATK)

@@ -10,124 +10,6 @@ script = ExtResource("1_p6od8")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(80, 72)
 
-[node name="SpiderSlots" type="Node2D" parent="."]
-position = Vector2(16, 24)
-
-[node name="Slot" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
-
-[node name="Slot2" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(32, 0)
-
-[node name="Slot3" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(64, 0)
-
-[node name="Slot4" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(96, 0)
-
-[node name="Slot5" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(128, 0)
-
-[node name="Slot6" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(160, 0)
-
-[node name="Slot7" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(192, 0)
-
-[node name="Slot8" parent="SpiderSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(224, 0)
-
-[node name="SkeletonSlots" type="Node2D" parent="."]
-position = Vector2(16, 48)
-
-[node name="Slot" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
-
-[node name="Slot2" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(32, 0)
-
-[node name="Slot3" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(64, 0)
-
-[node name="Slot4" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(96, 0)
-
-[node name="Slot5" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(128, 0)
-
-[node name="Slot6" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(160, 0)
-
-[node name="Slot7" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(192, 0)
-
-[node name="Slot8" parent="SkeletonSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(224, 0)
-
-[node name="GhostSlots" type="Node2D" parent="."]
-position = Vector2(16, 72)
-
-[node name="Slot" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
-
-[node name="Slot2" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(32, 0)
-
-[node name="Slot3" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(64, 0)
-
-[node name="Slot4" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(96, 0)
-
-[node name="Slot5" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(128, 0)
-
-[node name="Slot6" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(160, 0)
-
-[node name="Slot7" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(192, 0)
-
-[node name="Slot8" parent="GhostSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(224, 0)
-
-[node name="PumpkinSlots" type="Node2D" parent="."]
-position = Vector2(16, 96)
-
-[node name="Slot" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
-
-[node name="Slot2" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(32, 0)
-
-[node name="Slot3" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(64, 0)
-
-[node name="Slot4" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(96, 0)
-
-[node name="Slot5" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(128, 0)
-
-[node name="Slot6" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(160, 0)
-
-[node name="Slot7" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(192, 0)
-
-[node name="Slot8" parent="PumpkinSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(224, 0)
-
-[node name="OtherSlots" type="Node2D" parent="."]
-position = Vector2(16, 120)
-
-[node name="Slot" parent="OtherSlots" instance=ExtResource("1_a6lj6")]
-
-[node name="Slot2" parent="OtherSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(64, 0)
-
-[node name="Slot3" parent="OtherSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(128, 0)
-
-[node name="Slot4" parent="OtherSlots" instance=ExtResource("1_a6lj6")]
-position = Vector2(192, 0)
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Title" type="Label" parent="CanvasLayer"]
@@ -140,3 +22,123 @@ text = "ALL TOWERS"
 
 [node name="ShootTimer" type="Timer" parent="."]
 autostart = true
+
+[node name="Slots" type="Node2D" parent="."]
+position = Vector2(16, 24)
+
+[node name="SpiderSlots" type="Node2D" parent="Slots"]
+
+[node name="Slot" parent="Slots/SpiderSlots" instance=ExtResource("1_a6lj6")]
+
+[node name="Slot2" parent="Slots/SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(32, 0)
+
+[node name="Slot3" parent="Slots/SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(64, 0)
+
+[node name="Slot4" parent="Slots/SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(96, 0)
+
+[node name="Slot5" parent="Slots/SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(128, 0)
+
+[node name="Slot6" parent="Slots/SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(160, 0)
+
+[node name="Slot7" parent="Slots/SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(192, 0)
+
+[node name="Slot8" parent="Slots/SpiderSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(224, 0)
+
+[node name="SkeletonSlots" type="Node2D" parent="Slots"]
+position = Vector2(0, 24)
+
+[node name="Slot" parent="Slots/SkeletonSlots" instance=ExtResource("1_a6lj6")]
+
+[node name="Slot2" parent="Slots/SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(32, 0)
+
+[node name="Slot3" parent="Slots/SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(64, 0)
+
+[node name="Slot4" parent="Slots/SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(96, 0)
+
+[node name="Slot5" parent="Slots/SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(128, 0)
+
+[node name="Slot6" parent="Slots/SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(160, 0)
+
+[node name="Slot7" parent="Slots/SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(192, 0)
+
+[node name="Slot8" parent="Slots/SkeletonSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(224, 0)
+
+[node name="GhostSlots" type="Node2D" parent="Slots"]
+position = Vector2(0, 48)
+
+[node name="Slot" parent="Slots/GhostSlots" instance=ExtResource("1_a6lj6")]
+
+[node name="Slot2" parent="Slots/GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(32, 0)
+
+[node name="Slot3" parent="Slots/GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(64, 0)
+
+[node name="Slot4" parent="Slots/GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(96, 0)
+
+[node name="Slot5" parent="Slots/GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(128, 0)
+
+[node name="Slot6" parent="Slots/GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(160, 0)
+
+[node name="Slot7" parent="Slots/GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(192, 0)
+
+[node name="Slot8" parent="Slots/GhostSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(224, 0)
+
+[node name="PumpkinSlots" type="Node2D" parent="Slots"]
+position = Vector2(0, 72)
+
+[node name="Slot" parent="Slots/PumpkinSlots" instance=ExtResource("1_a6lj6")]
+
+[node name="Slot2" parent="Slots/PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(32, 0)
+
+[node name="Slot3" parent="Slots/PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(64, 0)
+
+[node name="Slot4" parent="Slots/PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(96, 0)
+
+[node name="Slot5" parent="Slots/PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(128, 0)
+
+[node name="Slot6" parent="Slots/PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(160, 0)
+
+[node name="Slot7" parent="Slots/PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(192, 0)
+
+[node name="Slot8" parent="Slots/PumpkinSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(224, 0)
+
+[node name="OtherSlots" type="Node2D" parent="Slots"]
+position = Vector2(0, 96)
+
+[node name="Slot" parent="Slots/OtherSlots" instance=ExtResource("1_a6lj6")]
+
+[node name="Slot2" parent="Slots/OtherSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(64, 0)
+
+[node name="Slot3" parent="Slots/OtherSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(128, 0)
+
+[node name="Slot4" parent="Slots/OtherSlots" instance=ExtResource("1_a6lj6")]
+position = Vector2(192, 0)

@@ -84,6 +84,9 @@ libraries = {
 
 [node name="Popup" parent="." instance=ExtResource("3_nxiby")]
 visible = false
-position = Vector2(10, -8)
+offset_left = 10.0
+offset_top = -8.0
+offset_right = 90.0
+offset_bottom = 22.0
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

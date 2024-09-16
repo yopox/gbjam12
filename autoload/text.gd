@@ -1,6 +1,15 @@
 extends Node
 
 
+func family_name(c: Variant) -> String:
+	match c:
+		Tower.Family.Spider: return "Spider"
+		Tower.Family.Skeleton: return "Skeleton"
+		Tower.Family.Ghost: return "Ghost"
+		Tower.Family.Pumpkin: return "Pumpkin"
+		_: return "–"
+
+
 func tower_name(type: Tower.Type) -> String:
 	match type:
 		Tower.Type.S1_1: return "S1_1"
@@ -83,14 +92,14 @@ func tower_effect(type: Tower.Type) -> String:
 		Tower.Type.S2_2: return "Choose a tower, this steals 2 ATK to it."
 		Tower.Type.S3_1: return "Gains +1 +1 permanently."
 		Tower.Type.S3_2: return "Gives the same amount of ATK."
-		Tower.Type.S4_1: return "Can hit allies. Destroys friendly spiders and gain their stats permanently."
+		Tower.Type.S4_1: return "Can hit allies. Gains friendly spiders stats permanently."
 		Tower.Type.S4_2: return "Gains the same boost."
 		Tower.Type.K1_1: return ""
 		Tower.Type.K1_2: return "Gains +1 ATK permanently."
 		Tower.Type.K2_1: return "Shoots twice."
 		Tower.Type.K2_2: return "Gains +1 ATK for each friendly skeleton."
 		Tower.Type.K3_1: return "Shoots."
-		Tower.Type.K3_2: return "Can hit allies. Shot allies get +2 HP permanently."
+		Tower.Type.K3_2: return "Can hit allies. Gives them +2 HP permanently."
 		Tower.Type.K4_1: return "Shoots."
 		Tower.Type.K4_2: return "Doubles its ATK."
 		Tower.Type.G1_1: return ""

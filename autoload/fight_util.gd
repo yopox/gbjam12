@@ -9,7 +9,7 @@ signal tower_shoot(tower: Tower, damage: int)
 @warning_ignore("unused_signal")
 signal tower_hit(tower: Tower, damage: int)
 @warning_ignore("unused_signal")
-signal tower_stats_changed(tower: Tower, delta_atk: int, delta_hp: int, secondary: bool)
+signal tower_stats_changed(tower: Tower, delta_atk: int, delta_hp: int, perma: bool, secondary: bool)
 @warning_ignore("unused_signal")
 signal tower_destroyed(tower: Tower)
 @warning_ignore("unused_signal")
@@ -28,10 +28,10 @@ func _ready():
 	enemy_board[1] = t.clone()
 	
 	var t2 = Tower.new()
-	t2.type = Tower.Type.ROCK
-	player_board[0] = t2.clone()
 	t2.type = Tower.Type.S1_1
-	player_board[1] = t2.clone()
+	player_board[0] = t2.clone()
+	t2.type = Tower.Type.P3_1
+	player_board[2] = t2.clone()
 	#player_board[4] = t2.clone()
 
 
@@ -125,7 +125,7 @@ func shoots(type: Tower.Type) -> bool:
 
 
 func get_all(type: Tower.Type) -> Array:
-	var found: Array[Tower.Type] = []
+	var found: Array = []
 	for board in [player_board, enemy_board]:
 		for i in range(8):
 			if board.has(i) and board[i].type == type:

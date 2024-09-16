@@ -47,21 +47,21 @@ func clone() -> Tower:
 	return t
 
 
-func boost(atk: int, hp: int, perma: bool, secondary: bool) -> void:
-	if HP == 0: return
+func boost(atk: int, hp: int, perma: bool, secondary: bool, alive_only: bool = true) -> void:
+	if alive_only and HP == 0: return
 	ATK += atk
-	HP += hp
+	if HP > 0: HP += hp
 	if perma: ATK_boost += atk
 	if perma or type == Type.P1_2: HP_boost += hp
-	FightUtil.tower_stats_changed.emit(self, atk, hp, secondary)
-	FightUtil.tower_reaction.emit(self, Slot.Reaction.Exclamation)
+	FightUtil.tower_stats_changed.emit(self, atk, hp, perma, secondary)
+	FightUtil.tower_reaction.emit(self, Slot.Reaction.Boost)
 
 
 func hit(damage: int) -> void:
 	var d = min(HP, damage)
 	HP -= d
 	FightUtil.tower_hit.emit(self, d)
-	FightUtil.tower_stats_changed.emit(self, 0, -d, false)
+	FightUtil.tower_stats_changed.emit(self, 0, -d, false, false)
 	#print("[%s %s-%s] Hit for %s (%s HP left)" % [team, column, row, d, HP])
 	if HP == 0:
 		die()

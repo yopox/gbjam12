@@ -13,7 +13,7 @@ class_name Slot extends Node2D
 var team: int
 
 enum State { Idle, Active }
-enum Reaction { Exclamation, Death }
+enum Reaction { Exclamation, Death, Boost }
 
 var state = State.Idle : set = _set_state
 var reaction_id: int = 0
@@ -65,7 +65,7 @@ func _on_tower_shoot(tower: Tower, damage: int) -> void:
 	state = State.Idle
 
 
-func _on_tower_stats_changed(tower: Tower, _datk: int, _dhp: int, _secondary: bool) -> void:
+func _on_tower_stats_changed(tower: Tower, _datk: int, _dhp: int, _perma: bool, _secondary: bool) -> void:
 	if not match_tower(tower): return
 	update_stats(tower)
 
@@ -105,6 +105,7 @@ func _on_tower_reaction(tower: Tower, r: Reaction) -> void:
 	match r:
 		Reaction.Exclamation: reaction.texture.region.position.x = 0
 		Reaction.Death: reaction.texture.region.position.x = 8
+		Reaction.Boost: reaction.texture.region.position.x = 8 * 2
 	reaction.visible = true
 	reaction_id += 1
 	var id = reaction_id

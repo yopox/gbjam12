@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqbjrqej3qixt"]
+[gd_scene load_steps=9 format=3 uid="uid://cqbjrqej3qixt"]
 
 [ext_resource type="Texture2D" uid="uid://cu5tci0afa4s2" path="res://assets/towers.png" id="1_0r6xf"]
 [ext_resource type="Script" path="res://scenes/towers/tower_node.gd" id="1_v66ie"]
+[ext_resource type="PackedScene" uid="uid://dia8xg4mc8lm4" path="res://scenes/towers/popup.tscn" id="3_nxiby"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlsib"]
 atlas = ExtResource("1_0r6xf")
@@ -80,5 +81,9 @@ shape = SubResource("RectangleShape2D_owra1")
 libraries = {
 "": SubResource("AnimationLibrary_wc6yb")
 }
+
+[node name="Popup" parent="." instance=ExtResource("3_nxiby")]
+visible = false
+position = Vector2(10, -8)
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

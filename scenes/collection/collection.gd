@@ -34,11 +34,16 @@ func _ready():
 
 func update():
 	for i in range(8):
-		spider_slots.get_child(i).state = Slot.State.Active if selected == [i, 0] else Slot.State.Idle
-		skeleton_slots.get_child(i).state = Slot.State.Active if selected == [i, 1] else Slot.State.Idle
-		ghost_slots.get_child(i).state = Slot.State.Active if selected == [i, 2] else Slot.State.Idle
-		pumpkin_slots.get_child(i).state = Slot.State.Active if selected == [i, 3] else Slot.State.Idle
-		if i < 2: other_slots.get_child(i).state = Slot.State.Active if selected == [i, 4] else Slot.State.Idle
+		set_active(spider_slots.get_child(i), selected == [i, 0])
+		set_active(skeleton_slots.get_child(i), selected == [i, 1])
+		set_active(ghost_slots.get_child(i), selected == [i, 2])
+		set_active(pumpkin_slots.get_child(i), selected == [i, 3])
+		if i < 2: set_active(other_slots.get_child(i), selected == [i, 4])
+
+
+func set_active(slot: Slot, active: bool) -> void:
+	slot.state = Slot.State.Active if active else Slot.State.Idle
+	slot.tower_node.show_popup(active)
 
 
 func fake_shoot() -> void:

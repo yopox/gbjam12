@@ -1,6 +1,11 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://vtdirou58ehe"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://vtdirou58ehe"]
 
 [ext_resource type="FontFile" uid="uid://mup52d3dmupf" path="res://assets/Axones 6p.ttf" id="1_d3j0n"]
 
+[sub_resource type="FontVariation" id="FontVariation_vq0wb"]
+base_font = ExtResource("1_d3j0n")
+spacing_top = -6
+spacing_bottom = -4
+
 [resource]
-default_font = ExtResource("1_d3j0n")
+default_font = SubResource("FontVariation_vq0wb")

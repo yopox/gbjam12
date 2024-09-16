@@ -50,16 +50,16 @@ func effect_s3_1(tower: Tower, adjacent: Tower) -> void:
 			adjacent.boost(1, 1, true, false)
 
 
-func effect_s4_2(tower: Tower, delta_atk: int, delta_hp: int, perma: bool, secondary: bool) -> void:
-	tower.boost(delta_atk, delta_hp, perma, secondary)
+func effect_s4_2(s4_2: Tower, delta_atk: int, delta_hp: int, perma: bool, secondary: bool) -> void:
+	s4_2.boost(delta_atk, delta_hp, perma, secondary)
 
 
-func effect_k1_2(tower: Tower) -> void:
-	tower.boost(1, 0, true, false, false)
+func effect_k1_2(k1_2: Tower) -> void:
+	k1_2.boost(1, 0, true, false, false)
 
 
-func effect_k3_1(tower: Tower, adjacent: Tower) -> void:
-	FightUtil.tower_shoot.emit(adjacent, adjacent.ATK)
+func effect_k3_1(k3_1: Tower, _adjacent: Tower) -> void:
+	FightUtil.tower_shoot.emit(k3_1, k3_1.ATK)
 
 
 func effect_p2_1() -> void:

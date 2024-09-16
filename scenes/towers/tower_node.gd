@@ -2,6 +2,7 @@ class_name TowerNode extends Node2D
 
 @onready var sprite_2d = $Sprite2D
 @onready var animation = $AnimationPlayer
+@onready var popup: TowerPopup = $Popup
 
 var empty: bool = true
 var tower: Tower
@@ -13,6 +14,8 @@ func _ready():
 	FightUtil.tower_hit.connect(_on_tower_hit)
 	FightUtil.tower_shoot.connect(_on_tower_shoot)
 	sprite_2d.texture = sprite_2d.texture.duplicate()
+	popup.visible = false
+	popup.z_index = Values.POPUP_Z
 	update()
 
 
@@ -60,3 +63,11 @@ func _on_tower_shoot(t: Tower, _damage: int) -> void:
 	if shoot_id == id:
 		(sprite_2d.texture as AtlasTexture).region.position.x = FightUtil.tower_sprite_x(tower.type)
 	pass
+
+
+func show_popup(show: bool) -> void:
+	if tower == null:
+		popup.visible = false
+		return
+	if show: popup.set_tower(tower)
+	popup.visible = show

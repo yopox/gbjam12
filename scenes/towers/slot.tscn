@@ -1,11 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkmugdk3auss6"]
+[gd_scene load_steps=7 format=3 uid="uid://dkmugdk3auss6"]
 
 [ext_resource type="Script" path="res://scenes/towers/slot.gd" id="1_3fo47"]
 [ext_resource type="PackedScene" uid="uid://cqbjrqej3qixt" path="res://scenes/towers/tower.tscn" id="2_cbe8a"]
 [ext_resource type="FontFile" uid="uid://mup52d3dmupf" path="res://assets/Axones 6p.ttf" id="3_cf6er"]
+[ext_resource type="Texture2D" uid="uid://dkf8wy2ia5qp5" path="res://assets/reactions.png" id="4_3dbcu"]
 
 [sub_resource type="Theme" id="Theme_slkmo"]
 default_font = ExtResource("3_cf6er")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y8mq7"]
+atlas = ExtResource("4_3dbcu")
+region = Rect2(0, 0, 8, 8)
 
 [node name="Slot" type="Node2D"]
 script = ExtResource("1_3fo47")
@@ -50,3 +55,8 @@ offset_bottom = 19.0
 theme = SubResource("Theme_slkmo")
 text = "10"
 horizontal_alignment = 2
+
+[node name="Reaction" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(16, 0)
+texture = SubResource("AtlasTexture_y8mq7")

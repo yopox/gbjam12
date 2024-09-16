@@ -2,6 +2,7 @@ class_name Slot extends Node2D
 
 @onready var border = $ColorRect
 @onready var tower_node: TowerNode = $Tower
+@onready var reaction = $Reaction
 
 @onready var stats = $Stats
 @onready var atk = $Stats/ATK
@@ -12,9 +13,10 @@ class_name Slot extends Node2D
 var team: int
 
 enum State { Idle, Active }
-
+enum Reaction { Exclamation, Death }
 
 var state = State.Idle : set = _set_state
+var reaction_id: int = 0
 
 var bullet_scene = preload("res://scenes/bullets/bullet.tscn")
 
@@ -23,7 +25,9 @@ func _ready():
 	FightUtil.tower_shoot.connect(_on_tower_shoot)
 	FightUtil.tower_stats_changed.connect(_on_tower_stats_changed)
 	FightUtil.tower_hide.connect(_on_tower_hide)
+	FightUtil.tower_reaction.connect(_on_tower_reaction)
 	stats.visible = false
+	reaction.texture = reaction.texture.duplicate()
 	update_rect()
 
 
@@ -94,4 +98,16 @@ func shoot(_tower: Tower, damage: int) -> void:
 	bullet.dir = 0.0 if team == 0 else PI
 	bullet.team = team
 	bullet.z_index = Values.BULLET_Z
-	get_parent().add_sibling(bullet)
+	get_parent().add_sibling.call_deferred(bullet)
+
+
+func _on_tower_reaction(tower: Tower, r: Reaction) -> void:
+	if not match_tower(tower): return
+	match r:
+		Reaction.Exclamation: reaction.texture.region.position.x = 0
+		Reaction.Death: reaction.texture.region.position.x = 8
+	reaction.visible = true
+	reaction_id += 1
+	var id = reaction_id
+	await Util.wait(Values.REACTION)
+	if reaction_id == id: reaction.visible = false

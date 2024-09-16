@@ -7,6 +7,7 @@ signal tower_stats_changed(tower: Tower, delta_atk: int, delta_hp: int, secondar
 signal tower_destroyed(tower: Tower)
 signal tower_hide(tower: Tower)
 
+signal tower_reaction(tower: Tower, reaction: Slot.Reaction)
 
 var player_board: Dictionary = {}
 var enemy_board: Dictionary = {}

@@ -62,8 +62,10 @@ func hit(damage: int) -> void:
 	else:
 		if FightUtil.tower_class(type) == Class.Pumpkin:
 			await Util.wait(Values.PUMPKIN_DELAY)
+			FightUtil.tower_reaction.emit(self, Slot.Reaction.Exclamation)
 			FightUtil.tower_shoot.emit(self, ATK)
 
 
 func die() -> void:
 	FightUtil.tower_destroyed.emit(self)
+	FightUtil.tower_reaction.emit(self, Slot.Reaction.Death)

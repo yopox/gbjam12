@@ -11,7 +11,7 @@ const BLACK = Color("000000")
 func get_palette(p: Palettes) -> Array:
 	match p:
 		Palettes.YOPOX:
-			return [Color("201e33"), Color("ab1a5d"), Color("ffbc43"), Color("808a94")]
+			return [Color("201e33"), Color("ab1a5d"), Color("ffbc43"), Color("ffffff")]
 		Palettes.NEXUS_2060:
 			return [Color("2a110c"), Color("f1461b"), Color("faad1f"), Color("fdfdfd")]
 		_:

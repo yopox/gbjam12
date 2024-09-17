@@ -9,6 +9,8 @@ extends Node2D
 @onready var pumpkin_slots = $Slots/PumpkinSlots
 @onready var other_slots = $Slots/OtherSlots
 
+@onready var cursor: Node2D = $Cursor
+
 @onready var shoot_timer: Timer = $ShootTimer
 
 var selected = [0, 0]
@@ -52,6 +54,9 @@ func _process(_delta):
 		selected[0] = posmod(selected[0] + 1, 8)
 		if selected[1] == 4 and selected[0] > 3: selected[0] = 0
 		update()
+	
+	var slot: Slot = selected_slot()
+	cursor.position = slot.global_position + Vector2(11, 14)
 
 
 func update():
@@ -61,7 +66,7 @@ func update():
 		set_active(ghost_slots.get_child(i), selected == [i, 2])
 		set_active(pumpkin_slots.get_child(i), selected == [i, 3])
 		if i < 2: set_active(other_slots.get_child(i), selected == [i, 4])
-	var tween = get_tree().create_tween()
+	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(slots, "position", Vector2(get_scroll_x(), 24), 0.35)
 
 
@@ -76,7 +81,11 @@ func set_active(slot: Slot, active: bool) -> void:
 	slot.tower_node.show_popup(active)
 
 
+func selected_slot() -> Slot:
+	var all_slots: Array[Node2D] = [spider_slots, skeleton_slots, ghost_slots, pumpkin_slots, other_slots]
+	return all_slots[selected[1]].get_child(selected[0])
+
+
 func fake_shoot() -> void:
-	var all_slots = [spider_slots, skeleton_slots, ghost_slots, pumpkin_slots, other_slots]
-	var tower = all_slots[selected[1]].get_child(selected[0]).tower_node.tower
+	var tower: Tower = selected_slot().tower_node.tower
 	FightUtil.tower_shoot.emit(tower, 0)

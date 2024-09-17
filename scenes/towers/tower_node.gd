@@ -65,15 +65,15 @@ func _on_tower_shoot(t: Tower, _damage: int) -> void:
 	pass
 
 
-func show_popup(show_popup: bool) -> void:
+func show_popup(display: bool) -> void:
 	if tower == null:
 		popup.visible = false
 		return
-	if show_popup: popup.set_tower(tower)
+	if display: popup.set_tower(tower)
 	
 	popup.reset_size()
 	
 	if global_position.y > 60: popup.position.y = -popup.size.y + 8
 	else: popup.position.y = -8
 	
-	popup.visible = show_popup
+	popup.visible = display

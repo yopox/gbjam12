@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkmugdk3auss6"]
+[gd_scene load_steps=7 format=3 uid="uid://dkmugdk3auss6"]
 
 [ext_resource type="Script" path="res://scenes/towers/slot.gd" id="1_3fo47"]
 [ext_resource type="PackedScene" uid="uid://cqbjrqej3qixt" path="res://scenes/towers/tower.tscn" id="2_cbe8a"]
 [ext_resource type="Theme" uid="uid://vtdirou58ehe" path="res://scenes/theme.tres" id="3_6hxkx"]
 [ext_resource type="Texture2D" uid="uid://dkf8wy2ia5qp5" path="res://assets/reactions.png" id="4_3dbcu"]
+[ext_resource type="Texture2D" uid="uid://bfdufeyc87dhr" path="res://assets/lock.png" id="5_5ynxh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y8mq7"]
 atlas = ExtResource("4_3dbcu")
@@ -56,3 +57,8 @@ horizontal_alignment = 2
 visible = false
 position = Vector2(16, 0)
 texture = SubResource("AtlasTexture_y8mq7")
+
+[node name="Lock" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(8, 8)
+texture = ExtResource("5_5ynxh")

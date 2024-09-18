@@ -8,8 +8,11 @@ class_name Slot extends Node2D
 @onready var atk = $Stats/ATK
 @onready var hp = $Stats/HP
 
+@onready var lock = $Lock
+
 @export var column: int
 @export var row: int
+@export var locked: bool
 var team: int
 
 enum State { Idle, Active }
@@ -86,6 +89,7 @@ func update_rect() -> void:
 	match state:
 		State.Idle: border.color = Palette.DARK_GRAY
 		State.Active: border.color = Palette.LIGHT_GRAY
+	lock.visible = locked
 
 
 func update_stats(tower: Tower) -> void:

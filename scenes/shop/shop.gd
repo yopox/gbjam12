@@ -84,12 +84,12 @@ func a() -> void:
 		return
 	
 	if focused[1] in [2, 3]:
-		var slot: Slot = board.get_child(focused[0] + (focused[1] - 2) * 4)
+		var slot: Slot = hovered_slot()
 		
-		if state == State.Select and slot.tower_node.tower != null:
+		if state == State.Select and slot.tower_node.tower != null and not slot.locked:
 			selected_slot = slot
 			state = State.Move
-		elif state == State.Move:
+		elif state == State.Move and not slot.locked:
 			var t1: Variant = selected_slot.tower_node.tower
 			var t2: Variant = slot.tower_node.tower
 			selected_slot.set_tower(t2, 0)
@@ -98,13 +98,20 @@ func a() -> void:
 			state = State.Select
 			update_slots()
 				
-	
+
+func hovered_slot() -> Slot:
+	if focused[1] == 1:
+		return slots.get_child(focused[0])
+	if focused[1] in [2, 3]:
+		return board.get_child(focused[0] + (focused[1] - 2) * 4)
+	return null
+
 
 func update_cursor() -> void:
 	var pos: Vector2 = Vector2.ZERO
 	if focused[1] == 0 or focused[1] == 4: pos.x = 48 + focused[0] * 64
 	else: pos.x = 36 + focused[0] * 32
-	var y_pos: Array[int] = [32, 54, 88, 112, 128]
+	var y_pos: Array[int] = [34, 55, 84, 108, 138]
 	pos.y = y_pos[focused[1]]
 	cursor.position = pos
 	
@@ -126,13 +133,27 @@ func update_slot(slot: Slot, dy: int) -> void:
 
 
 func update_status() -> void:
+	var slot: Slot = hovered_slot()
+	
+	if slot != null and slot.locked:
+		status.text = "Locked"
+		return
+	elif slot != null and slot.tower_node.tower == null:
+		status.text = "Empty"
+		return
+	
 	if state == State.Move:
 		status.text = "Move to?"
 		return
+	
 	status.text = "-"
+	
 	if focused[1] == 0:
 		if focused[0] == 0: status.text = "Reroll (%s¢)" % Values.REROLL_COST
 		elif focused[0] == 1: status.text = "Upgrade (%s¢)" % Values.UPGRADE_COST
+	elif focused[1] == 4:
+		if focused[0] == 0: status.text = "Start the fight"
+		elif focused[0] == 1: status.text = "View all creatures"
 
 
 func reroll() -> void:

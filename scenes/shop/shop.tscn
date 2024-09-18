@@ -65,7 +65,7 @@ _data = {
 script = ExtResource("1_hhj2o")
 
 [node name="Header" type="Node2D" parent="."]
-position = Vector2(0, 8)
+position = Vector2(0, 7)
 
 [node name="Shop" type="Label" parent="Header"]
 offset_left = 24.0
@@ -99,9 +99,9 @@ color = Color(0.666667, 0.666667, 0.666667, 1)
 
 [node name="Reroll" type="Label" parent="Content"]
 offset_left = 30.0
-offset_top = 7.0
+offset_top = 5.0
 offset_right = 53.0
-offset_bottom = 14.0
+offset_bottom = 12.0
 theme = ExtResource("4_bwxpt")
 text = "Reroll"
 
@@ -111,9 +111,9 @@ texture = SubResource("AtlasTexture_u4jv4")
 
 [node name="Upgrade" type="Label" parent="Content"]
 offset_left = 90.0
-offset_top = 7.0
+offset_top = 5.0
 offset_right = 125.0
-offset_bottom = 14.0
+offset_bottom = 12.0
 theme = ExtResource("4_bwxpt")
 text = "Upgrade"
 horizontal_alignment = 2
@@ -123,7 +123,7 @@ position = Vector2(-6, 3)
 texture = SubResource("AtlasTexture_kswk4")
 
 [node name="Slots" type="Node2D" parent="Content"]
-position = Vector2(16, 22)
+position = Vector2(16, 19)
 
 [node name="Slot" parent="Content/Slots" instance=ExtResource("5_m516u")]
 row = 1
@@ -144,19 +144,28 @@ column = 3
 row = 1
 
 [node name="ColorRect2" type="ColorRect" parent="Content"]
-offset_top = 46.0
+offset_top = 39.0
 offset_right = 144.0
-offset_bottom = 47.0
+offset_bottom = 40.0
 color = Color(0.666667, 0.666667, 0.666667, 1)
 
 [node name="Board" parent="." instance=ExtResource("1_gu3st")]
-position = Vector2(24, 76)
+position = Vector2(24, 68)
+
+[node name="Status" type="Label" parent="."]
+offset_top = 113.0
+offset_right = 160.0
+offset_bottom = 125.0
+theme = ExtResource("4_bwxpt")
+text = "Status"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Fight" type="Label" parent="."]
 offset_left = 11.0
-offset_top = 128.0
+offset_top = 129.0
 offset_right = 83.0
-offset_bottom = 151.0
+offset_bottom = 152.0
 theme = ExtResource("4_bwxpt")
 text = "Start Fight"
 horizontal_alignment = 1
@@ -167,9 +176,9 @@ texture = SubResource("AtlasTexture_8l68o")
 
 [node name="Collection" type="Label" parent="."]
 offset_left = 83.0
-offset_top = 128.0
+offset_top = 129.0
 offset_right = 155.0
-offset_bottom = 151.0
+offset_bottom = 152.0
 theme = ExtResource("4_bwxpt")
 text = "All Creatures"
 horizontal_alignment = 1

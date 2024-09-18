@@ -4,9 +4,14 @@ class_name Shop extends Node2D
 @onready var coins = $Header/Coins
 @onready var slots = $Content/Slots
 @onready var board: Board = $Board
-@onready var cursor = $Cursor
+@onready var cursor: Node2D = $Cursor
+@onready var status: Label = $Status
 
-var selected: Array[int] = [0, 1]
+enum State { Select, Move, Buy, SelectColumn, SelectRow }
+
+var state: State = State.Select
+var focused: Array[int] = [0, 1]
+var selected_slot: Slot = null
 
 #region Towers
 var T1: Array[Variant] = [Tower.Type.S1_1, Tower.Type.S1_2,
@@ -39,52 +44,108 @@ func _ready():
 	for s: Slot in slots.get_children():
 		s.set_tower(null, 1)
 	update_cursor()
+	update_status()
 
 
 func _process(_delta):
 	if Input.is_action_just_pressed("up"):
-		selected[1] = posmod(selected[1] - 1, 5)
-		if selected[1] == 3: selected[0] *= 2
-		if selected[1] == 0: selected[0] /= 2
+		focused[1] = posmod(focused[1] - 1, 5)
+		if focused[1] == 3: focused[0] *= 2
+		if focused[1] == 0: focused[0] /= 2
 		update_cursor()
 	elif Input.is_action_just_pressed("down"):
-		selected[1] = posmod(selected[1] + 1, 5)
-		if selected[1] == 1: selected[0] *= 2
-		if selected[1] == 4: selected[0] /= 2
+		focused[1] = posmod(focused[1] + 1, 5)
+		if focused[1] == 1: focused[0] *= 2
+		if focused[1] == 4: focused[0] /= 2
 		update_cursor()
 	if Input.is_action_just_pressed("left"):
-		selected[0] = posmod(selected[0] - 1, 4)
-		if selected[1] in [0, 4] and selected[0] > 1: selected[0] = 0
+		focused[0] = posmod(focused[0] - 1, 4)
+		if focused[1] in [0, 4] and focused[0] > 1: focused[0] = 0
 		update_cursor()
 	elif Input.is_action_just_pressed("right"):
-		selected[0] = posmod(selected[0] + 1, 4)
-		if selected[1] in [0, 4] and selected[0] > 1: selected[0] = 0
+		focused[0] = posmod(focused[0] + 1, 4)
+		if focused[1] in [0, 4] and focused[0] > 1: focused[0] = 0
 		update_cursor()
+	
+	if Input.is_action_just_pressed("a"):
+		a()
+		update_status()
 
+
+func a() -> void:
+	if focused[1] == 0:
+		if focused[0] == 0: reroll()
+		if focused[0] == 1: upgrade()
+		return
+	
+	if focused[1] == 4:
+		if focused[0] == 0: fight()
+		if focused[0] == 1: collection()
+		return
+	
+	if focused[1] in [2, 3]:
+		var slot: Slot = board.get_child(focused[0] + (focused[1] - 2) * 4)
+		
+		if state == State.Select and slot.tower_node.tower != null:
+			selected_slot = slot
+			state = State.Move
+		elif state == State.Move:
+			var t1: Variant = selected_slot.tower_node.tower
+			var t2: Variant = slot.tower_node.tower
+			selected_slot.set_tower(t2, 0)
+			slot.set_tower(t1, 0)
+			selected_slot = null
+			state = State.Select
+			update_slots()
+				
+	
 
 func update_cursor() -> void:
 	var pos: Vector2 = Vector2.ZERO
-	if selected[1] == 0 or selected[1] == 4: pos.x = 48 + selected[0] * 64
-	else: pos.x = 36 + selected[0] * 32
-	var y_pos: Array[int] = [34, 58, 92, 114, 136]
-	pos.y = y_pos[selected[1]]
+	if focused[1] == 0 or focused[1] == 4: pos.x = 48 + focused[0] * 64
+	else: pos.x = 36 + focused[0] * 32
+	var y_pos: Array[int] = [32, 54, 88, 112, 128]
+	pos.y = y_pos[focused[1]]
 	cursor.position = pos
 	
 	update_slots()
+	update_status()
 
-	
+
 func update_slots() -> void:
-	for s: Slot in board.get_children():
-		var active: bool = s.row == selected[1] - 2 and s.column == selected[0]
-		s.state = Slot.State.Active if active else Slot.State.Idle
-		s.update_rect()
-		s.tower_node.show_popup(active, false)
-	for s: Slot in slots.get_children():
-		var active = s.row == selected[1] and s.column == selected[0]
-		s.state = Slot.State.Active if active else Slot.State.Idle
-		s.update_rect()
-		s.tower_node.show_popup(active, false)
+	for s: Slot in board.get_children(): update_slot(s, -2)
+	for s: Slot in slots.get_children(): update_slot(s, 0)
+
+
+func update_slot(slot: Slot, dy: int) -> void:
+	var selected: bool = slot == selected_slot
+	var active: bool = (slot.row == focused[1] + dy and slot.column == focused[0])
+	slot.state = Slot.State.Active if active or selected else Slot.State.Idle
+	slot.update_rect()
+	slot.tower_node.show_popup(active, false)
+
+
+func update_status() -> void:
+	if state == State.Move:
+		status.text = "Move to?"
+		return
+	status.text = "-"
+	if focused[1] == 0:
+		if focused[0] == 0: status.text = "Reroll (%s¢)" % Values.REROLL_COST
+		elif focused[0] == 1: status.text = "Upgrade (%s¢)" % Values.UPGRADE_COST
 
 
 func reroll() -> void:
+	pass
+
+
+func upgrade() -> void:
+	pass
+
+
+func fight() -> void:
+	pass
+
+
+func collection() -> void:
 	pass

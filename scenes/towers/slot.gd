@@ -35,6 +35,7 @@ func set_tower(tower: Tower, t: int) -> void:
 	
 	if tower == null:
 		tower_node.empty = true
+		tower_node.tower = null
 		stats.visible = false
 	else:
 		tower_node.empty = false

@@ -37,8 +37,9 @@ offset_bottom = 40.0
 [node name="ATK" type="Label" parent="Stats"]
 layout_mode = 0
 offset_left = -13.0
+offset_top = 1.0
 offset_right = -1.0
-offset_bottom = 16.0
+offset_bottom = 17.0
 theme = ExtResource("3_6hxkx")
 text = "1"
 horizontal_alignment = 2
@@ -46,9 +47,9 @@ horizontal_alignment = 2
 [node name="HP" type="Label" parent="Stats"]
 layout_mode = 0
 offset_left = -13.0
-offset_top = 8.0
+offset_top = 9.0
 offset_right = -1.0
-offset_bottom = 24.0
+offset_bottom = 25.0
 theme = ExtResource("3_6hxkx")
 text = "10"
 horizontal_alignment = 2

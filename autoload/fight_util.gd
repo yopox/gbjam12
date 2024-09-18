@@ -159,3 +159,12 @@ func get_all(type: Tower.Type) -> Array:
 			if board.has(i) and board[i].type == type:
 				found.append(board[i])
 	return found
+
+	
+func get_all_family(family: Tower.Family) -> Array:
+	var found: Array = []
+	for board in [Progress.player_board, enemy_board]:
+		for i in range(8):
+			if board.has(i) and family in tower_families(board[i].type):
+				found.append(board[i])
+	return found

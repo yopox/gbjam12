@@ -32,7 +32,7 @@ func activate_column(c: int) -> void:
 		if s.column == c:
 			s.activate()
 
-			
+
 func lock(turn: int) -> void:
 	for i in range(8):
 		var slot: Slot = get_child(i)

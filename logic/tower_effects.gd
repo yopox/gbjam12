@@ -39,9 +39,29 @@ func _on_tower_stats_changed(tower: Tower, delta_atk: int, delta_hp: int, perma:
 	for adjacent: Tower in FightUtil.adjacent_towers(tower):
 		if adjacent.type == Tower.Type.S4_2: effect_s4_2(adjacent, delta_atk, delta_hp, perma, secondary)
 
+	
+func tower_built(tower: Tower) -> void:
+	if tower.type == Tower.Type.K2_2: effect_k2_2(tower)
+	if tower.type == Tower.Type.S2_2: effect_s2_2(tower)
+
+
+func tower_moved() -> void:
+	pass
+
 
 func effect_s1_2(tower: Tower) -> void:
 	tower.boost(0, 1, true, false, false)
+
+
+func effect_s2_2(s2_2: Tower) -> void:
+	var stolen: int = 0
+	for adjacent: Tower in FightUtil.adjacent_towers(s2_2):
+		if Tower.Family.Spider in FightUtil.tower_families(adjacent.type):
+			var s: int = min(2, adjacent.ATK)
+			stolen += s
+			if s > 0: adjacent.boost(-s, 0, false, false, false)
+	if stolen == 0: return
+	s2_2.boost(stolen, 0, false, false, false)
 
 
 func effect_s3_1(tower: Tower, adjacent: Tower) -> void:
@@ -56,6 +76,14 @@ func effect_s4_2(s4_2: Tower, delta_atk: int, delta_hp: int, perma: bool, second
 
 func effect_k1_2(k1_2: Tower) -> void:
 	k1_2.boost(1, 0, true, false, false)
+
+
+func effect_k2_2(k2_2: Tower) -> void:
+	var count: int = 0
+	for tower: Tower in FightUtil.get_all_family(Tower.Family.Skeleton):
+		if tower.team == k2_2.team:
+			count += 1
+	k2_2.boost(count, 0, false, false, false)
 
 
 func effect_k3_1(k3_1: Tower, _adjacent: Tower) -> void:

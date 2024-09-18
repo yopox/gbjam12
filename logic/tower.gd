@@ -56,7 +56,10 @@ func boost(atk: int, hp: int, perma: bool, secondary: bool, alive_only: bool = t
 	if perma: ATK_boost += atk
 	if perma or type == Type.P1_2: HP_boost += hp
 	FightUtil.tower_stats_changed.emit(self, atk, hp, perma, secondary)
-	FightUtil.tower_reaction.emit(self, Slot.Reaction.Boost)
+	if atk >= 0 and hp >= 0:
+		FightUtil.tower_reaction.emit(self, Slot.Reaction.Boost)
+	else:
+		FightUtil.tower_reaction.emit(self, Slot.Reaction.Nerf)
 
 
 func hit(damage: int) -> void:

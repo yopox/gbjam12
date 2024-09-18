@@ -13,6 +13,7 @@ var state: State = State.Select
 var coins: int = 4: set = _set_coins
 var focused: Array[int] = [0, 1]
 var selected_slot: Slot = null
+var just_bought: bool = false
 
 
 func _ready():
@@ -25,7 +26,7 @@ func _ready():
 		s.set_tower(null, 1)
 	slots.get_child(0).locked = Progress.shop_l_locked
 	slots.get_child(3).locked = Progress.shop_r_locked
-	reroll()
+	reroll(true)
 	
 	update_cursor()
 	update_status()
@@ -66,7 +67,7 @@ func _set_coins(value: int) -> void:
 
 func a() -> void:
 	if focused[1] == 0:
-		if focused[0] == 0: reroll()
+		if focused[0] == 0: reroll(false)
 		if focused[0] == 1: upgrade()
 		return
 	
@@ -111,6 +112,8 @@ func a() -> void:
 			var t2: Variant = slot.tower_node.tower
 			selected_slot.set_tower(t2, 0)
 			slot.set_tower(t1, 0)
+			sync_board()
+			TowerEffects.tower_moved()
 			selected_slot = null
 			state = State.Select
 			update_slots()
@@ -119,11 +122,13 @@ func a() -> void:
 			var cost: int = FightUtil.tower_level(selected_slot.tower_node.tower.type)
 			coins -= cost
 			update_header()
+			just_bought = true
 			# Place the tower
 			var t1: Variant = selected_slot.tower_node.tower
 			slot.set_tower(t1, 0)
-			# TODO: On build effect
 			selected_slot.set_tower(null, 0)
+			sync_board()
+			TowerEffects.tower_built(t1)
 			selected_slot = null
 			state = State.Select
 			update_slots()
@@ -156,6 +161,7 @@ func update_cursor() -> void:
 	var y_pos: Array[int] = [34, 55, 84, 108, 138]
 	pos.y = y_pos[focused[1]]
 	cursor.position = pos
+	just_bought = false
 	
 	update_slots()
 	update_status()
@@ -171,7 +177,7 @@ func update_slot(slot: Slot, dy: int) -> void:
 	var active: bool = (slot.row == focused[1] + dy and slot.column == focused[0])
 	slot.state = Slot.State.Active if active or selected else Slot.State.Idle
 	slot.update_rect()
-	slot.tower_node.show_popup(active, false)
+	slot.tower_node.show_popup(not just_bought and active, false)
 
 
 func update_header() -> void:
@@ -193,6 +199,9 @@ func update_status() -> void:
 	elif state == State.Buy:
 		status_label.text = "Select a slot"
 		return
+	elif state == State.Move:
+		status_label.text = "Move to?"
+		return
 	elif slot != null and slot.tower_node.tower == null:
 		status_label.text = "Empty"
 		return
@@ -202,12 +211,6 @@ func update_status() -> void:
 	elif slot != null and focused[1] in [2, 3]:
 		status_label.text = "%s" % Text.tower_name(slot.tower_node.tower.type)
 		return
-	
-	if state == State.Move:
-		status_label.text = "Move to?"
-		return
-	
-	status_label.text = "-"
 	
 	if focused[1] == 0:
 		if focused[0] == 0: status_label.text = "Reroll for %s¢" % Values.REROLL_COST
@@ -219,12 +222,13 @@ func update_status() -> void:
 		elif focused[0] == 1: status_label.text = "View all creatures"
 
 
-func reroll() -> void:
-	var cost: int = Values.REROLL_COST
-	if coins < cost:
-		# TODO: Not enough coins animation
-		return
-	coins -= cost
+func reroll(free: bool) -> void:
+	if not free:
+		var cost: int = Values.REROLL_COST
+		if coins < cost:
+			# TODO: Not enough coins animation
+			return
+		coins -= cost
 	var drafted = draft(4)
 	for i in range(4):
 		var slot: Slot = slots.get_child(i)
@@ -245,7 +249,7 @@ func draft(nb: int) -> Array[Tower.Type]:
 		elif ranges[1].has(n): drafted.append(Values.T2.pick_random())
 		elif ranges[2].has(n): drafted.append(Values.T3.pick_random())
 		elif ranges[3].has(n): drafted.append(Values.T4.pick_random())
-		
+	
 	return drafted
 
 
@@ -265,3 +269,11 @@ func fight() -> void:
 
 func collection() -> void:
 	pass
+
+	
+func sync_board() -> void:
+	Progress.player_board.clear()
+	for i in range(8):
+		var slot: Slot = board.get_child(i)
+		if slot.tower_node.tower != null:
+			Progress.player_board[i] = slot.tower_node.tower

@@ -13,38 +13,17 @@ var state: State = State.Select
 var focused: Array[int] = [0, 1]
 var selected_slot: Slot = null
 
-#region Towers
-var T1: Array[Variant] = [Tower.Type.S1_1, Tower.Type.S1_2,
-						 Tower.Type.K1_1, Tower.Type.K1_2,
-						 Tower.Type.G1_1, Tower.Type.G1_2,
-						 Tower.Type.P1_1, Tower.Type.P1_2,
-						 Tower.Type.ROCK]
-
-var T2: Array[Tower.Type] = [Tower.Type.S2_1, Tower.Type.S2_2,
-							Tower.Type.K2_1, Tower.Type.K2_2,
-							Tower.Type.G2_1, Tower.Type.G2_2,
-							Tower.Type.P2_1, Tower.Type.P2_2]
-
-var T3: Array[Variant] = [Tower.Type.S3_1, Tower.Type.S3_2,
-						 Tower.Type.K3_1, Tower.Type.K3_2,
-						 Tower.Type.G3_1, Tower.Type.G3_2,
-						 Tower.Type.P3_1, Tower.Type.P3_2,
-						 Tower.Type.MIRROR]
-
-var T4: Array[Variant] = [Tower.Type.S4_1, Tower.Type.S4_2,
-						 Tower.Type.K4_1, Tower.Type.K4_2,
-						 Tower.Type.G4_1, Tower.Type.G4_2,
-						 Tower.Type.P4_1, Tower.Type.P4_2]
-#endregion
-
 
 func _ready():
 	Util.state = Util.GameState.Shop
-	board.set_towers(FightUtil.player_board, false, 0)
+	board.set_towers(Progress.player_board, false, 0)
 	for s: Slot in slots.get_children():
 		s.set_tower(null, 1)
+	slots.get_child(0).locked = Progress.shop_l_locked
+	slots.get_child(3).locked = Progress.shop_r_locked
 	update_cursor()
 	update_status()
+	reroll()
 
 
 func _process(_delta):
@@ -141,6 +120,9 @@ func update_status() -> void:
 	elif slot != null and slot.tower_node.tower == null:
 		status.text = "Empty"
 		return
+	elif slot != null and focused[1] == 1:
+		status.text = "Buy for %s¢" % FightUtil.tower_level(slot.tower_node.tower.type)
+		return
 	
 	if state == State.Move:
 		status.text = "Move to?"
@@ -157,7 +139,23 @@ func update_status() -> void:
 
 
 func reroll() -> void:
-	pass
+	var ranges: Array[Array] = Values.LEVEL_1_RANGES
+	if Progress.shop_level == 2: ranges = Values.LEVEL_2_RANGES
+	if Progress.shop_level == 3: ranges = Values.LEVEL_3_RANGES
+	if Progress.shop_level == 4: ranges = Values.LEVEL_4_RANGES
+	
+	var draft: Array[Tower.Type] = []
+	for i in range(4):
+		var n: int = randi_range(0, 99)
+		if ranges[0].has(n): draft.append(Values.T1.pick_random())
+		elif ranges[1].has(n): draft.append(Values.T2.pick_random())
+		elif ranges[2].has(n): draft.append(Values.T3.pick_random())
+		elif ranges[3].has(n): draft.append(Values.T4.pick_random())
+	
+	for i in range(4):
+		var slot: Slot = slots.get_child(i)
+		if slot.locked: continue
+		slot.set_tower(Tower.new(draft[i]), 0)
 
 
 func upgrade() -> void:

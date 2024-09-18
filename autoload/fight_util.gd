@@ -17,7 +17,6 @@ signal tower_hide(tower: Tower)
 @warning_ignore("unused_signal")
 signal tower_reaction(tower: Tower, reaction: Slot.Reaction)
 
-var player_board: Dictionary = {}
 var enemy_board: Dictionary = {}
 
 
@@ -27,7 +26,7 @@ func _ready():
 
 
 func adjacent_towers(tower: Tower) -> Array:
-	var board = player_board if tower.team == 0 else enemy_board
+	var board = Progress.player_board if tower.team == 0 else enemy_board
 	var adjacent = []
 	var col = tower.column
 	var row = tower.row
@@ -141,6 +140,13 @@ func tower_families(type: Tower.Type) -> Array:
 	return []
 
 
+func tower_level(type: Tower.Type) -> int:
+	if Values.T1.has(type): return 1
+	if Values.T2.has(type): return 2
+	if Values.T3.has(type): return 3
+	return 4
+
+
 func shoots(type: Tower.Type) -> bool:
 	var c: Array = tower_families(type)
 	return len(c) > 0 and not Tower.Family.Pumpkin in c
@@ -148,7 +154,7 @@ func shoots(type: Tower.Type) -> bool:
 
 func get_all(type: Tower.Type) -> Array:
 	var found: Array = []
-	for board in [player_board, enemy_board]:
+	for board in [Progress.player_board, enemy_board]:
 		for i in range(8):
 			if board.has(i) and board[i].type == type:
 				found.append(board[i])

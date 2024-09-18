@@ -126,15 +126,22 @@ texture = SubResource("AtlasTexture_kswk4")
 position = Vector2(16, 22)
 
 [node name="Slot" parent="Content/Slots" instance=ExtResource("5_m516u")]
+row = 1
 
 [node name="Slot2" parent="Content/Slots" instance=ExtResource("5_m516u")]
 position = Vector2(32, 0)
+column = 1
+row = 1
 
 [node name="Slot3" parent="Content/Slots" instance=ExtResource("5_m516u")]
 position = Vector2(64, 0)
+column = 2
+row = 1
 
 [node name="Slot4" parent="Content/Slots" instance=ExtResource("5_m516u")]
 position = Vector2(96, 0)
+column = 3
+row = 1
 
 [node name="ColorRect2" type="ColorRect" parent="Content"]
 offset_top = 46.0

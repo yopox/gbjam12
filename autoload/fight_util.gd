@@ -25,7 +25,7 @@ func _ready():
 	enemy_board[0] = Tower.new(Tower.Type.S1_1)
 	enemy_board[1] = Tower.new(Tower.Type.S1_1)
 	player_board[0] = Tower.new(Tower.Type.S1_1)
-	player_board[5] = Tower.new(Tower.Type.P3_1)
+	player_board[7] = Tower.new(Tower.Type.P3_1)
 
 
 func adjacent_towers(tower: Tower) -> Array:

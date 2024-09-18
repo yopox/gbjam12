@@ -34,6 +34,7 @@ var T4: Array[Variant] = [Tower.Type.S4_1, Tower.Type.S4_2,
 
 
 func _ready():
+	Util.state = Util.GameState.Shop
 	board.set_towers(FightUtil.player_board, false, 0)
 	for s: Slot in slots.get_children():
 		s.set_tower(null, 1)
@@ -68,6 +69,21 @@ func update_cursor() -> void:
 	var y_pos: Array[int] = [34, 58, 92, 114, 136]
 	pos.y = y_pos[selected[1]]
 	cursor.position = pos
+	
+	update_slots()
+
+	
+func update_slots() -> void:
+	for s: Slot in board.get_children():
+		var active: bool = s.row == selected[1] - 2 and s.column == selected[0]
+		s.state = Slot.State.Active if active else Slot.State.Idle
+		s.update_rect()
+		s.tower_node.show_popup(active, false)
+	for s: Slot in slots.get_children():
+		var active = s.row == selected[1] and s.column == selected[0]
+		s.state = Slot.State.Active if active else Slot.State.Idle
+		s.update_rect()
+		s.tower_node.show_popup(active, false)
 
 
 func reroll() -> void:

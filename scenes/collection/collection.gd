@@ -78,7 +78,7 @@ func get_scroll_x() -> int:
 
 func set_active(slot: Slot, active: bool) -> void:
 	slot.state = Slot.State.Active if active else Slot.State.Idle
-	slot.tower_node.show_popup(active)
+	slot.tower_node.show_popup(active, true)
 
 
 func selected_slot() -> Slot:

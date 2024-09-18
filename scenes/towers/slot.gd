@@ -47,9 +47,14 @@ func set_tower(tower: Tower, t: int) -> void:
 
 
 func _set_state(value: State) -> void:
-	if value == State.Active and not tower_node.is_alive(): return
+	if value == State.Active and not should_highlight(): return
 	state = value
 	update_rect()
+
+
+func should_highlight() -> bool:
+	return Util.state == Util.GameState.Fight and tower_node.is_alive() \
+		or Util.state != Util.GameState.Fight
 
 
 func match_tower(tower: Tower) -> bool:

@@ -31,3 +31,10 @@ func activate_column(c: int) -> void:
 	for s in slots:
 		if s.column == c:
 			s.activate()
+
+			
+func lock(turn: int) -> void:
+	for i in range(8):
+		var slot: Slot = get_child(i)
+		slot.locked = turn < Values.LOCKS[i]
+		slot.update_rect()

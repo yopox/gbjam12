@@ -7,8 +7,10 @@ const POPUP_Z: int =  100
 #endregion
 
 #region Shop
-const REROLL_COST: int =        1
-const UPGRADE_COST: int =       4
+const REROLL_COST: int = 1
+const SHOP_LEVEL_MAX: int = 4
+const UPGRADE_COST: Array[int] = [2, 4, 6]
+const UNLOCK_COST: int = 4
 var LEVEL_1_RANGES: Array[Array] = [range(0, 100), range(0, 0), range(0, 0), range(0, 0)]
 var LEVEL_2_RANGES: Array[Array] = [range(0, 50), range(50, 100), range(0, 0), range(0, 0)]
 var LEVEL_3_RANGES: Array[Array] = [range(0, 30), range(30, 70), range(70, 100), range(0, 0)]
@@ -53,4 +55,8 @@ const T4: Array[Tower.Type] = [Tower.Type.S4_1, Tower.Type.S4_2,
 								Tower.Type.K4_1, Tower.Type.K4_2,
 								Tower.Type.G4_1, Tower.Type.G4_2,
 								Tower.Type.P4_1, Tower.Type.P4_2]
+#endregion
+
+#region Board
+const LOCKS: Array[int] = [5, 1, 1, 5, 7, 3, 3, 7]
 #endregion

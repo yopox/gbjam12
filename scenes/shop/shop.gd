@@ -10,22 +10,26 @@ class_name Shop extends Node2D
 enum State { Select, Move, Buy, SelectColumn, SelectRow }
 
 var state: State = State.Select
-var coins: int = 3
+var coins: int = 4: set = _set_coins
 var focused: Array[int] = [0, 1]
 var selected_slot: Slot = null
 
 
 func _ready():
 	Util.state = Util.GameState.Shop
+	
 	board.set_towers(Progress.player_board, false, 0)
+	board.lock(Progress.turn)
+
 	for s: Slot in slots.get_children():
 		s.set_tower(null, 1)
 	slots.get_child(0).locked = Progress.shop_l_locked
 	slots.get_child(3).locked = Progress.shop_r_locked
+	reroll()
+	
 	update_cursor()
 	update_status()
 	update_header()
-	reroll()
 
 
 func _process(_delta):
@@ -55,6 +59,11 @@ func _process(_delta):
 		b()
 
 
+func _set_coins(value: int) -> void:
+	coins = value
+	update_header()
+
+
 func a() -> void:
 	if focused[1] == 0:
 		if focused[0] == 0: reroll()
@@ -68,7 +77,22 @@ func a() -> void:
 		
 	var slot: Slot = hovered_slot()
 	if focused[1] == 1:
-		if state == State.Select and not slot.locked and slot.tower_node.tower != null:
+		if state == State.Select and slot.locked:
+			var cost: int = Values.UNLOCK_COST
+			if coins < cost:
+				# TODO: Not enough coins animation
+				pass
+			else:
+				coins -= cost
+				if focused[0] == 0: Progress.shop_l_locked = false
+				if focused[0] == 3: Progress.shop_r_locked = false
+				slot.locked = false
+				var drafted = draft(1)
+				slot.set_tower(Tower.new(drafted[0]), 0)
+				update_slots()
+				update_status()
+				return
+		elif state == State.Select and not slot.locked and slot.tower_node.tower != null:
 			var cost: int = FightUtil.tower_level(slot.tower_node.tower.type)
 			if coins < cost:
 				# TODO: Not enough coins animation
@@ -157,9 +181,14 @@ func update_header() -> void:
 
 func update_status() -> void:
 	var slot: Slot = hovered_slot()
-	
-	if slot != null and slot.locked:
-		status_label.text = "Locked"
+
+	if slot != null and slot.locked and focused[1] == 1:
+		status_label.text = "Unlock for %s¢" % Values.UNLOCK_COST
+		return
+	elif slot != null and slot.locked:
+		var countdown = Values.LOCKS[(focused[1] - 2) * 4 + focused[0]] - Progress.turn
+		var turns = "turns" if countdown > 1 else "turn"
+		status_label.text = "Unlocks in %s %s" % [countdown, turns]
 		return
 	elif state == State.Buy:
 		status_label.text = "Select a slot"
@@ -181,35 +210,53 @@ func update_status() -> void:
 	status_label.text = "-"
 	
 	if focused[1] == 0:
-		if focused[0] == 0: status_label.text = "Reroll (%s¢)" % Values.REROLL_COST
-		elif focused[0] == 1: status_label.text = "Upgrade (%s¢)" % Values.UPGRADE_COST
+		if focused[0] == 0: status_label.text = "Reroll for %s¢" % Values.REROLL_COST
+		elif focused[0] == 1:
+			if Progress.shop_level == Values.SHOP_LEVEL_MAX: status_label.text = "Level max"
+			else: status_label.text = "Upgrade for %s¢" % Values.UPGRADE_COST[Progress.shop_level - 1]
 	elif focused[1] == 4:
 		if focused[0] == 0: status_label.text = "Start the fight"
 		elif focused[0] == 1: status_label.text = "View all creatures"
 
 
 func reroll() -> void:
+	var cost: int = Values.REROLL_COST
+	if coins < cost:
+		# TODO: Not enough coins animation
+		return
+	coins -= cost
+	var drafted = draft(4)
+	for i in range(4):
+		var slot: Slot = slots.get_child(i)
+		if slot.locked: continue
+		slot.set_tower(Tower.new(drafted[i]), 0)
+
+
+func draft(nb: int) -> Array[Tower.Type]:
 	var ranges: Array[Array] = Values.LEVEL_1_RANGES
 	if Progress.shop_level == 2: ranges = Values.LEVEL_2_RANGES
 	if Progress.shop_level == 3: ranges = Values.LEVEL_3_RANGES
 	if Progress.shop_level == 4: ranges = Values.LEVEL_4_RANGES
 	
-	var draft: Array[Tower.Type] = []
-	for i in range(4):
+	var drafted: Array[Tower.Type] = []
+	for i in range(nb):
 		var n: int = randi_range(0, 99)
-		if ranges[0].has(n): draft.append(Values.T1.pick_random())
-		elif ranges[1].has(n): draft.append(Values.T2.pick_random())
-		elif ranges[2].has(n): draft.append(Values.T3.pick_random())
-		elif ranges[3].has(n): draft.append(Values.T4.pick_random())
-	
-	for i in range(4):
-		var slot: Slot = slots.get_child(i)
-		if slot.locked: continue
-		slot.set_tower(Tower.new(draft[i]), 0)
+		if ranges[0].has(n): drafted.append(Values.T1.pick_random())
+		elif ranges[1].has(n): drafted.append(Values.T2.pick_random())
+		elif ranges[2].has(n): drafted.append(Values.T3.pick_random())
+		elif ranges[3].has(n): drafted.append(Values.T4.pick_random())
+		
+	return drafted
 
 
 func upgrade() -> void:
-	pass
+	if Progress.shop_level == 4: return
+	var cost: int = Values.UPGRADE_COST[Progress.shop_level - 1]
+	if coins < cost:
+		# TODO: Not enough coins animation
+		return
+	Progress.shop_level += 1
+	coins -= cost
 
 
 func fight() -> void:

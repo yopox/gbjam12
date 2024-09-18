@@ -8,7 +8,6 @@ script = ExtResource("1_oj631")
 slots = [NodePath("Slot1"), NodePath("Slot2"), NodePath("Slot3"), NodePath("Slot4"), NodePath("Slot5"), NodePath("Slot6"), NodePath("Slot7"), NodePath("Slot8")]
 
 [node name="Slot1" parent="." instance=ExtResource("1_0yumf")]
-locked = true
 
 [node name="Slot2" parent="." instance=ExtResource("1_0yumf")]
 position = Vector2(32, 0)
@@ -21,27 +20,22 @@ column = 2
 [node name="Slot4" parent="." instance=ExtResource("1_0yumf")]
 position = Vector2(96, 0)
 column = 3
-locked = true
 
 [node name="Slot5" parent="." instance=ExtResource("1_0yumf")]
 position = Vector2(0, 24)
 row = 1
-locked = true
 
 [node name="Slot6" parent="." instance=ExtResource("1_0yumf")]
 position = Vector2(32, 24)
 column = 1
 row = 1
-locked = true
 
 [node name="Slot7" parent="." instance=ExtResource("1_0yumf")]
 position = Vector2(64, 24)
 column = 2
 row = 1
-locked = true
 
 [node name="Slot8" parent="." instance=ExtResource("1_0yumf")]
 position = Vector2(96, 24)
 column = 3
 row = 1
-locked = true

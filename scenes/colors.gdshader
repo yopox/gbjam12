@@ -9,7 +9,7 @@ uniform vec4 c4 = vec4(1, 1, 1, 1);
 
 void fragment() {
 	vec4 c = textureLod(screen_texture, SCREEN_UV, 0.0);
-	
+
 	if (c.r > 0.7) {
 		COLOR = c4;
 	} else if (c.r > 0.5) {

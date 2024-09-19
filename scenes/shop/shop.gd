@@ -10,7 +10,7 @@ class_name Shop extends Node2D
 enum State { Select, Move, Buy, SelectColumn, SelectRow }
 
 var state: State = State.Select
-var coins: int = 4: set = _set_coins
+var coins: int = 20: set = _set_coins
 var focused: Array[int] = [0, 1]
 var selected_slot: Slot = null
 var just_bought: bool = false
@@ -264,7 +264,9 @@ func upgrade() -> void:
 
 
 func fight() -> void:
-	pass
+	var export = Progress.export_board(Progress.player_board)
+	print("Turn %s board: %s" % [Progress.turn, Progress.export_board(Progress.player_board)])
+	#Progress.import_board(export)
 
 
 func collection() -> void:

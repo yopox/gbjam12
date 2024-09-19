@@ -228,7 +228,7 @@ func update_status() -> void:
 	elif state == State.Buy:
 		status_label.text = "Select a slot"
 		return
-	elif state == State.Move:
+	elif state == State.Move and not focused[1] == 4:
 		status_label.text = "Move to?"
 		return
 	elif slot != null and slot.tower_node.tower == null:
@@ -248,8 +248,9 @@ func update_status() -> void:
 			else: status_label.text = "Upgrade for %s¢" % Values.UPGRADE_COST[Progress.shop_level - 1]
 	elif focused[1] == 4:
 		if state == State.Move: status_label.text = "Sell for %s¢" % Values.SELL[FightUtil.tower_level(selected_slot.tower_node.tower.type) - 1]
-		if focused[0] == 0: status_label.text = "Start the fight"
-		elif focused[0] == 1: status_label.text = "View all creatures"
+		else:
+			if focused[0] == 0: status_label.text = "Start the fight"
+			elif focused[0] == 1: status_label.text = "View all creatures"
 
 
 func reroll(free: bool) -> void:

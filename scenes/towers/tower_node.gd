@@ -43,7 +43,6 @@ func _on_hitbox_body_entered(body):
 	if empty or tower == null: return
 	if body is Bullet and body.team != tower.team and tower.HP > 0:
 		tower.hit(body.damage)
-		FightUtil.bullet_destroyed.emit()
 		body.queue_free()
 
 

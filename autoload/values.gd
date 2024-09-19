@@ -19,8 +19,9 @@ var LEVEL_4_RANGES: Array[Array] = [range(0, 10), range(10, 30), range(30, 75), 
 
 #region Fight - General
 const FIGHT_START_DELAY: float = 0.5
+const FIGHT_DESTROY_BULLETS_DELAY: float = 0.5
 const FIGHT_END_DELAY: float = 0.5
-const TURN_DELAY: float = 1.5
+const FIGHT_TURN_DELAY: float = 1.25
 #endregion
 
 #region Bullets

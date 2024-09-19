@@ -21,9 +21,7 @@ signal tower_reaction(tower: Tower, reaction: Slot.Reaction)
 @warning_ignore("unused_signal")
 signal hero_damaged(team: int, damage: int)
 @warning_ignore("unused_signal")
-signal bullet_shot()
-@warning_ignore("unused_signal")
-signal bullet_destroyed()
+signal destroy_bullets()
 
 var enemy_board: Dictionary = {}
 

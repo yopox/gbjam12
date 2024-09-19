@@ -108,7 +108,6 @@ func shoot(_tower: Tower, damage: int) -> void:
 	bullet.dir = 0.0 if team == 0 else PI
 	bullet.team = team
 	bullet.z_index = Values.BULLET_Z
-	FightUtil.bullet_shot.emit()
 	get_parent().add_sibling.call_deferred(bullet)
 
 

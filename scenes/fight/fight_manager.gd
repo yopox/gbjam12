@@ -8,8 +8,6 @@ var bullets: int = 0
 
 
 func _on_fight_start_fight():
-	FightUtil.bullet_shot.connect(_on_bullet_shot)
-	FightUtil.bullet_destroyed.connect(_on_bullet_destroyed)
 	fight()
 
 
@@ -33,32 +31,23 @@ func fight():
 			n_skip += 1
 			if n_skip == 4:
 				fight_over = true
-				if bullets == 0:
-					end_fight()
+				end_fight()
 				return
 			continue
 		
 		n_skip = 0
 		
-		await Util.wait(Values.TURN_DELAY)
+		await Util.wait(Values.FIGHT_TURN_DELAY)
 		
 		# Trigger towers
 		FightUtil.activate_column.emit(active_column)
 
 
 func end_fight() -> void:
+	await Util.wait(Values.FIGHT_DESTROY_BULLETS_DELAY)
+	FightUtil.destroy_bullets.emit()
 	await Util.wait(Values.FIGHT_END_DELAY)
 	FightUtil.fight_end.emit()
-
-
-func _on_bullet_shot() -> void:
-	bullets += 1
-
-
-func _on_bullet_destroyed() -> void:
-	bullets -= 1
-	if fight_over and bullets == 0:
-		end_fight()
 
 
 func _on_enemy_zone_body_entered(body):
@@ -73,7 +62,6 @@ func _on_hero_zone_body_entered(body):
 
 func damage_hero(team: int, damage: int, bullet: Bullet) -> void:
 	if bullet.reflected:
-		FightUtil.bullet_destroyed.emit()
 		bullet.queue_free()
 		return
 	FightUtil.hero_damaged.emit(team, damage)

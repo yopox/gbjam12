@@ -20,3 +20,16 @@ texture = SubResource("AtlasTexture_78ouv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_miq5q")
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 4
+lifetime = 0.5
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 30.0
+initial_velocity_max = 60.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color = Color(0.666667, 0.666667, 0.666667, 1)

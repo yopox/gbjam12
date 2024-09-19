@@ -26,7 +26,7 @@ signal hero_shoot(team: int, column: int)
 signal destroy_bullets()
 
 var enemy_board: Dictionary = {}
-var enemy_life: int = 120
+var enemy_life: int = Values.BASE_LIFE
 
 
 func adjacent_towers(tower: Tower) -> Array:

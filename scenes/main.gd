@@ -22,6 +22,7 @@ func _ready():
 func start_game():
 	Progress.reset()
 	Util.state = Util.GameState.Shop
+	FightUtil.enemy_life = Values.BASE_LIFE
 	scene.add_child(shop_scene.instantiate())
 
 

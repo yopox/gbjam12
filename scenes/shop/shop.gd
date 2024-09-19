@@ -6,10 +6,13 @@ class_name Shop extends Node2D
 @onready var board: Board = $Board
 @onready var cursor: Node2D = $Cursor
 @onready var status_label: Label = $Status
+@onready var fight_label: Label = $Fight
+@onready var collection_label: Label = $Collection
+@onready var sell_label: Label = $Sell
 
 enum State { Select, Move, Buy, SelectColumn, SelectRow }
 
-var state: State = State.Select
+var state: State = State.Select: set = _set_state
 var coins: int = 1: set = _set_coins
 var focused: Array[int] = [1, 2]
 var selected_slot: Slot = null
@@ -31,6 +34,7 @@ func _ready():
 	update_cursor()
 	update_status()
 	update_header()
+	update_labels()
 
 
 func _process(_delta):
@@ -39,12 +43,16 @@ func _process(_delta):
 	if Input.is_action_just_pressed("up"):
 		focused[1] = posmod(focused[1] - 1, 5)
 		if focused[1] == 3: focused[0] *= 2
-		if focused[1] == 0: focused[0] /= 2
+		if state == State.Move and focused[1] == 1: focused[1] = 3
+		elif state == State.Buy and focused[1] in [0, 1]: focused[1] = 3
+		elif focused[1] == 0: focused[0] /= 2
 		update_cursor()
 	elif Input.is_action_just_pressed("down"):
 		focused[1] = posmod(focused[1] + 1, 5)
 		if focused[1] == 1: focused[0] *= 2
-		if focused[1] == 4: focused[0] /= 2
+		if state == State.Move and focused[1] == 0: focused[1] = 2
+		elif state == State.Buy and focused[1] == 4: focused[1] = 2
+		elif focused[1] == 4: focused[0] /= 2
 		update_cursor()
 	if Input.is_action_just_pressed("left"):
 		focused[0] = posmod(focused[0] - 1, 4)
@@ -55,12 +63,19 @@ func _process(_delta):
 		if focused[1] in [0, 4] and focused[0] > 1: focused[0] = 0
 		update_cursor()
 	
+	if focused[1] == 4 and state == State.Move: focused[0] = 0
+	
 	if Input.is_action_just_pressed("a"):
 		a()
 		update_status()
 	elif Input.is_action_just_pressed("b"):
 		b()
 
+
+func _set_state(value: State) -> void:
+	state = value
+	update_labels()
+	
 
 func _set_coins(value: int) -> void:
 	coins = value
@@ -74,8 +89,10 @@ func a() -> void:
 		return
 	
 	if focused[1] == 4:
-		if focused[0] == 0: fight()
-		if focused[0] == 1: collection()
+		if state == State.Move: sell()
+		elif state == State.Select:
+			if focused[0] == 0: fight()
+			if focused[0] == 1: collection()
 		return
 		
 	var slot: Slot = hovered_slot()
@@ -102,7 +119,10 @@ func a() -> void:
 				pass
 			else:
 				state = State.Buy
+				focused[1] = 2
 				selected_slot = slot
+				update_cursor()
+				update_status()
 			return
 
 	if focused[1] in [2, 3]:
@@ -160,6 +180,7 @@ func update_cursor() -> void:
 	var pos: Vector2 = Vector2.ZERO
 	if focused[1] == 0 or focused[1] == 4: pos.x = 48 + focused[0] * 64
 	else: pos.x = 36 + focused[0] * 32
+	if focused[1] == 4 and state == State.Move: pos.x = 78
 	var y_pos: Array[int] = [34, 55, 84, 108, 138]
 	pos.y = y_pos[focused[1]]
 	cursor.position = pos
@@ -167,6 +188,12 @@ func update_cursor() -> void:
 	
 	update_slots()
 	update_status()
+
+
+func update_labels() -> void:
+	sell_label.visible = state == State.Move
+	fight_label.visible = state == State.Select
+	collection_label.visible = state == State.Select
 
 
 func update_slots() -> void:
@@ -220,6 +247,7 @@ func update_status() -> void:
 			if Progress.shop_level == Values.SHOP_LEVEL_MAX: status_label.text = "Level max"
 			else: status_label.text = "Upgrade for %s¢" % Values.UPGRADE_COST[Progress.shop_level - 1]
 	elif focused[1] == 4:
+		if state == State.Move: status_label.text = "Sell for %s¢" % Values.SELL[FightUtil.tower_level(selected_slot.tower_node.tower.type) - 1]
 		if focused[0] == 0: status_label.text = "Start the fight"
 		elif focused[0] == 1: status_label.text = "View all creatures"
 
@@ -276,7 +304,18 @@ func collection() -> void:
 	if state != State.Select: return
 	Util.show_collection.emit()
 
-	
+
+func sell() -> void:
+	coins += Values.SELL[FightUtil.tower_level(selected_slot.tower_node.tower.type) - 1]
+	selected_slot.set_tower(null, 0)
+	selected_slot = null
+	state = State.Select
+	sync_board()
+	update_labels()
+	update_slots()
+	update_cursor()
+
+
 func sync_board() -> void:
 	Progress.player_board.clear()
 	for i in range(8):

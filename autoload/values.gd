@@ -7,11 +7,12 @@ const POPUP_Z: int =  100
 #endregion
 
 #region Hero
-const BASE_LIFE: int = 120
+const BASE_LIFE: int = 200
 #endregion
 
 #region Shop
 const REROLL_COST: int = 1
+const SELL: Array[int] = [0, 0, 1, 2]
 const SHOP_LEVEL_MAX: int = 4
 const UPGRADE_COST: Array[int] = [2, 4, 6]
 const UNLOCK_COST: int = 2

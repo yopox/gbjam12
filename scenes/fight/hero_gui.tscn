@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://pq8yj3vd2knb"]
+
+[ext_resource type="Script" path="res://scenes/fight/hero_gui.gd" id="1_mulo8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v4u1j"]
+size = Vector2(160, 8)
+
+[node name="HeroGUI" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_mulo8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(80, 4)
+shape = SubResource("RectangleShape2D_v4u1j")

@@ -17,10 +17,10 @@ var just_bought: bool = false
 
 
 func _ready():
-	Util.state = Util.GameState.Shop
-	
 	board.set_towers(Progress.player_board, false, 0)
 	board.lock(Progress.turn)
+	
+	coins = min(Progress.turn, 8)
 
 	for s: Slot in slots.get_children():
 		s.set_tower(null, 1)

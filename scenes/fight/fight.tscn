@@ -1,38 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://dudv16k6braqw"]
+[gd_scene load_steps=5 format=3 uid="uid://dudv16k6braqw"]
 
 [ext_resource type="Script" path="res://scenes/fight/fight.gd" id="1_v6enq"]
 [ext_resource type="PackedScene" uid="uid://dlr57neb78mur" path="res://scenes/fight/board.tscn" id="2_iiyqf"]
 [ext_resource type="Script" path="res://scenes/fight/fight_manager.gd" id="3_mfus5"]
+[ext_resource type="PackedScene" uid="uid://pq8yj3vd2knb" path="res://scenes/fight/hero_gui.tscn" id="4_xhmca"]
 
 [node name="Fight" type="Node2D"]
 script = ExtResource("1_v6enq")
-
-[node name="Zones" type="Node2D" parent="."]
-visible = false
-
-[node name="Zone1" type="ColorRect" parent="Zones"]
-offset_left = 32.0
-offset_right = 56.0
-offset_bottom = 144.0
-color = Color(0.4, 0.4, 0.4, 1)
-
-[node name="Zone2" type="ColorRect" parent="Zones"]
-offset_left = 56.0
-offset_right = 80.0
-offset_bottom = 144.0
-color = Color(0.4, 0.4, 0.4, 1)
-
-[node name="Zone3" type="ColorRect" parent="Zones"]
-offset_left = 80.0
-offset_right = 104.0
-offset_bottom = 144.0
-color = Color(0.4, 0.4, 0.4, 1)
-
-[node name="Zone4" type="ColorRect" parent="Zones"]
-offset_left = 104.0
-offset_right = 128.0
-offset_bottom = 144.0
-color = Color(0.4, 0.4, 0.4, 1)
 
 [node name="PlayerBoard" parent="." instance=ExtResource("2_iiyqf")]
 position = Vector2(24, 80)
@@ -43,4 +17,11 @@ position = Vector2(24, 24)
 [node name="FightManager" type="Node" parent="."]
 script = ExtResource("3_mfus5")
 
+[node name="EnemyGUI" parent="." instance=ExtResource("4_xhmca")]
+
+[node name="HeroGUI" parent="." instance=ExtResource("4_xhmca")]
+position = Vector2(0, 136)
+
 [connection signal="start_fight" from="." to="FightManager" method="_on_fight_start_fight"]
+[connection signal="body_entered" from="EnemyGUI" to="FightManager" method="_on_enemy_zone_body_entered"]
+[connection signal="body_entered" from="HeroGUI" to="FightManager" method="_on_hero_zone_body_entered"]

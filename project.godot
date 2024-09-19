@@ -24,6 +24,7 @@ Values="*res://autoload/values.gd"
 TowerEffects="*res://logic/tower_effects.gd"
 Text="*res://autoload/text.gd"
 Progress="*res://autoload/progress.gd"
+FighterData="*res://autoload/fighter_data.gd"
 
 [display]
 

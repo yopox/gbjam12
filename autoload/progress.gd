@@ -18,7 +18,15 @@ func reset() -> void:
 	shop_l_locked = true
 	shop_r_locked = true
 
-	
+
+func heal_board() -> void:
+	for i in range(8):
+		if not player_board.has(i): continue
+		var tower: Tower = player_board[i]
+		var base_stats = FightUtil.base_stats(tower.type)
+		tower.ATK = base_stats[0] + tower.ATK_boost
+		tower.HP = base_stats[1] + tower.ATK_boost
+
 func export_board(board: Dictionary) -> String:
 	var writer: BitWriter = BitWriter.new()
 
@@ -50,12 +58,12 @@ func import_board(board: String) -> Dictionary:
 	for i in range(8):
 		if presence & (2 ** i) != 0:
 			var type: int = reader.read_int(6)
-			var atk: int = reader.read_int(9)
-			var hp: int = reader.read_int(9)
+			var atk: int = reader.read_int(10)
+			var hp: int = reader.read_int(10)
 			var tower: Tower = Tower.new(type)
 			tower.ATK = atk
 			tower.HP = hp
 			read_board[i] = tower
-#			print("Tower %s : %s %s/%s" % [i, type, atk, hp])
+			#print("Tower %s : %s %s/%s" % [i, type, atk, hp])
 	
 	return read_board

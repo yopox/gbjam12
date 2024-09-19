@@ -3,6 +3,8 @@ extends Node
 @warning_ignore("unused_signal")
 signal fight_start()
 @warning_ignore("unused_signal")
+signal fight_end()
+@warning_ignore("unused_signal")
 signal activate_column(column: int)
 @warning_ignore("unused_signal")
 signal tower_shoot(tower: Tower, damage: int)
@@ -16,13 +18,14 @@ signal tower_destroyed(tower: Tower)
 signal tower_hide(tower: Tower)
 @warning_ignore("unused_signal")
 signal tower_reaction(tower: Tower, reaction: Slot.Reaction)
+@warning_ignore("unused_signal")
+signal hero_damaged(team: int, damage: int)
+@warning_ignore("unused_signal")
+signal bullet_shot()
+@warning_ignore("unused_signal")
+signal bullet_destroyed()
 
 var enemy_board: Dictionary = {}
-
-
-func _ready():
-	enemy_board[0] = Tower.new(Tower.Type.S1_1)
-	enemy_board[1] = Tower.new(Tower.Type.S1_1)
 
 
 func adjacent_towers(tower: Tower) -> Array:
@@ -168,3 +171,12 @@ func get_all_family(family: Tower.Family) -> Array:
 			if board.has(i) and family in tower_families(board[i].type):
 				found.append(board[i])
 	return found
+
+
+func get_column(c: int) -> Array:
+	var column: Array = []
+	for board in [Progress.player_board, enemy_board]:
+		for i in range(8):
+			if board.has(i) and board[i].column == c:
+				column.append(board[i])
+	return column

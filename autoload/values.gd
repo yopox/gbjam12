@@ -10,7 +10,7 @@ const POPUP_Z: int =  100
 const REROLL_COST: int = 1
 const SHOP_LEVEL_MAX: int = 4
 const UPGRADE_COST: Array[int] = [2, 4, 6]
-const UNLOCK_COST: int = 4
+const UNLOCK_COST: int = 2
 var LEVEL_1_RANGES: Array[Array] = [range(0, 100), range(0, 0), range(0, 0), range(0, 0)]
 var LEVEL_2_RANGES: Array[Array] = [range(0, 50), range(50, 100), range(0, 0), range(0, 0)]
 var LEVEL_3_RANGES: Array[Array] = [range(0, 30), range(30, 70), range(70, 100), range(0, 0)]
@@ -18,19 +18,19 @@ var LEVEL_4_RANGES: Array[Array] = [range(0, 10), range(10, 30), range(30, 75), 
 #endregion
 
 #region Fight - General
-const FIGHT_START_DELAY: int =    1
-const FIGHT_ABILITES_DELAY: int = 1
-const TURN_DELAY: int =           2
+const FIGHT_START_DELAY: float = 0.5
+const FIGHT_END_DELAY: float = 0.5
+const TURN_DELAY: float = 1.5
+#endregion
+
+#region Bullets
+const BULLET_SPEED: int = 60
 #endregion
 
 #region Fight - Towers
 const TOWER_SHOOT_FRAME_DURATION: float = 0.35
 const PUMPKIN_DELAY: float =              0.25
 const REACTION: float =                   1.0
-#endregion
-
-#region Bullets
-const BULLET_SPEED: int = 50
 #endregion
 
 #region Towers Levels

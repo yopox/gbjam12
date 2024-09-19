@@ -7,6 +7,7 @@ const LIGHT_GRAY = Color("aaaaaa")
 const DARK_GRAY = Color("666666")
 const BLACK = Color("000000")
 
+@warning_ignore("unused_signal")
 signal set_palette(p: Name)
 
 

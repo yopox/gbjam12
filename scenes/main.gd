@@ -13,6 +13,7 @@ func _ready():
 	Util.show_collection.connect(_on_show_collection)
 	Util.hide_collection.connect(_on_hide_collection)
 	Util.fight.connect(_on_fight)
+	FightUtil.fight_end.connect(_on_fight_end)
 	Palette.set_palette.connect(_on_set_palette)
 	Palette.set_palette.emit(Palette.Name.NEXUS_2060)
 	start_game()
@@ -28,6 +29,16 @@ func _on_fight() -> void:
 	Util.state = Util.GameState.Fight
 	scene.get_child(0).queue_free()
 	scene.add_child(fight_scene.instantiate())
+
+
+func _on_fight_end() -> void:
+	Util.state = Util.GameState.Shop
+	
+	Progress.turn += 1
+	Progress.heal_board()
+	
+	scene.get_child(0).queue_free()
+	scene.add_child(shop_scene.instantiate())
 
 
 func _on_show_collection() -> void:

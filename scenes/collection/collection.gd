@@ -57,6 +57,9 @@ func _process(_delta):
 	
 	var slot: Slot = selected_slot()
 	cursor.position = slot.global_position + Vector2(11, 14)
+	
+	if Input.is_action_just_pressed("b"):
+		Util.hide_collection.emit()
 
 
 func update():

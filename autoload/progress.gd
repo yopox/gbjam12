@@ -14,7 +14,7 @@ func _ready() -> void:
 func reset() -> void:
 	player_board = {}
 	shop_level = 1
-	turn = 8
+	turn = 1
 	shop_l_locked = true
 	shop_r_locked = true
 

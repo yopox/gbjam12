@@ -21,3 +21,5 @@ offset_right = 160.0
 offset_bottom = 144.0
 
 [node name="Scene" type="Node" parent="."]
+
+[node name="Overlay" type="Node" parent="."]

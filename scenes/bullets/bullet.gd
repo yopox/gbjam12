@@ -4,14 +4,18 @@ class_name Bullet extends CharacterBody2D
 @onready var particles: CPUParticles2D = $Particles
 
 var team: int
+var column: int
 var damage: int = 1
+var arrow: bool = false
 var dir: float = 0.0
-var reflected: bool = false
 var stopped: bool = false
 
 
 func _ready():
 	FightUtil.destroy_bullets.connect(_on_destroy_bullets)
+	sprite.texture = sprite.texture.duplicate()
+	sprite.flip_v = team == 1
+	sprite.texture.region.position.x = 0 if not arrow else 8
 
 
 func _physics_process(_delta):
@@ -20,7 +24,13 @@ func _physics_process(_delta):
 	move_and_slide()
 
 
-func _on_destroy_bullets() -> void:
+func destroy():
 	stopped = true
 	sprite.visible = false
 	particles.emitting = true
+	await Util.wait(particles.lifetime)
+	queue_free()
+
+
+func _on_destroy_bullets() -> void:
+	destroy()

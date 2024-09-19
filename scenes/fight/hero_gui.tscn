@@ -1,14 +1,52 @@
-[gd_scene load_steps=3 format=3 uid="uid://pq8yj3vd2knb"]
+[gd_scene load_steps=5 format=3 uid="uid://pq8yj3vd2knb"]
 
 [ext_resource type="Script" path="res://scenes/fight/hero_gui.gd" id="1_mulo8"]
+[ext_resource type="Texture2D" uid="uid://dgjy2xxi6l56n" path="res://assets/heart.png" id="2_d3rjo"]
+[ext_resource type="Theme" uid="uid://vtdirou58ehe" path="res://scenes/theme.tres" id="3_xdixn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v4u1j"]
-size = Vector2(160, 8)
+size = Vector2(122, 6)
 
 [node name="HeroGUI" type="Area2D"]
 collision_mask = 2
 script = ExtResource("1_mulo8")
 
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(133, 4)
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+position = Vector2(14, 0)
+texture = ExtResource("2_d3rjo")
+centered = false
+
+[node name="Label" type="Label" parent="Node2D"]
+offset_top = 1.0
+offset_right = 14.0
+offset_bottom = 7.0
+theme = ExtResource("3_xdixn")
+text = "100"
+horizontal_alignment = 2
+
+[node name="Border" type="ColorRect" parent="."]
+offset_left = 7.0
+offset_top = 5.0
+offset_right = 129.0
+offset_bottom = 11.0
+
+[node name="BG" type="ColorRect" parent="."]
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 128.0
+offset_bottom = 10.0
+color = Color(0, 0, 0, 1)
+
+[node name="Life" type="ColorRect" parent="."]
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 68.0
+offset_bottom = 10.0
+color = Color(0.666667, 0.666667, 0.666667, 1)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(80, 4)
+position = Vector2(68, 8)
 shape = SubResource("RectangleShape2D_v4u1j")

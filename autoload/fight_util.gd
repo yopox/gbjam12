@@ -21,9 +21,12 @@ signal tower_reaction(tower: Tower, reaction: Slot.Reaction)
 @warning_ignore("unused_signal")
 signal hero_damaged(team: int, damage: int)
 @warning_ignore("unused_signal")
+signal hero_shoot(team: int, column: int)
+@warning_ignore("unused_signal")
 signal destroy_bullets()
 
 var enemy_board: Dictionary = {}
+var enemy_life: int = 120
 
 
 func adjacent_towers(tower: Tower) -> Array:
@@ -178,3 +181,14 @@ func get_column(c: int) -> Array:
 			if board.has(i) and board[i].column == c:
 				column.append(board[i])
 	return column
+
+
+func damage_hero(team: int, damage: int) -> void:
+	if team == 0:
+		Progress.life = max(0, Progress.life - damage)
+	else:
+		enemy_life = max(0, enemy_life - damage)
+
+
+func hero_life(team: int) -> int:
+	return Progress.life if team == 0 else enemy_life

@@ -3,6 +3,7 @@ class_name Slot extends Node2D
 @onready var border = $ColorRect
 @onready var tower_node: TowerNode = $Tower
 @onready var reaction = $Reaction
+@onready var particles = $Particles
 
 @onready var stats = $Stats
 @onready var atk = $Stats/ATK
@@ -83,6 +84,7 @@ func _on_tower_stats_changed(tower: Tower, _datk: int, _dhp: int, _perma: bool, 
 func _on_tower_hide(tower: Tower):
 	if not match_tower(tower): return
 	stats.visible = false
+	particles.emitting = true
 
 
 func update_rect() -> void:
@@ -107,6 +109,7 @@ func shoot(_tower: Tower, damage: int) -> void:
 	bullet.position = global_position + Vector2(8, 8)
 	bullet.dir = 0.0 if team == 0 else PI
 	bullet.team = team
+	bullet.column = column
 	bullet.z_index = Values.BULLET_Z
 	get_parent().add_sibling.call_deferred(bullet)
 

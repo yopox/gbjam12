@@ -18,9 +18,10 @@ position = Vector2(24, 24)
 script = ExtResource("3_mfus5")
 
 [node name="EnemyGUI" parent="." instance=ExtResource("4_xhmca")]
+team = 1
 
 [node name="HeroGUI" parent="." instance=ExtResource("4_xhmca")]
-position = Vector2(0, 136)
+position = Vector2(0, 128)
 
 [connection signal="start_fight" from="." to="FightManager" method="_on_fight_start_fight"]
 [connection signal="body_entered" from="EnemyGUI" to="FightManager" method="_on_enemy_zone_body_entered"]

@@ -6,6 +6,10 @@ const BULLET_Z: int = 25
 const POPUP_Z: int =  100
 #endregion
 
+#region Hero
+const BASE_LIFE: int = 120
+#endregion
+
 #region Shop
 const REROLL_COST: int = 1
 const SHOP_LEVEL_MAX: int = 4
@@ -19,9 +23,10 @@ var LEVEL_4_RANGES: Array[Array] = [range(0, 10), range(10, 30), range(30, 75), 
 
 #region Fight - General
 const FIGHT_START_DELAY: float = 0.5
-const FIGHT_DESTROY_BULLETS_DELAY: float = 0.5
+const FIGHT_DESTROY_BULLETS_DELAY: float = 0.75
 const FIGHT_END_DELAY: float = 0.5
 const FIGHT_TURN_DELAY: float = 1.25
+const VIBRATION_DURATION: int = 150
 #endregion
 
 #region Bullets

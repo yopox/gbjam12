@@ -1,6 +1,7 @@
 extends Node
 
 var player_board: Dictionary
+var life: int
 var shop_level: int
 var turn: int
 var shop_l_locked: bool
@@ -13,6 +14,7 @@ func _ready() -> void:
 	
 func reset() -> void:
 	player_board = {}
+	life = Values.BASE_LIFE
 	shop_level = 1
 	turn = 1
 	shop_l_locked = true

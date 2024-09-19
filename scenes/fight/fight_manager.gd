@@ -52,20 +52,17 @@ func end_fight() -> void:
 
 func _on_enemy_zone_body_entered(body):
 	var bullet: Bullet = body
+	if bullet.team == 1: return
 	damage_hero(1, bullet.damage, bullet)
 
 
 func _on_hero_zone_body_entered(body):
 	var bullet: Bullet = body
+	if bullet.team == 0: return
 	damage_hero(0, bullet.damage, bullet)
 
 
 func damage_hero(team: int, damage: int, bullet: Bullet) -> void:
-	if bullet.reflected:
-		bullet.queue_free()
-		return
 	FightUtil.hero_damaged.emit(team, damage)
-	bullet.damage = Progress.turn
-	bullet.team = 1 - bullet.team
-	bullet.dir += PI
-	bullet.reflected = true
+	bullet.destroy()
+	FightUtil.hero_shoot.emit(team, bullet.column)

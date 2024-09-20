@@ -103,13 +103,14 @@ func activate() -> void:
 	tower_node.activate()
 
 
-func shoot(_tower: Tower, damage: int) -> void:
+func shoot(tower: Tower, damage: int) -> void:
 	var bullet: Bullet = bullet_scene.instantiate()
 	bullet.damage = damage
 	bullet.position = global_position + Vector2(8, 8)
 	bullet.dir = 0.0 if team == 0 else PI
 	bullet.team = team
 	bullet.column = column
+	bullet.shot_by = tower.type
 	bullet.z_index = Values.BULLET_Z
 	get_parent().add_sibling.call_deferred(bullet)
 

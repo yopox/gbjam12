@@ -65,14 +65,15 @@ func boost(atk: int, hp: int, perma: bool, secondary: bool, alive_only: bool = t
 		FightUtil.tower_reaction.emit(self, Slot.Reaction.Nerf)
 
 
-func hit(damage: int) -> void:
+func hit(bullet: Bullet) -> void:
 	if ghostly:
 		ghostly = false
 		FightUtil.tower_ghostly.emit(self, false)
 		return
+	var damage = bullet.damage
 	var d = min(HP, damage)
 	HP -= d
-	FightUtil.tower_hit.emit(self, d)
+	FightUtil.tower_hit.emit(self, d, bullet)
 	FightUtil.tower_stats_changed.emit(self, 0, -d, false, false)
 	#print("[%s %s-%s] Hit for %s (%s HP left)" % [team, column, row, d, HP])
 	if HP == 0:

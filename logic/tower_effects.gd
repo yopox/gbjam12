@@ -43,10 +43,11 @@ func _on_tower_destroyed(tower: Tower) -> void:
 		if t.type == Tower.Type.G3_1: effect_g3_1(t, tower)
 
 
-func _on_tower_hit(tower: Tower, damage: int) -> void:
+func _on_tower_hit(tower: Tower, damage: int, bullet: Bullet) -> void:
 	if Util.state == Util.GameState.Collection: return
 	if tower.type == Tower.Type.MIRROR: effect_mirror(tower, damage)
 	if tower.type == Tower.Type.P4_1: effect_p4_1(tower, damage)
+	if bullet.shot_by == Tower.Type.K2_1: effect_k2_1(tower)
 
 
 func _on_tower_stats_changed(tower: Tower, delta_atk: int, delta_hp: int, perma: bool, secondary: bool) -> void:
@@ -111,6 +112,10 @@ func effect_s4_2(s4_2: Tower, delta_atk: int, delta_hp: int, perma: bool, second
 
 func effect_k1_2(k1_2: Tower) -> void:
 	k1_2.boost(1, 0, true, false, false)
+
+
+func effect_k2_1(shot: Tower) -> void:
+	shot.boost(-1, 0, false, false, true)
 
 
 func effect_k2_2(k2_2: Tower) -> void:

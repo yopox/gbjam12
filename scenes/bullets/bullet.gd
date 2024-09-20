@@ -9,6 +9,7 @@ var damage: int = 1
 var arrow: bool = false
 var dir: float = 0.0
 var stopped: bool = false
+var shot_by: Tower.Type
 
 
 func _ready():

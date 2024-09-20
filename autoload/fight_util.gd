@@ -95,37 +95,37 @@ func base_stats(type: Tower.Type) -> Array:
 func tower_sprite_x(type: Tower.Type) -> int:
 	match type:
 		Tower.Type.S1_1: return 0 * 16
-		Tower.Type.S1_2: return 0 * 16
-		Tower.Type.S2_1: return 0 * 16
-		Tower.Type.S2_2: return 0 * 16
-		Tower.Type.S3_1: return 0 * 16
-		Tower.Type.S3_2: return 0 * 16
-		Tower.Type.S4_1: return 0 * 16
-		Tower.Type.S4_2: return 0 * 16
-		Tower.Type.K1_1: return 2 * 16
-		Tower.Type.K1_2: return 2 * 16
-		Tower.Type.K2_1: return 2 * 16
-		Tower.Type.K2_2: return 2 * 16
-		Tower.Type.K3_1: return 2 * 16
-		Tower.Type.K3_2: return 2 * 16
-		Tower.Type.K4_1: return 2 * 16
-		Tower.Type.K4_2: return 2 * 16
-		Tower.Type.G1_1: return 4 * 16
-		Tower.Type.G1_2: return 4 * 16
-		Tower.Type.G2_1: return 4 * 16
-		Tower.Type.G2_2: return 4 * 16
-		Tower.Type.G3_1: return 4 * 16
-		Tower.Type.G3_2: return 4 * 16
-		Tower.Type.G4_1: return 4 * 16
-		Tower.Type.G4_2: return 4 * 16
-		Tower.Type.P1_1: return 6 * 16
-		Tower.Type.P1_2: return 6 * 16
-		Tower.Type.P2_1: return 6 * 16
-		Tower.Type.P2_2: return 6 * 16
-		Tower.Type.P3_1: return 6 * 16
-		Tower.Type.P3_2: return 6 * 16
-		Tower.Type.P4_1: return 6 * 16
-		Tower.Type.P4_2: return 6 * 16
+		Tower.Type.S1_2: return 2 * 16
+		Tower.Type.S2_1: return 4 * 16
+		Tower.Type.S2_2: return 6 * 16
+		Tower.Type.S3_1: return 8 * 16
+		Tower.Type.S3_2: return 10 * 16
+		Tower.Type.S4_1: return 12 * 16
+		Tower.Type.S4_2: return 14 * 16
+		Tower.Type.K1_1: return 16 * 16
+		Tower.Type.K1_2: return 16 * 16
+		Tower.Type.K2_1: return 16 * 16
+		Tower.Type.K2_2: return 16 * 16
+		Tower.Type.K3_1: return 16 * 16
+		Tower.Type.K3_2: return 16 * 16
+		Tower.Type.K4_1: return 16 * 16
+		Tower.Type.K4_2: return 16 * 16
+		Tower.Type.G1_1: return 18 * 16
+		Tower.Type.G1_2: return 18 * 16
+		Tower.Type.G2_1: return 18 * 16
+		Tower.Type.G2_2: return 18 * 16
+		Tower.Type.G3_1: return 18 * 16
+		Tower.Type.G3_2: return 18 * 16
+		Tower.Type.G4_1: return 18 * 16
+		Tower.Type.G4_2: return 18 * 16
+		Tower.Type.P1_1: return 20 * 16
+		Tower.Type.P1_2: return 20 * 16
+		Tower.Type.P2_1: return 20 * 16
+		Tower.Type.P2_2: return 20 * 16
+		Tower.Type.P3_1: return 20 * 16
+		Tower.Type.P3_2: return 20 * 16
+		Tower.Type.P4_1: return 20 * 16
+		Tower.Type.P4_2: return 20 * 16
 		_: return 0
 
 

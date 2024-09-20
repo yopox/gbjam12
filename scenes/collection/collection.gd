@@ -14,6 +14,7 @@ extends Node2D
 @onready var shoot_timer: Timer = $ShootTimer
 
 var selected = [0, 0]
+var hide_popup: bool = false
 
 
 func _ready():
@@ -58,7 +59,10 @@ func _process(_delta):
 	var slot: Slot = selected_slot()
 	cursor.position = slot.global_position + Vector2(11, 14)
 	
-	if Input.is_action_just_pressed("b"):
+	if Input.is_action_just_pressed("a"):
+		hide_popup = not hide_popup
+		update()
+	elif Input.is_action_just_pressed("b"):
 		Util.hide_collection.emit()
 
 
@@ -81,7 +85,7 @@ func get_scroll_x() -> int:
 
 func set_active(slot: Slot, active: bool) -> void:
 	slot.state = Slot.State.Active if active else Slot.State.Idle
-	slot.tower_node.show_popup(active, true)
+	slot.tower_node.show_popup(active and not hide_popup, true)
 
 
 func selected_slot() -> Slot:

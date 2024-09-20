@@ -24,6 +24,9 @@ signal hero_damaged(team: int, damage: int)
 signal hero_shoot(team: int, column: int)
 @warning_ignore("unused_signal")
 signal destroy_bullets()
+@warning_ignore("unused_signal")
+signal tower_ghostly(tower: Tower, ghostly: bool)
+
 
 var enemy_board: Dictionary = {}
 var enemy_life: int = Values.BASE_LIFE
@@ -80,7 +83,9 @@ func base_stats(type: Tower.Type) -> Array:
 		Tower.Type.P4_1: return [0, 10]
 		Tower.Type.P4_2: return [7, 7]
 
+		Tower.Type.COIN: return [0, 1]
 		Tower.Type.ROCK: return [0, 5]
+		Tower.Type.BOMB: return [10, 1]
 		Tower.Type.MIRROR: return [0, 8]
 		_:
 			printerr("Stats not defined")
@@ -181,6 +186,15 @@ func get_column(c: int) -> Array:
 			if board.has(i) and board[i].column == c:
 				column.append(board[i])
 	return column
+
+	
+func get_row(r: int, team: int) -> Array:
+	var row = []
+	var board = Progress.player_board if team == 0 else enemy_board
+	for i in range(8):
+		if board.has(i) and board[i].row == r:
+			row.append(board[i])
+	return row
 
 
 func damage_hero(team: int, damage: int) -> void:

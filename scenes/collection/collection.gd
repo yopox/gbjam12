@@ -23,13 +23,13 @@ func _ready():
 	var skeletons = [Tower.Type.K1_1, Tower.Type.K1_2, Tower.Type.K2_1, Tower.Type.K2_2, Tower.Type.K3_1, Tower.Type.K3_2, Tower.Type.K4_1, Tower.Type.K4_2]
 	var ghosts = [Tower.Type.G1_1, Tower.Type.G1_2, Tower.Type.G2_1, Tower.Type.G2_2, Tower.Type.G3_1, Tower.Type.G3_2, Tower.Type.G4_1, Tower.Type.G4_2]
 	var pumpkins = [Tower.Type.P1_1, Tower.Type.P1_2, Tower.Type.P2_1, Tower.Type.P2_2, Tower.Type.P3_1, Tower.Type.P3_2, Tower.Type.P4_1, Tower.Type.P4_2]
-	var others = [Tower.Type.ROCK, Tower.Type.MIRROR]
+	var others = [Tower.Type.COIN, Tower.Type.ROCK, Tower.Type.BOMB, Tower.Type.MIRROR]
 	for i in range(8):
 		spider_slots.get_child(i).set_tower(Tower.new(spiders[i]), 0)
 		skeleton_slots.get_child(i).set_tower(Tower.new(skeletons[i]), 0)
 		ghost_slots.get_child(i).set_tower(Tower.new(ghosts[i]), 0)
 		pumpkin_slots.get_child(i).set_tower(Tower.new(pumpkins[i]), 0)
-		if i < 2: other_slots.get_child(i).set_tower(Tower.new(others[i]), 0)
+		if i < 4: other_slots.get_child(i).set_tower(Tower.new(others[i]), 0)
 	
 	update()
 	shoot_timer.timeout.connect(fake_shoot)
@@ -68,7 +68,7 @@ func update():
 		set_active(skeleton_slots.get_child(i), selected == [i, 1])
 		set_active(ghost_slots.get_child(i), selected == [i, 2])
 		set_active(pumpkin_slots.get_child(i), selected == [i, 3])
-		if i < 2: set_active(other_slots.get_child(i), selected == [i, 4])
+		if i < 4: set_active(other_slots.get_child(i), selected == [i, 4])
 	var tween: Tween = get_tree().create_tween()
 	tween.tween_property(slots, "position", Vector2(get_scroll_x(), 24), 0.35)
 

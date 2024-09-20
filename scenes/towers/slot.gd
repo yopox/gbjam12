@@ -17,7 +17,7 @@ class_name Slot extends Node2D
 var team: int
 
 enum State { Idle, Active }
-enum Reaction { Exclamation, Death, Boost, Nerf }
+enum Reaction { Exclamation, Death, Boost, Nerf, Ghost }
 
 var state = State.Idle : set = _set_state
 var reaction_id: int = 0
@@ -121,6 +121,7 @@ func _on_tower_reaction(tower: Tower, r: Reaction) -> void:
 		Reaction.Death: reaction.texture.region.position.x = 8
 		Reaction.Boost: reaction.texture.region.position.x = 8 * 2
 		Reaction.Nerf: reaction.texture.region.position.x = 8 * 3
+		Reaction.Ghost: reaction.texture.region.position.x = 8 * 5
 	reaction.visible = true
 	reaction_id += 1
 	var id = reaction_id

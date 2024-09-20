@@ -5,7 +5,7 @@ enum Type {
 	K1_1, K1_2, K2_1, K2_2, K3_1, K3_2, K4_1, K4_2,
 	G1_1, G1_2, G2_1, G2_2, G3_1, G3_2, G4_1, G4_2,
 	P1_1, P1_2, P2_1, P2_2, P3_1, P3_2, P4_1, P4_2,
-	ROCK, MIRROR
+	COIN, ROCK, BOMB, MIRROR
 }
 enum Family { Spider, Skeleton, Ghost, Pumpkin }
 
@@ -16,6 +16,7 @@ var row: int
 var type: Type: set = _set_type
 var HP: int
 var ATK: int
+var ghostly: bool
 
 var HP_boost: int = 0
 var ATK_boost: int = 0
@@ -23,6 +24,8 @@ var ATK_boost: int = 0
 
 func _init(tower_type: Type):
 	type = tower_type
+	ghostly = false
+
 
 func set_slot(slot: Slot) -> void:
 	column = slot.column
@@ -63,6 +66,10 @@ func boost(atk: int, hp: int, perma: bool, secondary: bool, alive_only: bool = t
 
 
 func hit(damage: int) -> void:
+	if ghostly:
+		ghostly = false
+		FightUtil.tower_ghostly.emit(self, false)
+		return
 	var d = min(HP, damage)
 	HP -= d
 	FightUtil.tower_hit.emit(self, d)
@@ -75,6 +82,13 @@ func hit(damage: int) -> void:
 			FightUtil.tower_reaction.emit(self, Slot.Reaction.Exclamation)
 			await Util.wait(Values.PUMPKIN_DELAY)
 			FightUtil.tower_shoot.emit(self, ATK)
+
+
+func make_ghostly() -> void:
+	if ghostly: return
+	ghostly = true
+	FightUtil.tower_reaction.emit(self, Slot.Reaction.Ghost)
+	FightUtil.tower_ghostly.emit(self, true)
 
 
 func die() -> void:

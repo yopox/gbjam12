@@ -23,7 +23,8 @@ func _ready():
 	board.set_towers(Progress.player_board, false, 0)
 	board.lock(Progress.turn)
 	
-	coins = min(Progress.turn, 8)
+	coins = min(Progress.turn, 8) + Progress.coin_bonus
+	Progress.coin_bonus = 0
 
 	for s: Slot in slots.get_children():
 		s.set_tower(null, 1)

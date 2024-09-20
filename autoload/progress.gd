@@ -6,6 +6,7 @@ var shop_level: int
 var turn: int
 var shop_l_locked: bool
 var shop_r_locked: bool
+var coin_bonus: int
 
 
 func _ready() -> void:
@@ -19,6 +20,7 @@ func reset() -> void:
 	turn = 1
 	shop_l_locked = true
 	shop_r_locked = true
+	coin_bonus = 0
 
 
 func heal_board() -> void:

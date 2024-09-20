@@ -121,7 +121,7 @@ func tower_effect(type: Tower.Type) -> String:
 		Tower.Type.P1_1: return ""
 		Tower.Type.P1_2: return "Received HP boosts are permanent."
 		Tower.Type.P2_1: return "This tower and adjacent ones get +1 +1 for the fight."
-		Tower.Type.P2_2: return "The killed pumpkin shoots."
+		Tower.Type.P2_2: return "Gives +1 HP permanently to the row."
 		Tower.Type.P3_1: return "Gives +1 ATK."
 		Tower.Type.P3_2: return "Gives +1 +1."
 		Tower.Type.P4_1: return "Gives as much ATK to adjacent towers."

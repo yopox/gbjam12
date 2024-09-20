@@ -13,6 +13,7 @@ size = Vector2(2, 2)
 [node name="Bullet" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 0
+motion_mode = 1
 script = ExtResource("1_ow2ts")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -32,3 +33,12 @@ gravity = Vector2(0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 40.0
 color = Color(0.666667, 0.666667, 0.666667, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_miq5q")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

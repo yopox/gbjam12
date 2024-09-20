@@ -30,7 +30,7 @@ func update() -> void:
 func _on_hero_shoot(t: int, column: int) -> void:
 	if team != t: return
 	var bullet: Bullet = bullet_scene.instantiate()
-	bullet.damage = Progress.turn
+	bullet.damage = 9999
 	bullet.position = Vector2(32 * (column + 1), -8 if t == 1 else 152)
 	bullet.dir = 0.0 if t == 0 else PI
 	bullet.team = team

@@ -34,3 +34,9 @@ func destroy():
 
 func _on_destroy_bullets() -> void:
 	destroy()
+
+
+func _on_area_2d_body_entered(body):
+	var bullet: Bullet = body
+	if arrow and bullet.team != team:
+		bullet.destroy()

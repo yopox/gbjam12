@@ -45,23 +45,25 @@ const T1: Array[Tower.Type] = [Tower.Type.S1_1, Tower.Type.S1_2,
 								Tower.Type.K1_1, Tower.Type.K1_2,
 								Tower.Type.G1_1, Tower.Type.G1_2,
 								Tower.Type.P1_1, Tower.Type.P1_2,
-								Tower.Type.ROCK]
+								Tower.Type.COIN]
 
 const T2: Array[Tower.Type] = [Tower.Type.S2_1, Tower.Type.S2_2,
 								Tower.Type.K2_1, Tower.Type.K2_2,
 								Tower.Type.G2_1, Tower.Type.G2_2,
-								Tower.Type.P2_1, Tower.Type.P2_2]
+								Tower.Type.P2_1, Tower.Type.P2_2,
+								Tower.Type.COIN]
 
 const T3: Array[Tower.Type] = [Tower.Type.S3_1, Tower.Type.S3_2,
 								Tower.Type.K3_1, Tower.Type.K3_2,
 								Tower.Type.G3_1, Tower.Type.G3_2,
 								Tower.Type.P3_1, Tower.Type.P3_2,
-								Tower.Type.MIRROR]
+								Tower.Type.BOMB]
 
 const T4: Array[Tower.Type] = [Tower.Type.S4_1, Tower.Type.S4_2,
 								Tower.Type.K4_1, Tower.Type.K4_2,
 								Tower.Type.G4_1, Tower.Type.G4_2,
-								Tower.Type.P4_1, Tower.Type.P4_2]
+								Tower.Type.P4_1, Tower.Type.P4_2,
+								Tower.Type.MIRROR]
 #endregion
 
 #region Board

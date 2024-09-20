@@ -16,3 +16,7 @@ signal fight()
 
 func wait(amount: float):
 	await get_tree().create_timer(amount).timeout
+
+	
+func debug(text: String):
+	if Values.DEBUG: print(text)

@@ -51,6 +51,10 @@ func tower_name(type: Tower.Type) -> String:
 		_: return "???"
 
 
+func debug_name(tower: Tower) -> String:
+	return ("ally" if tower.team == 0 else "enemy") + " " + tower_name(tower.type)
+
+
 func tower_trigger(type: Tower.Type) -> String:
 	match type:
 		Tower.Type.S1_1: return ""
@@ -84,7 +88,7 @@ func tower_trigger(type: Tower.Type) -> String:
 		Tower.Type.P3_1: return "Tower from the row shoots"
 		Tower.Type.P3_2: return "Friendly tower becomes ghostly"
 		Tower.Type.P4_1: return "When hit"
-		Tower.Type.P4_2: return ""
+		Tower.Type.P4_2: return "Friendly tower killed"
 		Tower.Type.COIN: return "When killed"
 		Tower.Type.ROCK: return ""
 		Tower.Type.BOMB: return ""

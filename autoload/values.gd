@@ -69,3 +69,7 @@ const T4: Array[Tower.Type] = [Tower.Type.S4_1, Tower.Type.S4_2,
 #region Board
 const LOCKS: Array[int] = [5, 1, 1, 5, 7, 3, 3, 7]
 #endregion
+
+#region Misc
+const DEBUG: bool = true
+#endregion

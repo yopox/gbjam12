@@ -54,6 +54,7 @@ func _on_tower_hit(t: Tower, _damage: int, _bullet: Bullet) -> void:
 
 func _on_tower_shoot(t: Tower, _damage: int) -> void:
 	if t != tower or t == null: return
+	if t.HP == 0: return
 	animation.stop()
 	sprite_2d.visible = true
 	if t.type in [Tower.Type.COIN, Tower.Type.ROCK, Tower.Type.BOMB, Tower.Type.MIRROR]: return

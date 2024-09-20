@@ -6,6 +6,7 @@ extends Node2D
 
 func _ready():
 	if Progress.won: label.text = "YOU WON!"
+	Progress.heal_board()
 	board.set_towers(Progress.player_board, false, 0)
 
 

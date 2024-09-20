@@ -33,6 +33,7 @@ func heal_board() -> void:
 		tower.ATK = base_stats[0] + tower.ATK_boost
 		tower.HP = base_stats[1] + tower.ATK_boost
 
+
 func export_board(board: Dictionary) -> String:
 	var writer: BitWriter = BitWriter.new()
 

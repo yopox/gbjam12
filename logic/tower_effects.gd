@@ -113,7 +113,10 @@ func effect_s3_2(_s3_2: Tower, adjacent: Tower, _delta_atk: int, delta_hp: int, 
 	
 func effect_s4_2(s4_2: Tower, delta_atk: int, delta_hp: int, perma: bool, secondary: bool) -> void:
 	Util.debug("[s4_2] -> %s => +%s +%s (perma: %s)" % [Text.debug_name(s4_2), delta_atk, delta_hp, perma])
-	s4_2.boost(delta_atk, delta_hp, perma, secondary)
+	var atk = max(0, delta_atk)
+	var hp = max(0, delta_hp)
+	if atk == 0 and hp == 0: return
+	s4_2.boost(atk, hp, perma, secondary)
 
 
 func effect_k1_2(k1_2: Tower) -> void:

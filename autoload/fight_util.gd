@@ -103,33 +103,33 @@ func tower_sprite_x(type: Tower.Type) -> int:
 		Tower.Type.S4_1: return 12 * 16
 		Tower.Type.S4_2: return 14 * 16
 		Tower.Type.K1_1: return 16 * 16
-		Tower.Type.K1_2: return 16 * 16
-		Tower.Type.K2_1: return 16 * 16
+		Tower.Type.K1_2: return 18 * 16
+		Tower.Type.K2_1: return 20 * 16
 		Tower.Type.K2_2: return 16 * 16
 		Tower.Type.K3_1: return 16 * 16
 		Tower.Type.K3_2: return 16 * 16
 		Tower.Type.K4_1: return 16 * 16
 		Tower.Type.K4_2: return 16 * 16
-		Tower.Type.G1_1: return 18 * 16
-		Tower.Type.G1_2: return 18 * 16
-		Tower.Type.G2_1: return 18 * 16
-		Tower.Type.G2_2: return 18 * 16
-		Tower.Type.G3_1: return 18 * 16
-		Tower.Type.G3_2: return 18 * 16
-		Tower.Type.G4_1: return 18 * 16
-		Tower.Type.G4_2: return 18 * 16
-		Tower.Type.P1_1: return 20 * 16
-		Tower.Type.P1_2: return 20 * 16
-		Tower.Type.P2_1: return 20 * 16
-		Tower.Type.P2_2: return 20 * 16
-		Tower.Type.P3_1: return 20 * 16
-		Tower.Type.P3_2: return 20 * 16
-		Tower.Type.P4_1: return 20 * 16
-		Tower.Type.P4_2: return 20 * 16
-		Tower.Type.COIN: return 65 * 16
-		Tower.Type.ROCK: return 66 * 16
-		Tower.Type.BOMB: return 67 * 16
-		Tower.Type.MIRROR: return 68 * 16
+		Tower.Type.G1_1: return 32 * 16
+		Tower.Type.G1_2: return 32 * 16
+		Tower.Type.G2_1: return 32 * 16
+		Tower.Type.G2_2: return 32 * 16
+		Tower.Type.G3_1: return 32 * 16
+		Tower.Type.G3_2: return 32 * 16
+		Tower.Type.G4_1: return 32 * 16
+		Tower.Type.G4_2: return 32 * 16
+		Tower.Type.P1_1: return 48 * 16
+		Tower.Type.P1_2: return 48 * 16
+		Tower.Type.P2_1: return 48 * 16
+		Tower.Type.P2_2: return 48 * 16
+		Tower.Type.P3_1: return 48 * 16
+		Tower.Type.P3_2: return 48 * 16
+		Tower.Type.P4_1: return 48 * 16
+		Tower.Type.P4_2: return 48 * 16
+		Tower.Type.COIN: return 64 * 16
+		Tower.Type.ROCK: return 65 * 16
+		Tower.Type.BOMB: return 66 * 16
+		Tower.Type.MIRROR: return 67 * 16
 		_: return 0
 
 

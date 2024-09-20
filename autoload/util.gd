@@ -12,6 +12,10 @@ signal show_collection()
 signal hide_collection()
 @warning_ignore("unused_signal")
 signal fight()
+@warning_ignore("unused_signal")
+signal game_over()
+@warning_ignore("unused_signal")
+signal restart()
 
 
 func wait(amount: float):

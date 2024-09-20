@@ -28,6 +28,7 @@ const FIGHT_DESTROY_BULLETS_DELAY: float = 0.75
 const FIGHT_END_DELAY: float = 0.5
 const FIGHT_TURN_DELAY: float = 1.25
 const VIBRATION_DURATION: int = 150
+const GAME_OVER_DELAY: float = 2
 #endregion
 
 #region Bullets

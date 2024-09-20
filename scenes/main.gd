@@ -7,12 +7,15 @@ extends Node2D
 var shop_scene: PackedScene =       preload("res://scenes/shop/shop.tscn")
 var fight_scene: PackedScene =      preload("res://scenes/fight/fight.tscn")
 var collection_scene: PackedScene = preload("res://scenes/collection/collection.tscn")
+var game_over_scene: PackedScene =  preload("res://scenes/game_over/game_over.tscn")
 
 
 func _ready():
 	Util.show_collection.connect(_on_show_collection)
 	Util.hide_collection.connect(_on_hide_collection)
 	Util.fight.connect(_on_fight)
+	Util.game_over.connect(_on_game_over)
+	Util.restart.connect(_on_restart)
 	FightUtil.fight_end.connect(_on_fight_end)
 	Palette.set_palette.connect(_on_set_palette)
 	Palette.set_palette.emit(Palette.Name.NEXUS_2060)
@@ -40,6 +43,16 @@ func _on_fight_end() -> void:
 	
 	scene.get_child(0).queue_free()
 	scene.add_child(shop_scene.instantiate())
+
+
+func _on_game_over() -> void:
+	scene.get_child(0).queue_free()
+	scene.add_child(game_over_scene.instantiate())
+
+
+func _on_restart() -> void:
+	scene.get_child(0).queue_free()
+	start_game()
 
 
 func _on_show_collection() -> void:

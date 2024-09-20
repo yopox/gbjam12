@@ -65,4 +65,5 @@ func _on_hero_zone_body_entered(body):
 func damage_hero(team: int, damage: int, bullet: Bullet) -> void:
 	FightUtil.hero_damaged.emit(team, damage)
 	bullet.destroy()
-	FightUtil.hero_shoot.emit(team, bullet.column)
+	if not bullet.arrow:
+		FightUtil.hero_shoot.emit(team, bullet.column)

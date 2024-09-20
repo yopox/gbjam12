@@ -13,14 +13,12 @@ func _ready():
 func _on_fight_start() -> void:
 	if Util.state == Util.GameState.Collection: return
 	effect_p2_1()
-	for s2_1: Tower in FightUtil.get_all(Tower.Type.S2_1):
-		effect_s2_1(s2_1)
-	for g1_2: Tower in FightUtil.get_all(Tower.Type.G1_2):
-		effect_g1_2(g1_2)
-	for g3_2: Tower in FightUtil.get_all(Tower.Type.G3_2):
-		effect_g3_2(g3_2)
-	for k4_2: Tower in FightUtil.get_all(Tower.Type.K4_2):
-		effect_k4_2(k4_2)
+	for t: Tower in FightUtil.get_combined_boards():
+		if t.type == Tower.Type.S2_1: effect_s2_1(t)
+		if t.type == Tower.Type.G1_2: effect_g1_2(t)
+		if t.type == Tower.Type.G3_2: effect_g3_2(t)
+		if t.type == Tower.Type.K4_2: effect_k4_2(t)
+		if t.type == Tower.Type.P2_2: effect_p2_2(t)
 
 
 func _on_tower_shoot(tower: Tower, _damage: int) -> void:
@@ -101,9 +99,9 @@ func effect_s3_1(tower: Tower, adjacent: Tower) -> void:
 			adjacent.boost(1, 1, true, false)
 
 
-func effect_s3_2(_s3_2: Tower, adjacent: Tower, delta_atk: int, _delta_hp: int, perma: bool, secondary: bool) -> void:
-	if delta_atk <= 0: return
-	adjacent.boost(0, delta_atk, perma, secondary)
+func effect_s3_2(_s3_2: Tower, adjacent: Tower, _delta_atk: int, delta_hp: int, perma: bool, secondary: bool) -> void:
+	if delta_hp <= 0: return
+	adjacent.boost(delta_hp, 0, perma, secondary, false)
 	
 	
 func effect_s4_2(s4_2: Tower, delta_atk: int, delta_hp: int, perma: bool, secondary: bool) -> void:
@@ -171,6 +169,11 @@ func effect_p2_1() -> void:
 		t.boost(1, 1, false, false)
 		for t2: Tower in FightUtil.adjacent_towers(t):
 			t2.boost(1, 1, false, false)
+
+
+func effect_p2_2(p2_2: Tower) -> void:
+	for t: Tower in FightUtil.get_row(p2_2.row, p2_2.team):
+		t.boost(0, 1, true, false, false)
 
 
 func effect_p3_1(tower: Tower) -> void:

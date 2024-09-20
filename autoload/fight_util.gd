@@ -137,7 +137,6 @@ func tower_families(type: Tower.Type) -> Array:
 	# Multiple
 	if type == Tower.Type.K4_1: return [Tower.Family.Skeleton, Tower.Family.Spider]
 	if type == Tower.Type.G2_1: return [Tower.Family.Ghost, Tower.Family.Skeleton]
-	if type == Tower.Type.P2_2: return [Tower.Family.Pumpkin, Tower.Family.Skeleton]
 	if type == Tower.Type.P3_2: return [Tower.Family.Pumpkin, Tower.Family.Ghost]
 	if type == Tower.Type.P4_2: return [Tower.Family.Pumpkin, Tower.Family.Spider]
 	# Single
@@ -147,7 +146,7 @@ func tower_families(type: Tower.Type) -> Array:
 		return [Tower.Family.Skeleton]
 	if type in [Tower.Type.G1_1, Tower.Type.G1_2, Tower.Type.G2_2, Tower.Type.G3_1, Tower.Type.G3_2, Tower.Type.G4_1, Tower.Type.G4_2]:
 		return [Tower.Family.Ghost]
-	if type in [Tower.Type.P1_1, Tower.Type.P1_2, Tower.Type.P2_1, Tower.Type.P3_1, Tower.Type.P4_1]:
+	if type in [Tower.Type.P1_1, Tower.Type.P1_2, Tower.Type.P2_1, Tower.Type.P2_2, Tower.Type.P3_1, Tower.Type.P4_1]:
 		return [Tower.Family.Pumpkin]
 	# No family
 	return []
@@ -163,6 +162,15 @@ func tower_level(type: Tower.Type) -> int:
 func shoots(type: Tower.Type) -> bool:
 	var c: Array = tower_families(type)
 	return len(c) > 0 and not Tower.Family.Pumpkin in c
+
+
+func get_combined_boards() -> Array:
+	var found: Array = []
+	for board in [Progress.player_board, enemy_board]:
+		for i in range(8):
+			if board.has(i):
+				found.append(board[i])
+	return found
 
 
 func get_all(type: Tower.Type) -> Array:

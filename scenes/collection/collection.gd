@@ -91,4 +91,5 @@ func selected_slot() -> Slot:
 
 func fake_shoot() -> void:
 	var tower: Tower = selected_slot().tower_node.tower
+	if tower.type in [Tower.Type.COIN, Tower.Type.ROCK, Tower.Type.BOMB, Tower.Type.MIRROR]: return
 	FightUtil.tower_shoot.emit(tower, 0)

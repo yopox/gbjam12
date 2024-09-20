@@ -126,6 +126,10 @@ func tower_sprite_x(type: Tower.Type) -> int:
 		Tower.Type.P3_2: return 20 * 16
 		Tower.Type.P4_1: return 20 * 16
 		Tower.Type.P4_2: return 20 * 16
+		Tower.Type.COIN: return 65 * 16
+		Tower.Type.ROCK: return 66 * 16
+		Tower.Type.BOMB: return 67 * 16
+		Tower.Type.MIRROR: return 68 * 16
 		_: return 0
 
 

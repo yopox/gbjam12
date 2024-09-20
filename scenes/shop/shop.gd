@@ -57,7 +57,7 @@ func _process(_delta):
 		update_cursor()
 	if Input.is_action_just_pressed("left"):
 		focused[0] = posmod(focused[0] - 1, 4)
-		if focused[1] in [0, 4] and focused[0] > 1: focused[0] = 0
+		if focused[1] in [0, 4] and focused[0] > 1: focused[0] = 1
 		update_cursor()
 	elif Input.is_action_just_pressed("right"):
 		focused[0] = posmod(focused[0] + 1, 4)

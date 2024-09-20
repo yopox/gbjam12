@@ -56,13 +56,13 @@ func _on_tower_shoot(t: Tower, _damage: int) -> void:
 	if t != tower or t == null: return
 	animation.stop()
 	sprite_2d.visible = true
+	if t.type in [Tower.Type.COIN, Tower.Type.ROCK, Tower.Type.BOMB, Tower.Type.MIRROR]: return
 	shoot_id += 1
 	var id = shoot_id
 	(sprite_2d.texture as AtlasTexture).region.position.x = FightUtil.tower_sprite_x(tower.type) + 16
 	await Util.wait(Values.TOWER_SHOOT_FRAME_DURATION)
 	if shoot_id == id:
 		(sprite_2d.texture as AtlasTexture).region.position.x = FightUtil.tower_sprite_x(tower.type)
-	pass
 
 
 func show_popup(display: bool, force_right: bool) -> void:

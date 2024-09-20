@@ -13,6 +13,7 @@ var shoot_id: int = 0
 func _ready():
 	FightUtil.tower_hit.connect(_on_tower_hit)
 	FightUtil.tower_shoot.connect(_on_tower_shoot)
+	FightUtil.tower_ghostly.connect(_on_tower_ghostly)
 	sprite_2d.texture = sprite_2d.texture.duplicate()
 	popup.visible = false
 	popup.z_index = Values.POPUP_Z
@@ -42,8 +43,8 @@ func activate() -> void:
 func _on_hitbox_body_entered(body):
 	if empty or tower == null: return
 	if body is Bullet and body.team != tower.team and tower.HP > 0:
+		body.destroy(not tower.ghostly)
 		tower.hit(body)
-		body.destroy()
 
 
 func _on_tower_hit(t: Tower, _damage: int, _bullet: Bullet) -> void:
@@ -62,8 +63,14 @@ func _on_tower_shoot(t: Tower, _damage: int) -> void:
 	var id = shoot_id
 	(sprite_2d.texture as AtlasTexture).region.position.x = FightUtil.tower_sprite_x(tower.type) + 16
 	await Util.wait(Values.TOWER_SHOOT_FRAME_DURATION)
-	if shoot_id == id:
+	if not tower.ghostly and shoot_id == id:
 		(sprite_2d.texture as AtlasTexture).region.position.x = FightUtil.tower_sprite_x(tower.type)
+
+
+func _on_tower_ghostly(t: Tower, ghostly: bool) -> void:
+	if t != tower: return
+	var offset = 16 if ghostly else 0
+	(sprite_2d.texture as AtlasTexture).region.position.x = FightUtil.tower_sprite_x(tower.type) + offset
 
 
 func show_popup(display: bool, force_right: bool) -> void:

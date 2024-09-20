@@ -25,10 +25,10 @@ func _physics_process(_delta):
 	move_and_slide()
 
 
-func destroy():
+func destroy(emit_particles: bool = true):
 	stopped = true
 	sprite.visible = false
-	particles.emitting = true
+	if emit_particles: particles.emitting = true
 	await Util.wait(particles.lifetime)
 	queue_free()
 

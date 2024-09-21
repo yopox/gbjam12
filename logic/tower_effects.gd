@@ -135,7 +135,7 @@ func effect_k2_2(k2_2: Tower) -> void:
 		if tower.team == k2_2.team:
 			count += 1
 	Util.debug("[k2_2] -> %s => +%s ATK" % [Text.debug_name(k2_2), count])
-	k2_2.boost(count, 0, false, false, false)
+	k2_2.boost(count, 0, true, false, false)
 
 
 func effect_k3_1(k3_1: Tower, _adjacent: Tower) -> void:

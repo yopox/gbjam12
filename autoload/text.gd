@@ -111,7 +111,7 @@ func tower_effect(type: Tower.Type) -> String:
 		Tower.Type.K2_1: return "Gives -1 ATK."
 		Tower.Type.K2_2: return "Gains +1 ATK for each friendly skeleton."
 		Tower.Type.K3_1: return "Shoots."
-		Tower.Type.K3_2: return "Can hit allies. Gives them +2 HP permanently."
+		Tower.Type.K3_2: return "All received ATK boosts are permanent."
 		Tower.Type.K4_1: return "Shoots."
 		Tower.Type.K4_2: return "Doubles its ATK."
 		Tower.Type.G1_1: return ""

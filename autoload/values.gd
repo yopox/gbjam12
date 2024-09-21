@@ -16,6 +16,7 @@ const SELL: Array[int] = [0, 0, 1, 2]
 const SHOP_LEVEL_MAX: int = 4
 const UPGRADE_COST: Array[int] = [2, 4, 6]
 const UNLOCK_COST: int = 2
+const MOVE_COST: int = 1
 var LEVEL_1_RANGES: Array[Array] = [range(0, 100), range(0, 0), range(0, 0), range(0, 0)]
 var LEVEL_2_RANGES: Array[Array] = [range(0, 50), range(50, 100), range(0, 0), range(0, 0)]
 var LEVEL_3_RANGES: Array[Array] = [range(0, 30), range(30, 70), range(70, 100), range(0, 0)]

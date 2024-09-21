@@ -56,7 +56,7 @@ func boost(atk: int, hp: int, perma: bool, secondary: bool, alive_only: bool = t
 	if alive_only and HP == 0: return
 	ATK += atk
 	if HP > 0: HP += hp
-	if perma: ATK_boost += atk
+	if perma or type == Type.K3_2: ATK_boost += atk
 	if perma or type == Type.P1_2: HP_boost += hp
 	FightUtil.tower_stats_changed.emit(self, atk, hp, perma, secondary)
 	if atk >= 0 and hp >= 0:

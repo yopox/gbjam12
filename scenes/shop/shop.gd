@@ -128,9 +128,14 @@ func a() -> void:
 
 	if focused[1] in [2, 3]:
 		if state == State.Select and not slot.locked and slot.tower_node.tower != null:
-			selected_slot = slot
-			state = State.Move
+			if coins < Values.MOVE_COST:
+				# TODO: Not enough coins animation
+				pass
+			else:
+				selected_slot = slot
+				state = State.Move
 		elif state == State.Move and not slot.locked:
+			coins -= Values.MOVE_COST
 			var t1: Variant = selected_slot.tower_node.tower
 			var t2: Variant = slot.tower_node.tower
 			selected_slot.set_tower(t2, 0)
@@ -144,7 +149,6 @@ func a() -> void:
 			# Actually buy the tower
 			var cost: int = FightUtil.tower_level(selected_slot.tower_node.tower.type)
 			coins -= cost
-			update_header()
 			just_bought = true
 			# Place the tower
 			var t1: Variant = selected_slot.tower_node.tower
@@ -223,14 +227,14 @@ func update_status() -> void:
 		return
 	elif slot != null and slot.locked:
 		var countdown = Values.LOCKS[(focused[1] - 2) * 4 + focused[0]] - Progress.turn
-		var turns = "turns" if countdown > 1 else "turn"
+		var turns: String = "turns" if countdown > 1 else "turn"
 		status_label.text = "Unlocks in %s %s" % [countdown, turns]
 		return
 	elif state == State.Buy:
 		status_label.text = "Select a slot"
 		return
 	elif state == State.Move and not focused[1] == 4:
-		status_label.text = "Move to?"
+		status_label.text = "Move to? (Cost: %s¢)" % Values.MOVE_COST
 		return
 	elif slot != null and slot.tower_node.tower == null:
 		status_label.text = "Empty"

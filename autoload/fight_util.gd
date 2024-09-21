@@ -222,6 +222,7 @@ func damage_hero(team: int, damage: int) -> void:
 			Progress.won = false
 			await Util.wait(Values.GAME_OVER_DELAY)
 			Util.game_over.emit()
+			FightUtil.destroy_bullets.emit()
 	else:
 		enemy_life = max(0, enemy_life - damage)
 		if enemy_life <= 0:
@@ -229,6 +230,7 @@ func damage_hero(team: int, damage: int) -> void:
 			Progress.won = true
 			await Util.wait(Values.GAME_OVER_DELAY)
 			Util.game_over.emit()
+			FightUtil.destroy_bullets.emit()
 
 
 func hero_life(team: int) -> int:

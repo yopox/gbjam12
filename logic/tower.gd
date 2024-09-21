@@ -66,7 +66,7 @@ func boost(atk: int, hp: int, perma: bool, secondary: bool, alive_only: bool = t
 
 
 func hit(bullet: Bullet) -> void:
-	if ghostly:
+	if ghostly and not bullet.arrow:
 		ghostly = false
 		FightUtil.tower_ghostly.emit(self, false)
 		return

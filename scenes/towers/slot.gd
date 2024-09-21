@@ -30,6 +30,7 @@ func _ready():
 	FightUtil.tower_stats_changed.connect(_on_tower_stats_changed)
 	FightUtil.tower_hide.connect(_on_tower_hide)
 	FightUtil.tower_reaction.connect(_on_tower_reaction)
+	FightUtil.destroy_tower.connect(_on_destroy_tower)
 	reaction.texture = reaction.texture.duplicate()
 	update_rect()
 
@@ -82,6 +83,12 @@ func _on_tower_stats_changed(tower: Tower, _datk: int, _dhp: int, _perma: bool, 
 
 
 func _on_tower_hide(tower: Tower):
+	if not match_tower(tower): return
+	stats.visible = false
+	particles.emitting = true
+
+
+func _on_destroy_tower(tower: Tower) -> void:
 	if not match_tower(tower): return
 	stats.visible = false
 	particles.emitting = true

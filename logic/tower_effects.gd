@@ -8,6 +8,7 @@ func _ready():
 	FightUtil.tower_hit.connect(_on_tower_hit)
 	FightUtil.tower_stats_changed.connect(_on_tower_stats_changed)
 	FightUtil.tower_ghostly.connect(_on_tower_ghostly)
+	FightUtil.fight_end.connect(_on_fight_end)
 
 
 func _on_fight_start() -> void:
@@ -15,9 +16,10 @@ func _on_fight_start() -> void:
 	effect_p2_1()
 	for t: Tower in FightUtil.get_combined_boards():
 		if t.type == Tower.Type.S2_1: effect_s2_1(t)
+		if t.type == Tower.Type.S4_1: effect_s4_1(t)
+		if t.type == Tower.Type.K4_2: effect_k4_2(t)
 		if t.type == Tower.Type.G1_2: effect_g1_2(t)
 		if t.type == Tower.Type.G3_2: effect_g3_2(t)
-		if t.type == Tower.Type.K4_2: effect_k4_2(t)
 		if t.type == Tower.Type.P2_2: effect_p2_2(t)
 
 
@@ -29,6 +31,7 @@ func _on_tower_shoot(tower: Tower, _damage: int) -> void:
 func _on_tower_destroyed(tower: Tower) -> void:
 	if Util.state == Util.GameState.Collection: return
 	if tower.type == Tower.Type.S1_2: effect_s1_2(tower)
+	if tower.type == Tower.Type.S3_2: effect_s3_2(tower)
 	if tower.type == Tower.Type.K1_2: effect_k1_2(tower)
 	if tower.type == Tower.Type.COIN: effect_coin(tower)
 	if tower.type == Tower.Type.BOMB: effect_bomb(tower)
@@ -36,8 +39,8 @@ func _on_tower_destroyed(tower: Tower) -> void:
 	
 	for t: Tower in FightUtil.adjacent_towers(tower):
 		effect_s3_1(tower, t)
-		if tower.type == Tower.Type.G2_2: effect_g2_2(tower, t)
 		if t.type == Tower.Type.K3_1: effect_k3_1(t, tower)
+		if tower.type == Tower.Type.G2_2: effect_g2_2(tower, t)
 		if t.type == Tower.Type.G3_1: effect_g3_1(t, tower)
 
 
@@ -51,7 +54,6 @@ func _on_tower_hit(tower: Tower, damage: int, bullet: Bullet) -> void:
 func _on_tower_stats_changed(tower: Tower, delta_atk: int, delta_hp: int, perma: bool, secondary: bool) -> void:
 	if tower.type == Tower.Type.K4_1: effect_k4_1(tower, delta_atk, delta_hp)
 	for adjacent: Tower in FightUtil.adjacent_towers(tower):
-		if adjacent.type == Tower.Type.S3_2: effect_s3_2(adjacent, tower, delta_atk, delta_hp, perma, secondary)
 		if adjacent.type == Tower.Type.S4_2: effect_s4_2(adjacent, delta_atk, delta_hp, perma, secondary)
 
 
@@ -62,7 +64,14 @@ func _on_tower_ghostly(tower: Tower, ghostly: bool) -> void:
 		for adjacent: Tower in FightUtil.adjacent_towers(tower):
 			if adjacent.type == Tower.Type.G2_1: effect_g2_1(adjacent)
 			if adjacent.type == Tower.Type.G4_2: effect_g4_2(adjacent)
-	
+		for g4_1: Tower in FightUtil.get_all(Tower.Type.G4_1):
+			if g4_1.team == tower.team: effect_g4_1(g4_1, tower)
+
+
+func _on_fight_end() -> void:
+	for tower: Tower in FightUtil.get_combined_boards():
+		tower.cache.clear()
+
 
 func tower_built(tower: Tower) -> void:
 	if tower.type == Tower.Type.K2_2: effect_k2_2(tower)
@@ -105,12 +114,22 @@ func effect_s3_1(tower: Tower, adjacent: Tower) -> void:
 			adjacent.boost(1, 1, true, false)
 
 
-func effect_s3_2(_s3_2: Tower, adjacent: Tower, _delta_atk: int, delta_hp: int, perma: bool, secondary: bool) -> void:
-	if delta_hp <= 0: return
-	Util.debug("[s3_2] -> %s => +%s ATK (perma: %s)" % [Text.debug_name(adjacent), delta_hp, perma])
-	adjacent.boost(delta_hp, 0, perma, secondary, false)
+func effect_s3_2(s3_2: Tower) -> void:
+	for tower: Tower in FightUtil.get_row(s3_2.row, s3_2.team):
+		Util.debug("[s3_2] -> %s => +2 HP perma" % Text.debug_name(tower))
+		tower.boost(2, 0, true, false)
 	
+
+func effect_s4_1(s4_1: Tower) -> void:
+	if s4_1.row == 0: return
+	for t: Tower in FightUtil.get_column(s4_1.column):
+		if t == s4_1 or t.team != s4_1.team: continue
+		if not Tower.Family.Spider in FightUtil.tower_families(t.type): continue
+		s4_1.boost(t.ATK, t.HP, true, false)
+		FightUtil.destroy_tower.emit(t)
+		t.kill()
 	
+
 func effect_s4_2(s4_2: Tower, delta_atk: int, delta_hp: int, perma: bool, secondary: bool) -> void:
 	Util.debug("[s4_2] -> %s => +%s +%s (perma: %s)" % [Text.debug_name(s4_2), delta_atk, delta_hp, perma])
 	var atk = max(0, delta_atk)
@@ -182,6 +201,14 @@ func effect_g3_2(g3_2: Tower) -> void:
 			g3_2.boost(t.ATK, t.HP, false, false, false)
 
 
+func effect_g4_1(g4_1: Tower, ghostly: Tower) -> void:
+	var key: Array = [ghostly.team, ghostly.column, ghostly.column]
+	if key in g4_1.cache: return
+	g4_1.cache.append(key)
+	Util.debug("[g4_1] -> %s => +1 +1 perma" % Text.debug_name(ghostly))
+	ghostly.boost(1, 1, true, false)
+		
+	
 func effect_g4_2(g4_2: Tower) -> void:
 	Util.debug("[g4_2] -> %s => +1 +1 perma" % Text.debug_name(g4_2))
 	g4_2.boost(1, 1, true, false, true)

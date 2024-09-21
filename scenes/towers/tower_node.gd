@@ -14,6 +14,7 @@ func _ready():
 	FightUtil.tower_hit.connect(_on_tower_hit)
 	FightUtil.tower_shoot.connect(_on_tower_shoot)
 	FightUtil.tower_ghostly.connect(_on_tower_ghostly)
+	FightUtil.destroy_tower.connect(_on_destroy_tower)
 	sprite_2d.texture = sprite_2d.texture.duplicate()
 	popup.visible = false
 	popup.z_index = Values.POPUP_Z
@@ -48,6 +49,12 @@ func _on_hitbox_body_entered(body):
 
 
 func _on_tower_hit(t: Tower, _damage: int, _bullet: Bullet) -> void:
+	if tower == t:
+		animation.stop()
+		animation.play("blink")
+
+
+func _on_destroy_tower(t: Tower) -> void:
 	if tower == t:
 		animation.stop()
 		animation.play("blink")

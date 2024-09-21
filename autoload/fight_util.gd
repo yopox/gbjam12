@@ -14,6 +14,7 @@ signal tower_hit(tower: Tower, damage: int, bullet: Bullet)
 signal tower_stats_changed(tower: Tower, delta_atk: int, delta_hp: int, perma: bool, secondary: bool)
 @warning_ignore("unused_signal")
 signal tower_destroyed(tower: Tower)
+signal destroy_tower(tower: Tower)
 @warning_ignore("unused_signal")
 signal tower_hide(tower: Tower)
 @warning_ignore("unused_signal")
@@ -30,6 +31,10 @@ signal tower_ghostly(tower: Tower, ghostly: bool)
 
 var enemy_board: Dictionary = {}
 var enemy_life: int = Values.BASE_LIFE
+
+
+func _ready():
+	destroy_tower.connect(_on_destroy_tower)
 
 
 func adjacent_towers(tower: Tower) -> Array:
@@ -86,7 +91,7 @@ func base_stats(type: Tower.Type) -> Array:
 		Tower.Type.COIN: return [0, 1]
 		Tower.Type.ROCK: return [0, 5]
 		Tower.Type.BOMB: return [10, 1]
-		Tower.Type.MIRROR: return [0, 8]
+		Tower.Type.MIRROR: return [0, 12]
 		_:
 			printerr("Stats not defined")
 			return [999, 999]
@@ -228,3 +233,11 @@ func damage_hero(team: int, damage: int) -> void:
 
 func hero_life(team: int) -> int:
 	return Progress.life if team == 0 else enemy_life
+
+
+func _on_destroy_tower(tower: Tower) -> void:
+	var board: Dictionary = Progress.player_board if tower.team == 0 else enemy_board
+	for i in range(8):
+		if board.has(i) and board[i] == tower:
+			board.erase(i)
+			return

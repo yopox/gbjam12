@@ -17,6 +17,7 @@ var type: Type: set = _set_type
 var HP: int
 var ATK: int
 var ghostly: bool
+var cache: Array = []
 
 var HP_boost: int = 0
 var ATK_boost: int = 0
@@ -82,6 +83,11 @@ func hit(bullet: Bullet) -> void:
 		if HP > 0: FightUtil.tower_reaction.emit(self, Slot.Reaction.Exclamation)
 		await Util.wait(Values.PUMPKIN_DELAY)
 		FightUtil.tower_shoot.emit(self, ATK)
+
+
+func kill() -> void:
+	HP = 0
+	die()
 
 
 func make_ghostly() -> void:

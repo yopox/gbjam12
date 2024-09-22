@@ -4,6 +4,7 @@ class_name Slot extends Node2D
 @onready var tower_node: TowerNode = $Tower
 @onready var reaction = $Reaction
 @onready var particles = $Particles
+@onready var hide_reaction = $HideReaction
 
 @onready var stats = $Stats
 @onready var atk = $Stats/ATK
@@ -82,7 +83,7 @@ func _on_tower_stats_changed(tower: Tower, _datk: int, _dhp: int, _perma: bool, 
 	update_stats(tower)
 
 
-func _on_tower_hide(tower: Tower):
+func _on_tower_hide(tower: Tower) -> void:
 	if not match_tower(tower): return
 	stats.visible = false
 	particles.emitting = true
@@ -132,6 +133,9 @@ func _on_tower_reaction(tower: Tower, r: Reaction) -> void:
 		Reaction.Ghost: reaction.texture.region.position.x = 8 * 5
 	reaction.visible = true
 	reaction_id += 1
-	var id = reaction_id
-	await Util.wait(Values.REACTION)
-	if reaction_id == id: reaction.visible = false
+	hide_reaction.wait_time = Values.REACTION
+	hide_reaction.start()
+
+
+func _on_hide_reaction_timeout():
+	reaction.visible = false

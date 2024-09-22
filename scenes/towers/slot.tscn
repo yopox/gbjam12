@@ -75,3 +75,7 @@ spread = 180.0
 gravity = Vector2(0, 0)
 initial_velocity_min = 20.0
 initial_velocity_max = 40.0
+
+[node name="HideReaction" type="Timer" parent="."]
+
+[connection signal="timeout" from="HideReaction" to="." method="_on_hide_reaction_timeout"]

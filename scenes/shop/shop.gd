@@ -131,6 +131,11 @@ func a() -> void:
 			selected_slot = slot
 			state = State.Move
 		elif state == State.Move and not slot.locked:
+			if slot == selected_slot:
+				selected_slot = null
+				state = State.Select
+				update_slots()
+				return
 			if coins < Values.MOVE_COST:
 				return
 			coins -= Values.MOVE_COST

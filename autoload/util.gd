@@ -2,7 +2,7 @@ extends Node
 
 enum GameState { Shop, Fight, Collection, GameOver }
 
-var state: GameState = GameState.Fight
+var state: GameState = GameState.Fight: set = _set_state
 
 @warning_ignore("unused_signal")
 signal set_palette(palette: Palette)
@@ -16,6 +16,12 @@ signal fight()
 signal game_over()
 @warning_ignore("unused_signal")
 signal restart()
+signal state_changed()
+
+
+func _set_state(value: Util.GameState) -> void:
+	state_changed.emit()
+	state = value
 
 
 func wait(amount: float):

@@ -21,7 +21,7 @@ func update_enemy_board(turn: int):
 	var new_board = Progress.import_board(b)
 	for i in range(8):
 		if not new_board.has(i): continue
-		var t1: Tower = new_board[i]			
+		var t1: Tower = new_board[i]
 		for j in range(8):
 			if not enemy_board.has(j): continue
 			var t2: Tower = enemy_board[j]

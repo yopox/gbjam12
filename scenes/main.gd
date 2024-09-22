@@ -17,9 +17,22 @@ func _ready():
 	Util.game_over.connect(_on_game_over)
 	Util.restart.connect(_on_restart)
 	FightUtil.fight_end.connect(_on_fight_end)
+	Util.state_changed.connect(_on_state_changed)
 	Palette.set_palette.connect(_on_set_palette)
 	Palette.set_palette.emit(Palette.Name.NEXUS_2060)
 	start_game()
+
+
+func _on_state_changed() -> void:
+	match Util.state:
+		Util.GameState.Shop:
+			pass
+		Util.GameState.Fight:
+			pass
+		Util.GameState.Collection:
+			pass
+		Util.GameState.GameOver:
+			pass
 
 
 func start_game():

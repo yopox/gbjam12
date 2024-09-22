@@ -46,6 +46,7 @@ func _on_fight_end() -> void:
 
 
 func _on_game_over() -> void:
+	Util.state = Util.GameState.GameOver
 	scene.get_child(0).queue_free()
 	scene.add_child(game_over_scene.instantiate())
 

@@ -120,7 +120,7 @@ func tower_effect(type: Tower.Type) -> String:
 		Tower.Type.G2_2: return "Gives ghostly to adjacent ghosts."
 		Tower.Type.G3_1: return "Gains ghostly."
 		Tower.Type.G3_2: return "Gains the stats of the friendly minion above."
-		Tower.Type.G4_1: return ""
+		Tower.Type.G4_1: return "Gives +1 +1 permanently."
 		Tower.Type.G4_2: return "Gains +1 +1 permanantly."
 		Tower.Type.P1_1: return ""
 		Tower.Type.P1_2: return "Received HP boosts are permanent."

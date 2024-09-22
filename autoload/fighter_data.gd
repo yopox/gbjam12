@@ -5,15 +5,26 @@ var fighter: Array[Variant] = ["QKAJAAAA",
 							  "ZKAJAAADQAEAAA4AgAAAAA==",
 							  "ZrAFgAADQAEAAA4AgAAAKAJAAAA=",
 							  "9kgNEAACwBYAAA4AgAAAMgCAAADQAEAAAoAkAAAA",]
-
+var hero_boards: Array = []
 
 var enemy_board: Dictionary = {}
 var enemy_life: int = Values.BASE_LIFE
+
+signal upload()
 
 
 func reset() -> void:
 	enemy_life = Values.BASE_LIFE
 	enemy_board.clear()
+	hero_boards.clear()
+
+
+func save(board: String) -> void:
+	hero_boards.append(board)
+
+
+func upload_board() -> void:
+	upload.emit(JSON.stringify(hero_boards))
 
 
 func update_enemy_board(turn: int):

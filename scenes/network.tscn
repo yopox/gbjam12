@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgloo2lctpkwc"]
+
+[ext_resource type="Script" path="res://scenes/network.gd" id="1_rfgq7"]
+
+[node name="Network" type="Node"]
+script = ExtResource("1_rfgq7")
+
+[node name="Get" type="HTTPRequest" parent="."]
+max_redirects = 20
+
+[connection signal="request_completed" from="Get" to="." method="_on_get_request_completed"]

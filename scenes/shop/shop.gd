@@ -305,7 +305,8 @@ func upgrade() -> void:
 
 func fight() -> void:
 	var export = Progress.export_board(Progress.player_board)
-	print("Turn %s board: %s" % [Progress.turn, Progress.export_board(Progress.player_board)])
+	FighterData.save(export)
+	#print("Turn %s board: %s" % [Progress.turn, Progress.export_board(Progress.player_board)])
 	#Progress.import_board(export)
 	Util.fight.emit()
 

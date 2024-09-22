@@ -52,13 +52,13 @@ func end_fight() -> void:
 
 func _on_enemy_zone_body_entered(body):
 	var bullet: Bullet = body
-	if bullet.team == 1: return
+	if bullet.arrow or bullet.team == 1: return
 	damage_hero(1, bullet.damage, bullet)
 
 
 func _on_hero_zone_body_entered(body):
 	var bullet: Bullet = body
-	if bullet.team == 0: return
+	if bullet.arrow or bullet.team == 0: return
 	damage_hero(0, bullet.damage, bullet)
 
 

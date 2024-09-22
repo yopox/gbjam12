@@ -229,7 +229,7 @@ func damage_hero(team: int, damage: int) -> void:
 		if enemy_life <= 0:
 			# TODO: Screen shake
 			Progress.enemy_dead = true
-			if not Progress.hero_dead:
+			if not Progress.player_dead:
 				await Util.wait(Values.GAME_OVER_DELAY)
 				FightUtil.destroy_bullets.emit()
 				Util.game_over.emit()

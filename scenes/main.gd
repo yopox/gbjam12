@@ -3,6 +3,7 @@ extends Node2D
 @onready var color_rect = $CanvasLayer/ColorRect
 @onready var scene = $Scene
 @onready var overlay = $Overlay
+@onready var bgm: BGM = $Bgm
 
 var shop_scene: PackedScene =       preload("res://scenes/shop/shop.tscn")
 var fight_scene: PackedScene =      preload("res://scenes/fight/fight.tscn")
@@ -24,16 +25,8 @@ func _ready():
 
 
 func _on_state_changed() -> void:
-	match Util.state:
-		Util.GameState.Shop:
-			pass
-		Util.GameState.Fight:
-			pass
-		Util.GameState.Collection:
-			pass
-		Util.GameState.GameOver:
-			pass
-
+	bgm.play_bgm(Util.state)
+	
 
 func start_game():
 	Progress.reset()

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dxm80iyisc8x2"]
+[gd_scene load_steps=5 format=3 uid="uid://dxm80iyisc8x2"]
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_wvlti"]
 [ext_resource type="Shader" path="res://scenes/colors.gdshader" id="2_nxiao"]
+[ext_resource type="PackedScene" uid="uid://dbi01eg1cm6rb" path="res://scenes/bgm.tscn" id="3_vcmn6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xe47a"]
 shader = ExtResource("2_nxiao")
@@ -23,3 +24,5 @@ offset_bottom = 144.0
 [node name="Scene" type="Node" parent="."]
 
 [node name="Overlay" type="Node" parent="."]
+
+[node name="Bgm" parent="." instance=ExtResource("3_vcmn6")]

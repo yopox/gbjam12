@@ -20,8 +20,8 @@ signal state_changed()
 
 
 func _set_state(value: Util.GameState) -> void:
-	state_changed.emit()
 	state = value
+	state_changed.emit()
 
 
 func wait(amount: float):

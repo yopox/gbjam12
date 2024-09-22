@@ -219,7 +219,7 @@ func damage_hero(team: int, damage: int) -> void:
 		Progress.life = max(0, Progress.life - damage)
 		if Progress.life <= 0:
 			# TODO: Screen shake
-			Progress.hero_dead = true
+			Progress.player_dead = true
 			if not Progress.enemy_dead:
 				await Util.wait(Values.GAME_OVER_DELAY)
 				FightUtil.destroy_bullets.emit()

@@ -38,7 +38,7 @@ func _on_tower_destroyed(tower: Tower) -> void:
 	effect_p4_2(tower)
 	
 	for t: Tower in FightUtil.adjacent_towers(tower):
-		if tower.HP == 0: continue
+		if t.HP == 0: continue
 		effect_s3_1(tower, t)
 		if t.type == Tower.Type.K3_1: effect_k3_1(t, tower)
 		if tower.type == Tower.Type.G2_2: effect_g2_2(tower, t)
@@ -253,7 +253,7 @@ func effect_p3_2(p3_2: Tower, ghostly: Tower) -> void:
 func effect_p4_1(p4_1: Tower, damage: int) -> void:
 	for adjacent: Tower in FightUtil.adjacent_towers(p4_1):
 		Util.debug("[p4_1] -> %s => +%s ATK" % Text.debug_name(adjacent))
-		adjacent.boost(damage, 0, false, false, true)
+		adjacent.boost(damage, 0, false, false)
 
 
 func effect_p4_2(tower: Tower) -> void:

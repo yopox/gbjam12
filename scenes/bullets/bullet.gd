@@ -23,7 +23,7 @@ func _ready():
 
 func _physics_process(_delta):
 	if stopped: return
-	velocity = Vector2(0, -Values.BULLET_SPEED).rotated(dir)
+	velocity = Vector2(0, -(Values.BULLET_SPEED if not arrow else Values.ARROW_SPEED)).rotated(dir)
 	move_and_slide()
 
 

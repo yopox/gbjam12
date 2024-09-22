@@ -8,7 +8,6 @@ func _ready():
 	FightUtil.tower_hit.connect(_on_tower_hit)
 	FightUtil.tower_stats_changed.connect(_on_tower_stats_changed)
 	FightUtil.tower_ghostly.connect(_on_tower_ghostly)
-	FightUtil.fight_end.connect(_on_fight_end)
 
 
 func _on_fight_start() -> void:
@@ -73,16 +72,6 @@ func _on_tower_ghostly(tower: Tower, ghostly: bool) -> void:
 			if g4_1.team == tower.team: effect_g4_1(g4_1, tower)
 
 
-func _on_fight_end() -> void:
-	for tower: Tower in FightUtil.get_combined_boards():
-		tower.cache.clear()
-
-
-func tower_built(tower: Tower) -> void:
-	if tower.type == Tower.Type.K2_2: effect_k2_2(tower)
-	if tower.type == Tower.Type.S2_2: effect_s2_2(tower)
-
-
 func tower_moved() -> void:
 	pass
 
@@ -99,17 +88,7 @@ func effect_s2_1(s2_1: Tower) -> void:
 
 
 func effect_s2_2(s2_2: Tower) -> void:
-	var stolen: int = 0
-	for adjacent: Tower in FightUtil.adjacent_towers(s2_2):
-		if Tower.Family.Spider in FightUtil.tower_families(adjacent.type):
-			var s: int = min(2, adjacent.ATK)
-			stolen += s
-			if s > 0:
-				Util.debug("[s2_2] -> %s => %s ATK" % [Text.debug_name(adjacent), -s])
-				adjacent.boost(-s, 0, false, false)
-	if stolen == 0: return
-	Util.debug("[s2_2] -> %s => %s ATK" % [Text.debug_name(s2_2), stolen])
-	s2_2.boost(stolen, 0, false, false)
+	pass
 
 
 func effect_s3_1(tower: Tower, adjacent: Tower) -> void:
@@ -156,12 +135,7 @@ func effect_k2_1(shot: Tower) -> void:
 
 
 func effect_k2_2(k2_2: Tower) -> void:
-	var count: int = 0
-	for tower: Tower in FightUtil.get_all_family(Tower.Family.Skeleton):
-		if tower.team == k2_2.team:
-			count += 1
-	Util.debug("[k2_2] -> %s => +%s ATK" % [Text.debug_name(k2_2), count])
-	k2_2.boost(count, 0, true, false, false)
+	pass
 
 
 func effect_k3_1(k3_1: Tower, _adjacent: Tower) -> void:
@@ -213,11 +187,9 @@ func effect_g3_2(g3_2: Tower) -> void:
 
 
 func effect_g4_1(g4_1: Tower, ghostly: Tower) -> void:
-	var key: Array = [ghostly.team, ghostly.column, ghostly.column]
-	if key in g4_1.cache: return
-	g4_1.cache.append(key)
-	Util.debug("[g4_1] -> %s => +1 +1 perma" % Text.debug_name(ghostly))
-	ghostly.boost(1, 1, true, false)
+	if g4_1.team == ghostly.team and g4_1.row == ghostly.row:
+		Util.debug("[g4_1] -> %s => +1 +1 perma" % Text.debug_name(ghostly))
+		ghostly.boost(1, 1, true, false)
 		
 	
 func effect_g4_2(g4_2: Tower) -> void:

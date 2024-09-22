@@ -9,6 +9,7 @@ var shop_r_locked: bool
 var coin_bonus: int
 var player_dead: bool
 var enemy_dead: bool
+var t_id: int
 
 
 func _ready() -> void:
@@ -25,6 +26,7 @@ func reset() -> void:
 	coin_bonus = 0
 	player_dead = false
 	enemy_dead = false
+	t_id = 0
 
 
 func heal_board() -> void:
@@ -32,8 +34,8 @@ func heal_board() -> void:
 		if not player_board.has(i): continue
 		var tower: Tower = player_board[i]
 		var base_stats = FightUtil.base_stats(tower.type)
-		tower.ATK = base_stats[0] + tower.ATK_boost
-		tower.HP = base_stats[1] + tower.HP_boost
+		tower.ATK = base_stats[0] + tower.ATK_boost + tower.ATK_shop
+		tower.HP = base_stats[1] + tower.HP_boost + tower.HP_shop
 
 
 func export_board(board: Dictionary) -> String:
@@ -48,9 +50,10 @@ func export_board(board: Dictionary) -> String:
 	for i in range(8):
 		if not board.has(i): continue
 		var tower: Tower = board[i]
+		writer.write_int(tower.t_id, 12)
 		writer.write_int(tower.type, 6)
-		writer.write_int(min(tower.ATK, 1023), 10)
-		writer.write_int(min(tower.HP, 1023), 10)
+		writer.write_int(min(tower.ATK_shop, 1023), 10)
+		writer.write_int(min(tower.HP_shop, 1023), 10)
 	
 	return Marshalls.raw_to_base64(writer.get_byte_array())
 
@@ -66,12 +69,17 @@ func import_board(board: String) -> Dictionary:
 	
 	for i in range(8):
 		if presence & (2 ** i) != 0:
+			var id: int = reader.read_int(12)
 			var type: int = reader.read_int(6)
 			var atk: int = reader.read_int(10)
 			var hp: int = reader.read_int(10)
 			var tower: Tower = Tower.new(type)
-			tower.ATK = atk
-			tower.HP = hp
+			var stats = FightUtil.base_stats(type)
+			tower.t_id = id
+			tower.ATK = stats[0]
+			tower.HP = stats[1]
+			tower.ATK_shop = atk
+			tower.HP_shop = hp
 			read_board[i] = tower
 			#print("Tower %s : %s %s/%s" % [i, type, atk, hp])
 	

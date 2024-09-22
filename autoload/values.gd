@@ -74,5 +74,5 @@ const LOCKS: Array[int] = [5, 1, 1, 5, 7, 3, 3, 7]
 #endregion
 
 #region Misc
-const DEBUG: bool = true
+const DEBUG: bool = false
 #endregion

@@ -22,10 +22,16 @@ var cache: Array = []
 var HP_boost: int = 0
 var ATK_boost: int = 0
 
+var t_id: int
+var HP_shop: int = 0
+var ATK_shop: int = 0
+
 
 func _init(tower_type: Type):
 	type = tower_type
 	ghostly = false
+	t_id = Progress.t_id
+	Progress.t_id += 1
 
 
 func set_slot(slot: Slot) -> void:
@@ -46,24 +52,24 @@ func activate() -> void:
 		FightUtil.tower_shoot.emit(self, ATK)
 
 
-func clone() -> Tower:
-	var t = Tower.new(type)
-	t.HP = HP
-	t.ATK = ATK
-	return t
-
-
 func boost(atk: int, hp: int, perma: bool, secondary: bool, alive_only: bool = true) -> void:
 	if alive_only and HP <= 0: return
+	
+	# Update current stats
 	ATK += atk
 	if HP > 0: HP += hp
-	if perma or type == Type.K3_2: ATK_boost += atk
-	if perma or type == Type.P1_2: HP_boost += hp
-	FightUtil.tower_stats_changed.emit(self, atk, hp, perma, secondary)
-	if atk >= 0 and hp >= 0:
-		FightUtil.tower_reaction.emit(self, Slot.Reaction.Boost)
+	
+	if Util.state == Util.GameState.Shop:
+		# Shop boosts (saved boosts when exporting boards)
+		ATK_shop += atk
+		HP_shop += hp
 	else:
-		FightUtil.tower_reaction.emit(self, Slot.Reaction.Nerf)
+		# Fight boosts (discarded when exporting boards)
+		if perma or type == Type.K3_2: ATK_boost += atk
+		if perma or type == Type.P1_2: HP_boost += hp
+	
+	FightUtil.tower_stats_changed.emit(self, atk, hp, perma, secondary)
+	FightUtil.tower_reaction.emit(self, Slot.Reaction.Boost if atk >= 0 and hp >= 0 else Slot.Reaction.Nerf)
 
 
 func hit(bullet: Bullet) -> void:

@@ -29,16 +29,12 @@ signal destroy_bullets()
 signal tower_ghostly(tower: Tower, ghostly: bool)
 
 
-var enemy_board: Dictionary = {}
-var enemy_life: int = Values.BASE_LIFE
-
-
 func _ready():
 	destroy_tower.connect(_on_destroy_tower)
 
 
 func adjacent_towers(tower: Tower) -> Array:
-	var board = Progress.player_board if tower.team == 0 else enemy_board
+	var board = get_board(tower.team)
 	var adjacent = []
 	var col = tower.column
 	var row = tower.row
@@ -171,7 +167,7 @@ func shoots(type: Tower.Type) -> bool:
 
 func get_combined_boards() -> Array:
 	var found: Array = []
-	for board in [Progress.player_board, enemy_board]:
+	for board in [Progress.player_board, FighterData.enemy_board]:
 		for i in range(8):
 			if board.has(i):
 				found.append(board[i])
@@ -180,7 +176,7 @@ func get_combined_boards() -> Array:
 
 func get_all(type: Tower.Type) -> Array:
 	var found: Array = []
-	for board in [Progress.player_board, enemy_board]:
+	for board in [Progress.player_board, FighterData.enemy_board]:
 		for i in range(8):
 			if board.has(i) and board[i].type == type:
 				found.append(board[i])
@@ -189,7 +185,7 @@ func get_all(type: Tower.Type) -> Array:
 	
 func get_all_family(family: Tower.Family) -> Array:
 	var found: Array = []
-	for board in [Progress.player_board, enemy_board]:
+	for board in [Progress.player_board, FighterData.enemy_board]:
 		for i in range(8):
 			if board.has(i) and family in tower_families(board[i].type):
 				found.append(board[i])
@@ -198,7 +194,7 @@ func get_all_family(family: Tower.Family) -> Array:
 
 func get_column(c: int) -> Array:
 	var column: Array = []
-	for board in [Progress.player_board, enemy_board]:
+	for board in [Progress.player_board, FighterData.enemy_board]:
 		for i in range(8):
 			if board.has(i) and board[i].column == c:
 				column.append(board[i])
@@ -207,7 +203,7 @@ func get_column(c: int) -> Array:
 	
 func get_row(r: int, team: int) -> Array:
 	var row = []
-	var board = Progress.player_board if team == 0 else enemy_board
+	var board = get_board(team)
 	for i in range(8):
 		if board.has(i) and board[i].row == r:
 			row.append(board[i])
@@ -215,31 +211,36 @@ func get_row(r: int, team: int) -> Array:
 
 
 func damage_hero(team: int, damage: int) -> void:
+	var game_over: bool = false
 	if team == 0:
 		Progress.life = max(0, Progress.life - damage)
 		if Progress.life <= 0 and not Progress.enemy_dead and not Progress.player_dead:
+			game_over = true
 			# TODO: Screen shake
 			Progress.player_dead = true
-			await Util.wait(Values.GAME_OVER_DELAY)
-			FightUtil.destroy_bullets.emit()
-			Util.game_over.emit()
 	else:
-		enemy_life = max(0, enemy_life - damage)
-		if enemy_life <= 0 and not Progress.enemy_dead and not Progress.player_dead:
-			# TODO: Screen shake
+		var enemy_alive = FighterData.damage(damage)
+		if not enemy_alive and not Progress.enemy_dead and not Progress.player_dead:
 			Progress.enemy_dead = true
-			await Util.wait(Values.GAME_OVER_DELAY)
-			FightUtil.destroy_bullets.emit()
-			Util.game_over.emit()
+			game_over = true
+	if game_over:
+		# TODO: Screen shake
+		await Util.wait(Values.GAME_OVER_DELAY)
+		FightUtil.destroy_bullets.emit()
+		Util.game_over.emit()
 
 
 func hero_life(team: int) -> int:
-	return Progress.life if team == 0 else enemy_life
+	return Progress.life if team == 0 else FighterData.enemy_life
 
 
 func _on_destroy_tower(tower: Tower) -> void:
-	var board: Dictionary = Progress.player_board if tower.team == 0 else enemy_board
+	var board: Dictionary = get_board(tower.team)
 	for i in range(8):
 		if board.has(i) and board[i] == tower:
 			board.erase(i)
 			return
+
+			
+func get_board(team: int) -> Dictionary:
+	return Progress.player_board if team == 0 else FighterData.enemy_board

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://m6jii4rn3v2r"
+path="res://.godot/imported/Battle 2.ogg-a5fbd926475f4f3b93fc1e4f9f96adad.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/Battle 2.ogg"
+dest_files=["res://.godot/imported/Battle 2.ogg-a5fbd926475f4f3b93fc1e4f9f96adad.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

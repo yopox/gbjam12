@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dnwj4byim3wpg"
+path="res://.godot/imported/Trick or treat.ogg-e4e8386e262a0ec1092e936e2ead28d7.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/Trick or treat.ogg"
+dest_files=["res://.godot/imported/Trick or treat.ogg-e4e8386e262a0ec1092e936e2ead28d7.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

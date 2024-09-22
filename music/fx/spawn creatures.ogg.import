@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b24kw0eu3i45q"
+path="res://.godot/imported/spawn creatures.ogg-70525b164a1c40f669c1d3d70b5623d8.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/fx/spawn creatures.ogg"
+dest_files=["res://.godot/imported/spawn creatures.ogg-70525b164a1c40f669c1d3d70b5623d8.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

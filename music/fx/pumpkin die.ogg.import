@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cbb6i617kbq4r"
+path="res://.godot/imported/pumpkin die.ogg-9fb07f266a03ed5312eead1015132dec.oggvorbisstr"
+
+[deps]
+
+source_file="res://music/fx/pumpkin die.ogg"
+dest_files=["res://.godot/imported/pumpkin die.ogg-9fb07f266a03ed5312eead1015132dec.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

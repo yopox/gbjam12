@@ -16,8 +16,8 @@ func set_towers(towers: Dictionary, flip: bool, team: int) -> void:
 		if not towers.has(i): continue
 		var t: Tower = towers[i]
 		var stats = FightUtil.base_stats(t.type)
-		t.ATK = stats[0] + t.ATK_boost + t.ATK_shop
-		t.HP = stats[1] + t.HP_boost + t.HP_shop
+		t.ATK = stats[0] + t.ATK_boost
+		t.HP = stats[1] + t.HP_boost
 
 	for i in range(8):
 		var key = i if not flip else (i + 4) % 8

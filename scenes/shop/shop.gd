@@ -158,7 +158,6 @@ func a() -> void:
 			slot.set_tower(t1, 0)
 			selected_slot.set_tower(null, 0)
 			sync_board()
-			TowerEffects.tower_built(t1)
 			selected_slot = null
 			state = State.Select
 			update_slots()

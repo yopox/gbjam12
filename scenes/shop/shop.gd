@@ -128,13 +128,16 @@ func a() -> void:
 
 	if focused[1] in [2, 3]:
 		if state == State.Select and not slot.locked and slot.tower_node.tower != null:
-			if coins < Values.MOVE_COST:
-				# TODO: Not enough coins animation
-				pass
-			else:
-				selected_slot = slot
-				state = State.Move
+			selected_slot = slot
+			state = State.Move
 		elif state == State.Move and not slot.locked:
+			if slot == selected_slot:
+				selected_slot = null
+				state = State.Select
+				update_slots()
+				return
+			if coins < Values.MOVE_COST:
+				return
 			coins -= Values.MOVE_COST
 			var t1: Variant = selected_slot.tower_node.tower
 			var t2: Variant = slot.tower_node.tower

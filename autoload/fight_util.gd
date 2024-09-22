@@ -217,17 +217,19 @@ func get_row(r: int, team: int) -> Array:
 func damage_hero(team: int, damage: int) -> void:
 	if team == 0:
 		Progress.life = max(0, Progress.life - damage)
-		if Progress.life <= 0:
+		if Progress.life <= 0 and not Progress.enemy_dead and not Progress.player_dead:
 			# TODO: Screen shake
-			Progress.won = false
+			Progress.player_dead = true
 			await Util.wait(Values.GAME_OVER_DELAY)
+			FightUtil.destroy_bullets.emit()
 			Util.game_over.emit()
 	else:
 		enemy_life = max(0, enemy_life - damage)
-		if enemy_life <= 0:
+		if enemy_life <= 0 and not Progress.enemy_dead and not Progress.player_dead:
 			# TODO: Screen shake
-			Progress.won = true
+			Progress.enemy_dead = true
 			await Util.wait(Values.GAME_OVER_DELAY)
+			FightUtil.destroy_bullets.emit()
 			Util.game_over.emit()
 
 

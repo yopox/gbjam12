@@ -54,7 +54,7 @@ func clone() -> Tower:
 
 
 func boost(atk: int, hp: int, perma: bool, secondary: bool, alive_only: bool = true) -> void:
-	if alive_only and HP == 0: return
+	if alive_only and HP <= 0: return
 	ATK += atk
 	if HP > 0: HP += hp
 	if perma or type == Type.K3_2: ATK_boost += atk
@@ -77,7 +77,7 @@ func hit(bullet: Bullet) -> void:
 	FightUtil.tower_hit.emit(self, d, bullet)
 	FightUtil.tower_stats_changed.emit(self, 0, -d, false, false)
 	#print("[%s %s-%s] Hit for %s (%s HP left)" % [team, column, row, d, HP])
-	if HP == 0:
+	if HP <= 0:
 		die()
 	if Family.Pumpkin in FightUtil.tower_families(type):
 		if HP > 0: FightUtil.tower_reaction.emit(self, Slot.Reaction.Exclamation)

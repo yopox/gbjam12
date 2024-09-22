@@ -7,7 +7,8 @@ var turn: int
 var shop_l_locked: bool
 var shop_r_locked: bool
 var coin_bonus: int
-var won: bool
+var player_dead: bool
+var enemy_dead: bool
 
 
 func _ready() -> void:
@@ -22,7 +23,8 @@ func reset() -> void:
 	shop_l_locked = true
 	shop_r_locked = true
 	coin_bonus = 0
-	won = false
+	player_dead = false
+	enemy_dead = false
 
 
 func heal_board() -> void:
@@ -31,7 +33,7 @@ func heal_board() -> void:
 		var tower: Tower = player_board[i]
 		var base_stats = FightUtil.base_stats(tower.type)
 		tower.ATK = base_stats[0] + tower.ATK_boost
-		tower.HP = base_stats[1] + tower.ATK_boost
+		tower.HP = base_stats[1] + tower.HP_boost
 
 
 func export_board(board: Dictionary) -> String:

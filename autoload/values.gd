@@ -34,6 +34,7 @@ const GAME_OVER_DELAY: float = 2
 
 #region Bullets
 const BULLET_SPEED: int = 60
+const ARROW_SPEED: int = 110
 #endregion
 
 #region Fight - Towers

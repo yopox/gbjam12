@@ -17,6 +17,8 @@ signal game_over()
 @warning_ignore("unused_signal")
 signal restart()
 signal state_changed()
+@warning_ignore("unused_signal")
+signal play_sfx(sfx: SFX.Sfx)
 
 
 func _set_state(value: Util.GameState) -> void:

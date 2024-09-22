@@ -105,6 +105,7 @@ func a() -> void:
 				pass
 			else:
 				coins -= cost
+				Util.play_sfx.emit(SFX.Sfx.Upgrade)
 				if focused[0] == 0: Progress.shop_l_locked = false
 				if focused[0] == 3: Progress.shop_r_locked = false
 				slot.locked = false
@@ -298,6 +299,7 @@ func upgrade() -> void:
 		# TODO: Not enough coins animation
 		return
 	Progress.shop_level += 1
+	Util.play_sfx.emit(SFX.Sfx.Upgrade)
 	coins -= cost
 
 

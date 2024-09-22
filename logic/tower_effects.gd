@@ -24,6 +24,7 @@ func _on_fight_start() -> void:
 
 func _on_tower_shoot(tower: Tower, _damage: int) -> void:
 	if Util.state == Util.GameState.Collection: return
+	Util.play_sfx.emit(SFX.Sfx.Shot)
 	effect_p3_1(tower)
 
 
@@ -60,6 +61,7 @@ func _on_tower_stats_changed(tower: Tower, delta_atk: int, delta_hp: int, perma:
 
 func _on_tower_ghostly(tower: Tower, ghostly: bool) -> void:
 	if ghostly:
+		Util.play_sfx.emit(SFX.Sfx.Ghostly)
 		for p3_2: Tower in FightUtil.get_all(Tower.Type.P3_2):
 			if p3_2.HP <= 0: continue
 			effect_p3_2(p3_2, tower)

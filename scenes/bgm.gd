@@ -16,7 +16,7 @@ const TRICK_OR_TREAT = preload("res://music/Trick or treat.ogg")
 const WIN = preload("res://music/Win.ogg")
 
 
-func _play_music(music: AudioStream, volume = 0.0):
+func _play_music(music: AudioStream, volume = -12):
 	if stream == music:
 		return
 	

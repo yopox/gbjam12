@@ -204,8 +204,12 @@ func effect_g3_1(g3_1: Tower, _adjacent: Tower) -> void:
 func effect_g3_2(g3_2: Tower) -> void:
 	for t: Tower in FightUtil.get_column(g3_2.column):
 		if t != g3_2 and t.team == g3_2.team and t.row == g3_2.row - 1:
-			Util.debug("[g3_2] -> %s => +%s +%s" % [Text.debug_name(g3_2), t.ATK, t.HP])
-			g3_2.boost(t.ATK, t.HP, false, false, false)
+			@warning_ignore("integer_division")
+			var atk: int = int(ceil(t.ATK / 2))
+			@warning_ignore("integer_division")
+			var hp: int = int(ceil(t.HP / 2))
+			Util.debug("[g3_2] -> %s => +%s +%s" % [Text.debug_name(g3_2), atk, hp])
+			g3_2.boost(atk, hp, false, false, false)
 
 
 func effect_g4_1(g4_1: Tower, ghostly: Tower) -> void:

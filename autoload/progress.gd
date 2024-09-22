@@ -33,7 +33,7 @@ func heal_board() -> void:
 		var tower: Tower = player_board[i]
 		var base_stats = FightUtil.base_stats(tower.type)
 		tower.ATK = base_stats[0] + tower.ATK_boost
-		tower.HP = base_stats[1] + tower.ATK_boost
+		tower.HP = base_stats[1] + tower.HP_boost
 
 
 func export_board(board: Dictionary) -> String:

@@ -238,7 +238,7 @@ func effect_p3_1(tower: Tower) -> void:
 		if t.HP > 0 and tower.team == t.team and tower.row == t.row:
 			FightUtil.tower_reaction.emit(t, Slot.Reaction.Exclamation)
 			Util.debug("[p3_1] -> %s => +1 ATK" % Text.debug_name(tower))
-			tower.boost(1, 0, false, false)
+			tower.boost(1, 0, false, true)
 
 			
 func effect_p3_2(p3_2: Tower, ghostly: Tower) -> void:

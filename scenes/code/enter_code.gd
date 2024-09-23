@@ -82,6 +82,7 @@ func update_code():
 func _on_board_retrieved(success: bool, content: String) -> void:
 	if not success:
 		status.text = content
+		in_progress = false
 		return
 	else: status.visible = false
 	

@@ -7,7 +7,7 @@ func family_name(c: Variant) -> String:
 		Tower.Family.Skeleton: return "Skeleton"
 		Tower.Family.Ghost: return "Ghost"
 		Tower.Family.Pumpkin: return "Pumpkin"
-		_: return "–"
+		_: return "-"
 
 
 func tower_name(type: Tower.Type) -> String:

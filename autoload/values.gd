@@ -12,15 +12,15 @@ const BASE_LIFE: int = 200
 
 #region Shop
 const REROLL_COST: int = 1
-const SELL: Array[int] = [0, 0, 1, 2]
+const SELL: Array[int] = [0, 1, 2, 3]
 const SHOP_LEVEL_MAX: int = 4
 const UPGRADE_COST: Array[int] = [2, 4, 6]
 const UNLOCK_COST: int = 2
 const MOVE_COST: int = 1
 var LEVEL_1_RANGES: Array[Array] = [range(0, 100), range(0, 0), range(0, 0), range(0, 0)]
-var LEVEL_2_RANGES: Array[Array] = [range(0, 50), range(50, 100), range(0, 0), range(0, 0)]
-var LEVEL_3_RANGES: Array[Array] = [range(0, 30), range(30, 70), range(70, 100), range(0, 0)]
-var LEVEL_4_RANGES: Array[Array] = [range(0, 10), range(10, 30), range(30, 75), range(75, 100)]
+var LEVEL_2_RANGES: Array[Array] = [range(0, 40), range(40, 100), range(0, 0), range(0, 0)]
+var LEVEL_3_RANGES: Array[Array] = [range(0, 20), range(20, 65), range(65, 100), range(0, 0)]
+var LEVEL_4_RANGES: Array[Array] = [range(0, 05), range(05, 20), range(20, 70), range(70, 100)]
 #endregion
 
 #region Fight - General

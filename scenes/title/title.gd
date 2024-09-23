@@ -6,6 +6,7 @@ extends Node2D
 @onready var enter_code = $EnterCode
 @onready var palette = $Palette
 @onready var sound = $Sound
+@onready var version: Label = $Version
 
 @onready var cursor: Node2D = $Cursor
 
@@ -18,6 +19,7 @@ func _ready():
 	recolor_logo()
 	update_cursor()
 	update_labels()
+	version.text = "v%s" % ProjectSettings.get_setting("application/config/version")
 	choice = false
 
 

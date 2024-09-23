@@ -82,10 +82,12 @@ func _on_tower_ghostly(tower: Tower, ghostly: bool) -> void:
 		for adjacent: Tower in FightUtil.adjacent_towers(tower):
 			if adjacent.HP <= 0: continue
 			if adjacent.type == Tower.Type.G2_1: effect_g2_1(adjacent)
-			if adjacent.type == Tower.Type.G4_2: effect_g4_2(adjacent)
 		for g4_1: Tower in FightUtil.get_all(Tower.Type.G4_1):
 			if g4_1.HP <= 0: continue
 			if g4_1.team == tower.team: effect_g4_1(g4_1, tower)
+		for g4_2: Tower in FightUtil.get_all(Tower.Type.G4_2):
+			if g4_2.HP <= 0: continue
+			effect_g4_2(g4_2)
 
 
 func tower_moved() -> void:

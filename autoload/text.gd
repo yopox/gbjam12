@@ -79,7 +79,7 @@ func tower_trigger(type: Tower.Type) -> String:
 		Tower.Type.G2_2: return "When killed"
 		Tower.Type.G3_1: return "Adjacent minion killed"
 		Tower.Type.G3_2: return "Fight start"
-		Tower.Type.G4_1: return "Ghost from the row becomes ghostly"
+		Tower.Type.G4_1: return "Friendly ghost becomes ghostly"
 		Tower.Type.G4_2: return "Friendly ghost becomes ghostly"
 		Tower.Type.P1_1: return ""
 		Tower.Type.P1_2: return ""

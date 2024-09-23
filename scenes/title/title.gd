@@ -50,6 +50,7 @@ func a() -> void:
 	match selected:
 		0:
 			choice = true
+			FighterData.current_fighter = FighterData.fighters.pick_random()
 			Util.start_game.emit()
 		1:
 			choice = true

@@ -226,9 +226,12 @@ func damage_hero(team: int, damage: int) -> void:
 			game_over = true
 	if game_over:
 		# TODO: Screen shake
+		Util.play_sfx.emit(SFX.Sfx.HeroDead)
 		await Util.wait(Values.GAME_OVER_DELAY)
 		FightUtil.destroy_bullets.emit()
 		Util.game_over.emit()
+	else:
+		Util.play_sfx.emit(SFX.Sfx.HeroHit)
 
 
 func hero_life(team: int) -> int:

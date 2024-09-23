@@ -7,12 +7,13 @@ const SHOT = preload("res://music/fx/shot.ogg")
 const SPAWN_CREATURES = preload("res://music/fx/spawn creatures.ogg")
 const UPGRADE_UNLOCK = preload("res://music/fx/upgrade-unlock.ogg")
 const ERROR = preload("res://music/fx/error.ogg")
+const HERO_HIT = preload("res://music/fx/hero_hit.ogg")
 const HERO_DEAD = preload("res://music/fx/hero_dead.ogg")
 const HIT = preload("res://music/fx/hit.ogg")
 const KILL = preload("res://music/fx/kill.ogg")
 const MOVE = preload("res://music/fx/move.ogg")
 
-enum Sfx { Ghostly, Upgrade, Select, PumpkinHit, Shot, Spawn, Error, HeroDead, Hit, Kill, Move }
+enum Sfx { Ghostly, Upgrade, Select, PumpkinHit, Shot, Spawn, Error, HeroHit, HeroDead, Hit, Kill, Move }
 
 
 func _ready():
@@ -41,8 +42,9 @@ func _on_play_sfx(sfx: Sfx) -> void:
 		Sfx.Select: _play_sfx(SELECTION)
 		Sfx.Spawn: _play_sfx(SPAWN_CREATURES)
 		Sfx.Error: _play_sfx(ERROR)
-		Sfx.HeroDead: _play_sfx(HERO_DEAD)
-		Sfx.Hit: _play_sfx(HIT)
+		Sfx.HeroHit: _play_sfx(HERO_HIT)
+		Sfx.HeroDead: _play_sfx(HERO_DEAD, -3)
+		Sfx.Hit: _play_sfx(HIT, -8)
 		Sfx.Move: _play_sfx(MOVE, -22)
-		Sfx.Kill: _play_sfx(KILL)
+		Sfx.Kill: _play_sfx(KILL, -16)
 		

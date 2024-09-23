@@ -57,7 +57,7 @@ func base_stats(type: Tower.Type) -> Array:
 		Tower.Type.S2_2: return [2, 3]
 		Tower.Type.S3_1: return [4, 3]
 		Tower.Type.S3_2: return [4, 4]
-		Tower.Type.S4_1: return [5, 5]
+		Tower.Type.S4_1: return [3, 2]
 		Tower.Type.S4_2: return [5, 3]
 
 		Tower.Type.K1_1: return [3, 1]
@@ -71,12 +71,12 @@ func base_stats(type: Tower.Type) -> Array:
 
 		Tower.Type.G1_1: return [2, 1]
 		Tower.Type.G1_2: return [1, 1]
-		Tower.Type.G2_1: return [4, 1]
-		Tower.Type.G2_2: return [3, 1]
-		Tower.Type.G3_1: return [6, 1]
-		Tower.Type.G3_2: return [3, 1]
-		Tower.Type.G4_1: return [5, 1]
-		Tower.Type.G4_2: return [5, 1]
+		Tower.Type.G2_1: return [4, 2]
+		Tower.Type.G2_2: return [3, 2]
+		Tower.Type.G3_1: return [6, 3]
+		Tower.Type.G3_2: return [3, 3]
+		Tower.Type.G4_1: return [5, 4]
+		Tower.Type.G4_2: return [5, 4]
 
 		Tower.Type.P1_1: return [3, 2]
 		Tower.Type.P1_2: return [1, 1]
@@ -88,9 +88,9 @@ func base_stats(type: Tower.Type) -> Array:
 		Tower.Type.P4_2: return [7, 7]
 
 		Tower.Type.COIN: return [0, 1]
-		Tower.Type.ROCK: return [0, 5]
-		Tower.Type.BOMB: return [10, 1]
-		Tower.Type.MIRROR: return [0, 12]
+		Tower.Type.ROCK: return [0, 8]
+		Tower.Type.BOMB: return [25, 1]
+		Tower.Type.MIRROR: return [0, 15]
 		_:
 			printerr("Stats not defined")
 			return [999, 999]

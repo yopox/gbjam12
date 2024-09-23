@@ -54,6 +54,7 @@ func _on_tower_hit(tower: Tower, damage: int, bullet: Bullet) -> void:
 	if Util.state == Util.GameState.Collection: return
 	if tower.type == Tower.Type.MIRROR: effect_mirror(tower, damage)
 	if tower.type == Tower.Type.P4_1: effect_p4_1(tower, damage)
+	if tower.type == Tower.Type.K2_2: effect_k2_2(tower, damage)
 	if bullet.shot_by == Tower.Type.K2_1: effect_k2_1(tower)
 
 
@@ -142,8 +143,10 @@ func effect_k2_1(shot: Tower) -> void:
 	shot.boost(-1, 0, false, false)
 
 
-func effect_k2_2(k2_2: Tower) -> void:
-	pass
+func effect_k2_2(k2_2: Tower, _damage: int) -> void:
+	for t: Tower in FightUtil.adjacent_towers(k2_2):
+		if Tower.Family.Skeleton in FightUtil.tower_families(t.type):
+			t.boost(1, 1, true, false)
 
 
 func effect_k3_1(k3_1: Tower, _adjacent: Tower) -> void:

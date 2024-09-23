@@ -101,7 +101,7 @@ func tower_effect(type: Tower.Type) -> String:
 		Tower.Type.S1_1: return ""
 		Tower.Type.S1_2: return "Gain +1 HP permanently. "
 		Tower.Type.S2_1: return "Gives +1 +1 to the row."
-		Tower.Type.S2_2: return ""
+		Tower.Type.S2_2: return "Boosts received by the adjacent spiders are permanent."
 		Tower.Type.S3_1: return "Gains +1 +1 permanently."
 		Tower.Type.S3_2: return "Gives +2 HP permanently to the row."
 		Tower.Type.S4_1: return "Destroys the friendly spider above and gain their stats permanently."

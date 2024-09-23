@@ -12,9 +12,14 @@ func _ready():
 
 func _on_fight_start() -> void:
 	if Util.state == Util.GameState.Collection: return
+	var all_towers = FightUtil.get_combined_boards()
+	
+	for t: Tower in all_towers: t.effects_perma = false
+	
 	effect_p2_1()
-	for t: Tower in FightUtil.get_combined_boards():
+	for t: Tower in all_towers:
 		if t.type == Tower.Type.S2_1: effect_s2_1(t)
+		if t.type == Tower.Type.S2_2: effect_s2_2(t)
 		if t.type == Tower.Type.S4_1: effect_s4_1(t)
 		if t.type == Tower.Type.K4_2: effect_k4_2(t)
 		if t.type == Tower.Type.G1_2: effect_g1_2(t)
@@ -90,7 +95,8 @@ func effect_s2_1(s2_1: Tower) -> void:
 
 
 func effect_s2_2(s2_2: Tower) -> void:
-	pass
+	for tower: Tower in FightUtil.adjacent_towers(s2_2):
+		tower.effects_perma = true
 
 
 func effect_s3_1(tower: Tower, adjacent: Tower) -> void:

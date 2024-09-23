@@ -17,6 +17,7 @@ var type: Type: set = _set_type
 var HP: int
 var ATK: int
 var ghostly: bool
+var effects_perma: bool
 
 var HP_boost: int = 0
 var ATK_boost: int = 0
@@ -26,6 +27,7 @@ var t_id: int
 func _init(tower_type: Type):
 	type = tower_type
 	ghostly = false
+	effects_perma = false
 	t_id = Progress.t_id
 	Progress.t_id += 1
 
@@ -56,8 +58,8 @@ func boost(atk: int, hp: int, perma: bool, secondary: bool, alive_only: bool = t
 	if HP > 0: HP += hp
 	
 	# Fight boosts (discarded when exporting boards)
-	if perma or type == Type.K3_2: ATK_boost += atk
-	if perma or type == Type.P1_2: HP_boost += hp
+	if perma or effects_perma or type == Type.K3_2: ATK_boost += atk
+	if perma or effects_perma or type == Type.P1_2: HP_boost += hp
 	
 	FightUtil.tower_stats_changed.emit(self, atk, hp, perma, secondary)
 	FightUtil.tower_reaction.emit(self, Slot.Reaction.Boost if atk >= 0 and hp >= 0 else Slot.Reaction.Nerf)

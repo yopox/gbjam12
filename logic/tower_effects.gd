@@ -120,7 +120,7 @@ func effect_s3_2(s3_2: Tower) -> void:
 	for tower: Tower in FightUtil.get_row(s3_2.row, s3_2.team):
 		Util.debug("[s3_2] -> %s => +2 HP perma" % Text.debug_name(tower))
 		tower.boost(2, 0, true, false)
-	
+
 
 func effect_s4_1(s4_1: Tower) -> void:
 	if s4_1.row == 0: return
@@ -130,7 +130,7 @@ func effect_s4_1(s4_1: Tower) -> void:
 		s4_1.boost(t.ATK, t.HP, true, false)
 		FightUtil.destroy_tower.emit(t)
 		t.kill()
-	
+
 
 func effect_s4_2(s4_2: Tower, delta_atk: int, delta_hp: int, perma: bool, secondary: bool) -> void:
 	if secondary: return
@@ -247,13 +247,13 @@ func effect_p3_2(p3_2: Tower, ghostly: Tower) -> void:
 
 func effect_p4_1(p4_1: Tower, damage: int) -> void:
 	for adjacent: Tower in FightUtil.adjacent_towers(p4_1):
-		Util.debug("[p4_1] -> %s => +%s ATK" % Text.debug_name(adjacent))
+		Util.debug("[p4_1] -> %s => +%s ATK" % [Text.debug_name(adjacent), damage])
 		adjacent.boost(damage, 0, false, false)
 
 
 func effect_p4_2(tower: Tower) -> void:
 	for p4_2 in FightUtil.get_all(Tower.Type.P4_2):
-		if p4_2.team == tower.team:
+		if p4_2.HP > 0 and p4_2.team == tower.team:
 			Util.debug("[p4_2] -> %s => +2 ATK perma" % Text.debug_name(tower))
 			tower.boost(2, 0, true, false, false)
 

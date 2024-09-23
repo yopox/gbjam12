@@ -21,20 +21,20 @@ func _process(_delta):
 	
 	if Input.is_action_just_pressed("left"):
 		if selected[1] == 0: selected[0] = posmod(selected[0] - 1, 6)
-		Util.play_sfx.emit(SFX.Sfx.Select)
 		update_cursor()
+		Util.play_sfx.emit(SFX.Sfx.Move)
 	elif Input.is_action_just_pressed("right"):
 		if selected[1] == 0: selected[0] = posmod(selected[0] + 1, 6)
-		Util.play_sfx.emit(SFX.Sfx.Select)
 		update_cursor()
+		Util.play_sfx.emit(SFX.Sfx.Move)
 	elif Input.is_action_just_pressed("up"):
 		selected[1] = posmod(selected[1] - 1, 3)
-		Util.play_sfx.emit(SFX.Sfx.Select)
 		update_cursor()
+		Util.play_sfx.emit(SFX.Sfx.Move)
 	elif Input.is_action_just_pressed("down"):
 		selected[1] = posmod(selected[1] + 1, 3)
-		Util.play_sfx.emit(SFX.Sfx.Select)
 		update_cursor()
+		Util.play_sfx.emit(SFX.Sfx.Move)
 	elif Input.is_action_just_pressed("a"):
 		a()
 	elif Input.is_action_just_pressed("b"):
@@ -47,15 +47,18 @@ func a():
 		0:
 			c[selected[0]] = posmod(c[selected[0]] + 1, 4)
 			update_code()
+			Util.play_sfx.emit(SFX.Sfx.Select)
 		1:
 			if in_progress: return
 			in_progress = true
+			Util.play_sfx.emit(SFX.Sfx.Select)
 			FighterData.get_board.emit(compute_code())
 			status.visible = true
 			status.text = "Downloading boards…"
 		2:
 			if in_progress: return
 			in_progress = true
+			Util.play_sfx.emit(SFX.Sfx.Select)
 			FighterData.get_random_board.emit()
 			status.visible = true
 			status.text = "Downloading boards…"
@@ -83,6 +86,7 @@ func _on_board_retrieved(success: bool, content: String) -> void:
 	if not success:
 		status.text = content
 		in_progress = false
+		Util.play_sfx.emit(SFX.Sfx.Error)
 		return
 	else: status.visible = false
 	

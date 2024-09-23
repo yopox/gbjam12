@@ -48,6 +48,7 @@ func _process(_delta):
 		if state == State.Move and focused[1] == 1: focused[1] = 3
 		elif state == State.Buy and focused[1] in [0, 1]: focused[1] = 3
 		elif focused[1] == 0: focused[0] /= 2
+		Util.play_sfx.emit(SFX.Sfx.Move)
 		update_cursor()
 	elif Input.is_action_just_pressed("down"):
 		focused[1] = posmod(focused[1] + 1, 5)
@@ -55,14 +56,17 @@ func _process(_delta):
 		if state == State.Move and focused[1] == 0: focused[1] = 2
 		elif state == State.Buy and focused[1] == 4: focused[1] = 2
 		elif focused[1] == 4: focused[0] /= 2
+		Util.play_sfx.emit(SFX.Sfx.Move)
 		update_cursor()
 	if Input.is_action_just_pressed("left"):
 		focused[0] = posmod(focused[0] - 1, 4)
 		if focused[1] in [0, 4] and focused[0] > 1: focused[0] = 1
+		Util.play_sfx.emit(SFX.Sfx.Move)
 		update_cursor()
 	elif Input.is_action_just_pressed("right"):
 		focused[0] = posmod(focused[0] + 1, 4)
 		if focused[1] in [0, 4] and focused[0] > 1: focused[0] = 0
+		Util.play_sfx.emit(SFX.Sfx.Move)
 		update_cursor()
 	
 	if focused[1] == 4 and state == State.Move: focused[0] = 0

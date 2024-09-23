@@ -43,6 +43,6 @@ func _on_play_sfx(sfx: Sfx) -> void:
 		Sfx.Error: _play_sfx(ERROR)
 		Sfx.HeroDead: _play_sfx(HERO_DEAD)
 		Sfx.Hit: _play_sfx(HIT)
-		Sfx.Move: _play_sfx(MOVE, -16)
+		Sfx.Move: _play_sfx(MOVE, -22)
 		Sfx.Kill: _play_sfx(KILL)
 		

@@ -39,19 +39,23 @@ func _process(_delta):
 		selected[1] = posmod(selected[1] - 1, 5)
 		if selected[1] == 3: selected[0] *= 2
 		if selected[1] == 4: selected[0] /= 2
+		Util.play_sfx.emit(SFX.Sfx.Move)
 		update()
 	elif Input.is_action_just_pressed("down"):
 		selected[1] = posmod(selected[1] + 1, 5)
 		if selected[1] == 0: selected[0] *= 2
 		if selected[1] == 4: selected[0] /= 2
+		Util.play_sfx.emit(SFX.Sfx.Move)
 		update()
 	if Input.is_action_just_pressed("left"):
 		selected[0] = posmod(selected[0] - 1, 8)
 		if selected[1] == 4 and selected[0] > 3: selected[0] = 3
+		Util.play_sfx.emit(SFX.Sfx.Move)
 		update()
 	elif Input.is_action_just_pressed("right"):
 		selected[0] = posmod(selected[0] + 1, 8)
 		if selected[1] == 4 and selected[0] > 3: selected[0] = 0
+		Util.play_sfx.emit(SFX.Sfx.Move)
 		update()
 	
 	var slot: Slot = selected_slot()

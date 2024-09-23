@@ -3,7 +3,6 @@ extends Node2D
 @onready var logo = $Logo
 
 @onready var new_game = $NewGame
-@onready var tutorial = $Tutorial
 @onready var enter_code = $EnterCode
 @onready var palette = $Palette
 @onready var sound = $Sound
@@ -52,21 +51,20 @@ func a() -> void:
 		0:
 			choice = true
 			Util.start_game.emit()
-		3:
+		2:
 			Palette.set_palette.emit((Palette.current_palette + 1) % Palette.Name.keys().size())
 			recolor_logo()
 			update_labels()
-		4:
+		3:
 			Util.mute.emit()
 
 
 func update_cursor():
 	match selected:
 		0: cursor.position = new_game.position + Vector2(-2, 3)
-		1: cursor.position = tutorial.position + Vector2(-2, 3)
-		2: cursor.position = enter_code.position + Vector2(-2, 3)
-		3: cursor.position = palette.position + Vector2(-2, 3)
-		4: cursor.position = sound.position + Vector2(-2, 3)
+		1: cursor.position = enter_code.position + Vector2(-2, 3)
+		2: cursor.position = palette.position + Vector2(-2, 3)
+		3: cursor.position = sound.position + Vector2(-2, 3)
 
 
 func update_labels():

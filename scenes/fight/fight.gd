@@ -34,6 +34,6 @@ func _process(_delta):
 	
 
 func _on_shake(dead: bool, damage: int):
-	shake_duration = 2000.0 if dead else 250.0
-	shake_intensity = 4.0 if dead else 0.2 + damage / 10.0
+	shake_duration = 2000.0 if dead else 350.0
+	shake_intensity = 4.0 if dead else 1.0 + damage / 20.0
 	shake_time = Time.get_ticks_msec()

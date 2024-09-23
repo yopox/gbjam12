@@ -163,7 +163,7 @@ func effect_k3_1(k3_1: Tower, _adjacent: Tower) -> void:
 
 
 func effect_k4_1(k4_1: Tower, delta_atk: int, delta_hp: int) -> void:
-	if delta_atk <= 0 and delta_hp <= 0: return
+	if delta_atk < 0 or delta_hp < 0: return
 	Util.debug("[k4_1] -> %s => shoots" % Text.debug_name(k4_1))
 	FightUtil.tower_shoot.emit(k4_1, k4_1.ATK)
 

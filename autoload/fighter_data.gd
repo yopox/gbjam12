@@ -5,17 +5,26 @@ var fighter: Array[Variant] = ["QKAJAAAA",
 							  "ZKAJAAADQAEAAA4AgAAAAA==",
 							  "ZrAFgAADQAEAAA4AgAAAKAJAAAA=",
 							  "9kgNEAACwBYAAA4AgAAAMgCAAADQAEAAAoAkAAAA",]
+var current_fighter: Array = []
 var hero_boards: Array = []
 
 var enemy_board: Dictionary = {}
 var enemy_life: int = Values.BASE_LIFE
 
 signal upload()
+@warning_ignore("unused_signal")
+signal get_board(code: int)
+@warning_ignore("unused_signal")
+signal get_random_board()
+@warning_ignore("unused_signal")
+signal board_retrieved(board: String)
+@warning_ignore("unused_signal")
 signal board_uploaded(success: bool, content: String)
 
 
 func reset() -> void:
 	enemy_life = Values.BASE_LIFE
+	current_fighter.clear()
 	enemy_board.clear()
 	hero_boards.clear()
 
@@ -29,7 +38,8 @@ func upload_board() -> void:
 
 
 func update_enemy_board(turn: int):
-	var b = fighter[1] if turn > 1 else fighter[turn - 1]
+	var tmax: int = len(current_fighter) - 1
+	var b: String = current_fighter[tmax] if turn > tmax else current_fighter[turn - 1]
 	var new_board = Progress.import_board(b)
 	for i in range(8):
 		if not new_board.has(i): continue

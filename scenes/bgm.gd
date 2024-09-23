@@ -30,16 +30,15 @@ func _on_mute():
 func _play_music(music: AudioStream, volume = -12):
 	if stream == music:
 		return
-	
+	stop()
 	stream = music
 	volume_db = volume
 	play()
 	
 
 func play_bgm(state: Util.GameState):
-	stop()
 	match state:
-		Util.GameState.Collection, Util.GameState.Title:
+		Util.GameState.Collection, Util.GameState.Title, Util.GameState.EnterCode:
 			_play_music(COLLECTION)
 		Util.GameState.Shop:
 			_play_music(SHOP_INTRO)

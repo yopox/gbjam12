@@ -1,4 +1,4 @@
-extends Node2D
+class_name Code extends Node2D
 
 @export var icons: Array[Sprite2D] = []
 

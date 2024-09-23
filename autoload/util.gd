@@ -1,6 +1,6 @@
 extends Node
 
-enum GameState { Title, Shop, Fight, Collection, GameOver }
+enum GameState { Title, EnterCode, Shop, Fight, Collection, GameOver }
 
 var state: GameState = GameState.Fight: set = _set_state
 
@@ -18,6 +18,8 @@ signal game_over()
 signal restart()
 @warning_ignore("unused_signal")
 signal start_game()
+@warning_ignore("unused_signal")
+signal enter_code()
 signal state_changed()
 @warning_ignore("unused_signal")
 signal play_sfx(sfx: SFX.Sfx)

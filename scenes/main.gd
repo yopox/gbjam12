@@ -6,6 +6,7 @@ extends Node2D
 @onready var bgm: BGM = $Bgm
 
 var title_scene: PackedScene =      preload("res://scenes/title/title.tscn")
+var code_scene: PackedScene =      preload("res://scenes/code/enter_code.tscn")
 var shop_scene: PackedScene =       preload("res://scenes/shop/shop.tscn")
 var fight_scene: PackedScene =      preload("res://scenes/fight/fight.tscn")
 var collection_scene: PackedScene = preload("res://scenes/collection/collection.tscn")
@@ -19,6 +20,7 @@ func _ready():
 	Util.game_over.connect(_on_game_over)
 	Util.restart.connect(_on_restart)
 	Util.start_game.connect(_on_start_game)
+	Util.enter_code.connect(_on_enter_code)
 	FightUtil.fight_end.connect(_on_fight_end)
 	Util.state_changed.connect(_on_state_changed)
 	Palette.set_palette.connect(_on_set_palette)
@@ -35,6 +37,12 @@ func show_title():
 	Util.state = Util.GameState.Title
 	FighterData.reset()
 	scene.add_child(title_scene.instantiate())
+
+
+func _on_enter_code():
+	scene.get_child(0).queue_free()
+	Util.state = Util.GameState.EnterCode
+	scene.add_child(code_scene.instantiate())
 
 
 func _on_start_game():

@@ -51,6 +51,9 @@ func a() -> void:
 		0:
 			choice = true
 			Util.start_game.emit()
+		1:
+			choice = true
+			Util.enter_code.emit()
 		2:
 			Palette.set_palette.emit((Palette.current_palette + 1) % Palette.Name.keys().size())
 			recolor_logo()

@@ -67,7 +67,7 @@ func _on_tower_hit(tower: Tower, damage: int, bullet: Bullet) -> void:
 
 
 func _on_tower_stats_changed(tower: Tower, delta_atk: int, delta_hp: int, perma: bool, secondary: bool) -> void:
-	if tower.type == Tower.Type.K4_1: effect_k4_1(tower, delta_atk, delta_hp)
+	if tower.type == Tower.Type.K4_1 and not secondary: effect_k4_1(tower, delta_atk, delta_hp)
 	for adjacent: Tower in FightUtil.adjacent_towers(tower):
 		if adjacent.HP <= 0: continue
 		if adjacent.type == Tower.Type.S4_2: effect_s4_2(adjacent, delta_atk, delta_hp, perma, secondary)

@@ -50,7 +50,7 @@ func play_bgm(state: Util.GameState):
 			elif Progress.turn in [9, 10, 11]:
 				_play_music(BATTLE_3)
 			elif Progress.turn in [12, 13, 14]:
-				_play_music(BATTLE_3)
+				_play_music(BATTLE_4)
 			else:
 				_play_music(BATTLE_5)
 		Util.GameState.GameOver:

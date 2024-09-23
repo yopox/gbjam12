@@ -54,15 +54,17 @@ func boost(atk: int, hp: int, perma: bool, secondary: bool, alive_only: bool = t
 	if alive_only and HP <= 0: return
 	
 	# Update current stats
-	ATK += atk
+	var atk_diff: int = atk
+	if ATK + atk < 0: atk_diff = -ATK
+	ATK += atk_diff
 	if HP > 0: HP += hp
 	
 	# Fight boosts (discarded when exporting boards)
-	if perma or effects_perma or type == Type.K3_2: ATK_boost += atk
+	if perma or effects_perma or type == Type.K3_2: ATK_boost += atk_diff
 	if perma or effects_perma or type == Type.P1_2: HP_boost += hp
 	
-	FightUtil.tower_stats_changed.emit(self, atk, hp, perma, secondary)
-	FightUtil.tower_reaction.emit(self, Slot.Reaction.Boost if atk >= 0 and hp >= 0 else Slot.Reaction.Nerf)
+	FightUtil.tower_stats_changed.emit(self, atk_diff, hp, perma, secondary)
+	FightUtil.tower_reaction.emit(self, Slot.Reaction.Boost if atk_diff >= 0 and hp >= 0 else Slot.Reaction.Nerf)
 
 
 func hit(bullet: Bullet) -> void:

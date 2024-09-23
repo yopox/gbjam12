@@ -15,6 +15,17 @@ const SHOP_INTRO = preload("res://music/Shop intro.ogg")
 const TRICK_OR_TREAT = preload("res://music/Trick or treat.ogg")
 const WIN = preload("res://music/Win.ogg")
 
+var mute: bool = false
+
+
+func _ready():
+	Util.mute.connect(_on_mute)
+
+
+func _on_mute():
+	mute = not mute
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"), mute)
+
 
 func _play_music(music: AudioStream, volume = -12):
 	if stream == music:
@@ -28,30 +39,26 @@ func _play_music(music: AudioStream, volume = -12):
 func play_bgm(state: Util.GameState):
 	stop()
 	match state:
+		Util.GameState.Collection, Util.GameState.Title:
+			_play_music(COLLECTION)
 		Util.GameState.Shop:
 			_play_music(SHOP_INTRO)
-						
 		Util.GameState.Fight:
 			if Progress.turn in [1, 2, 3, 4, 5]:
 				_play_music(BATTLE_1)
-			
 			elif Progress.turn in [6, 7, 8]:
 				_play_music(BATTLE_2)
-			
 			elif Progress.turn in [9, 10, 11]:
 				_play_music(BATTLE_3)
-				
 			elif Progress.turn in [12, 13, 14]:
 				_play_music(BATTLE_3)
-			
-			else: _play_music(BATTLE_5)
-		
-			
-		Util.GameState.Collection:
-			_play_music(COLLECTION)
-			
+			else:
+				_play_music(BATTLE_5)
 		Util.GameState.GameOver:
-			pass
+			if Progress.enemy_dead:
+				_play_music(WIN)
+			else:
+				_play_music(LOSE)
 			
 func _on_finished() -> void:
 	if stream == SHOP_INTRO:

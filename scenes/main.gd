@@ -5,6 +5,7 @@ extends Node2D
 @onready var overlay = $Overlay
 @onready var bgm: BGM = $Bgm
 
+var title_scene: PackedScene =      preload("res://scenes/title/title.tscn")
 var shop_scene: PackedScene =       preload("res://scenes/shop/shop.tscn")
 var fight_scene: PackedScene =      preload("res://scenes/fight/fight.tscn")
 var collection_scene: PackedScene = preload("res://scenes/collection/collection.tscn")
@@ -17,21 +18,28 @@ func _ready():
 	Util.fight.connect(_on_fight)
 	Util.game_over.connect(_on_game_over)
 	Util.restart.connect(_on_restart)
+	Util.start_game.connect(_on_start_game)
 	FightUtil.fight_end.connect(_on_fight_end)
 	Util.state_changed.connect(_on_state_changed)
 	Palette.set_palette.connect(_on_set_palette)
 	Palette.set_palette.emit(Palette.Name.NEXUS_2060)
-	start_game()
+	show_title()
 
 
 func _on_state_changed() -> void:
 	bgm.play_bgm(Util.state)
 	
 
-func start_game():
+func show_title():
 	Progress.reset()
-	Util.state = Util.GameState.Shop
+	Util.state = Util.GameState.Title
 	FighterData.reset()
+	scene.add_child(title_scene.instantiate())
+
+
+func _on_start_game():
+	scene.get_child(0).queue_free()
+	Util.state = Util.GameState.Shop
 	scene.add_child(shop_scene.instantiate())
 
 
@@ -59,7 +67,7 @@ func _on_game_over() -> void:
 
 func _on_restart() -> void:
 	scene.get_child(0).queue_free()
-	start_game()
+	show_title()
 
 
 func _on_show_collection() -> void:
@@ -74,6 +82,7 @@ func _on_hide_collection() -> void:
 
 func _on_set_palette(p: Palette.Name) -> void:
 	var m: ShaderMaterial = color_rect.material as ShaderMaterial
+	Palette.current_palette = p
 	var pal = Palette.get_palette(p)
 	m.set_shader_parameter("c1", pal[0])
 	m.set_shader_parameter("c2", pal[1])

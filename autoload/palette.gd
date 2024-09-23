@@ -1,11 +1,13 @@
 extends Node
 
-enum Name { GRAYSCALE, YOPOX, NEXUS_2060, }
+enum Name { NEXUS_2060, YOPOX, GRAYSCALE }
 
 const WHITE = Color("ffffff")
 const LIGHT_GRAY = Color("aaaaaa")
 const DARK_GRAY = Color("666666")
 const BLACK = Color("000000")
+
+var current_palette: int = 0
 
 @warning_ignore("unused_signal")
 signal set_palette(p: Name)

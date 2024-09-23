@@ -29,6 +29,8 @@ signal destroy_bullets()
 signal tower_ghostly(tower: Tower, ghostly: bool)
 @warning_ignore("unused_signal")
 signal reveal(column: int)
+@warning_ignore("unused_signal")
+signal shake(dead: bool, damage: int)
 
 func _ready():
 	destroy_tower.connect(_on_destroy_tower)
@@ -217,7 +219,6 @@ func damage_hero(team: int, damage: int) -> void:
 		Progress.life = max(0, Progress.life - damage)
 		if Progress.life <= 0 and not Progress.enemy_dead and not Progress.player_dead:
 			game_over = true
-			# TODO: Screen shake
 			Progress.player_dead = true
 	else:
 		var enemy_alive = FighterData.damage(damage)
@@ -225,12 +226,13 @@ func damage_hero(team: int, damage: int) -> void:
 			Progress.enemy_dead = true
 			game_over = true
 	if game_over:
-		# TODO: Screen shake
+		FightUtil.shake.emit(true, 0)
 		Util.play_sfx.emit(SFX.Sfx.HeroDead)
 		await Util.wait(Values.GAME_OVER_DELAY)
 		FightUtil.destroy_bullets.emit()
 		Util.game_over.emit()
 	else:
+		FightUtil.shake.emit(false, damage)
 		Util.play_sfx.emit(SFX.Sfx.HeroHit)
 
 

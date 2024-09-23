@@ -23,6 +23,9 @@ team = 1
 [node name="HeroGUI" parent="." instance=ExtResource("4_xhmca")]
 position = Vector2(0, 128)
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(80, 72)
+
 [connection signal="start_fight" from="." to="FightManager" method="_on_fight_start_fight"]
 [connection signal="body_entered" from="EnemyGUI" to="FightManager" method="_on_enemy_zone_body_entered"]
 [connection signal="body_entered" from="HeroGUI" to="FightManager" method="_on_hero_zone_body_entered"]

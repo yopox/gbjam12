@@ -30,7 +30,7 @@ func fight():
 		var column = FightUtil.get_column(active_column)
 		var skip = true
 		for tower: Tower in column:
-			if tower.HP > 0 and FightUtil.shoots(tower.type): skip = false
+			if tower.HP > 0 and tower.ATK > 0 and FightUtil.shoots(tower.type): skip = false
 		if skip:
 			n_skip += 1
 			if n_skip == 4:

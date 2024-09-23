@@ -47,6 +47,7 @@ func recolor_logo() -> void:
 
 
 func a() -> void:
+	Util.play_sfx.emit(SFX.Sfx.Select)
 	match selected:
 		0:
 			choice = true

@@ -52,6 +52,10 @@ func _on_tower_destroyed(tower: Tower) -> void:
 
 func _on_tower_hit(tower: Tower, damage: int, bullet: Bullet) -> void:
 	if Util.state == Util.GameState.Collection: return
+	
+	if Tower.Family.Pumpkin in FightUtil.tower_families(tower.type):
+		Util.play_sfx.emit(SFX.Sfx.PumpkinHit)
+
 	if tower.type == Tower.Type.MIRROR: effect_mirror(tower, damage)
 	if tower.type == Tower.Type.P4_1: effect_p4_1(tower, damage)
 	if tower.type == Tower.Type.K2_2: effect_k2_2(tower, damage)

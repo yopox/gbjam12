@@ -137,6 +137,7 @@ func reveal_x() -> int:
 func _on_reveal(c: int) -> void:
 	if column != c or tower_node.tower == null or tower_node.tower.type in [Tower.Type.COIN, Tower.Type.ROCK, Tower.Type.BOMB, Tower.Type.MIRROR]: return
 	reveal_animation.play("blink")
+	Util.play_sfx.emit(SFX.Sfx.Spawn)
 
 
 func reveal_end() -> void:

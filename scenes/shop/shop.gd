@@ -88,11 +88,13 @@ func _set_coins(value: int) -> void:
 
 func a() -> void:
 	if focused[1] == 0:
+		Util.play_sfx.emit(SFX.Sfx.Select)
 		if focused[0] == 0: reroll(false)
 		if focused[0] == 1: upgrade()
 		return
 	
 	if focused[1] == 4:
+		Util.play_sfx.emit(SFX.Sfx.Select)
 		if state == State.Move: sell()
 		elif state == State.Select:
 			if focused[0] == 0: fight()
@@ -107,6 +109,7 @@ func a() -> void:
 				# TODO: Not enough coins animation
 				pass
 			else:
+				Util.play_sfx.emit(SFX.Sfx.Select)
 				coins -= cost
 				Util.play_sfx.emit(SFX.Sfx.Upgrade)
 				if focused[0] == 0: Progress.shop_l_locked = false
@@ -123,6 +126,7 @@ func a() -> void:
 				# TODO: Not enough coins animation
 				pass
 			else:
+				Util.play_sfx.emit(SFX.Sfx.Select)
 				state = State.Buy
 				focused[1] = 2
 				selected_slot = slot
@@ -134,6 +138,7 @@ func a() -> void:
 		if state == State.Select and not slot.locked and slot.tower_node.tower != null:
 			selected_slot = slot
 			state = State.Move
+			Util.play_sfx.emit(SFX.Sfx.Select)
 		elif state == State.Move and not slot.locked:
 			if slot == selected_slot:
 				selected_slot = null
@@ -142,6 +147,7 @@ func a() -> void:
 				return
 			if coins < Values.MOVE_COST:
 				return
+			Util.play_sfx.emit(SFX.Sfx.Select)
 			coins -= Values.MOVE_COST
 			var t1: Variant = selected_slot.tower_node.tower
 			var t2: Variant = slot.tower_node.tower
@@ -153,6 +159,7 @@ func a() -> void:
 			state = State.Select
 			update_slots()
 		elif state == State.Buy and not slot.locked and slot.tower_node.tower == null:
+			Util.play_sfx.emit(SFX.Sfx.Select)
 			# Actually buy the tower
 			var cost: int = FightUtil.tower_level(selected_slot.tower_node.tower.type)
 			coins -= cost

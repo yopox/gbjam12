@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://scenes/sfx.gd" id="1_ssgdm"]
 
-[node name="Sfx" type="AudioStreamPlayer"]
+[node name="Sfx" type="Node"]
 script = ExtResource("1_ssgdm")

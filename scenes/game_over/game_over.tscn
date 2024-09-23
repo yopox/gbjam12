@@ -1,27 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://cm1qmk23sllam"]
+[gd_scene load_steps=5 format=3 uid="uid://cm1qmk23sllam"]
 
 [ext_resource type="PackedScene" uid="uid://dlr57neb78mur" path="res://scenes/fight/board.tscn" id="1_l0uri"]
 [ext_resource type="Script" path="res://scenes/game_over/game_over.gd" id="1_yscju"]
 [ext_resource type="Theme" uid="uid://vtdirou58ehe" path="res://scenes/theme.tres" id="2_jv07r"]
+[ext_resource type="PackedScene" uid="uid://celaig635tgih" path="res://scenes/ui/code.tscn" id="4_ykcb7"]
 
 [node name="GameOver" type="Node2D"]
 script = ExtResource("1_yscju")
 
 [node name="Board" parent="." instance=ExtResource("1_l0uri")]
-position = Vector2(24, 48)
+position = Vector2(24, 40)
 
 [node name="Label" type="Label" parent="."]
-offset_top = 24.0
+offset_top = 16.0
 offset_right = 160.0
-offset_bottom = 47.0
+offset_bottom = 39.0
 theme = ExtResource("2_jv07r")
 text = "GAME OVER! =(X_X)="
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="."]
-offset_top = 120.0
+offset_top = 128.0
 offset_right = 160.0
-offset_bottom = 143.0
+offset_bottom = 151.0
 theme = ExtResource("2_jv07r")
 text = "Press A to restart"
 horizontal_alignment = 1
+
+[node name="NetworkLabel" type="Label" parent="."]
+offset_top = 92.0
+offset_right = 160.0
+offset_bottom = 115.0
+theme = ExtResource("2_jv07r")
+text = "Uploading board…"
+horizontal_alignment = 1
+
+[node name="Code" parent="." instance=ExtResource("4_ykcb7")]
+position = Vector2(28, 112)

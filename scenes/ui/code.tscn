@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://celaig635tgih"]
+
+[ext_resource type="Texture2D" uid="uid://c2pxje3hrp2sh" path="res://assets/mini.png" id="1_1yfv8"]
+[ext_resource type="Script" path="res://scenes/ui/code.gd" id="1_6po2b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwlyi"]
+atlas = ExtResource("1_1yfv8")
+region = Rect2(0, 0, 16, 16)
+
+[node name="Code" type="Node2D" node_paths=PackedStringArray("icons")]
+script = ExtResource("1_6po2b")
+icons = [NodePath("Sprite2D"), NodePath("Sprite2D2"), NodePath("Sprite2D3"), NodePath("Sprite2D4"), NodePath("Sprite2D5"), NodePath("Sprite2D6")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_pwlyi")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(20, 0)
+texture = SubResource("AtlasTexture_pwlyi")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(40, 0)
+texture = SubResource("AtlasTexture_pwlyi")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+position = Vector2(60, 0)
+texture = SubResource("AtlasTexture_pwlyi")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+position = Vector2(80, 0)
+texture = SubResource("AtlasTexture_pwlyi")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+position = Vector2(100, 0)
+texture = SubResource("AtlasTexture_pwlyi")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_wvlti"]
 [ext_resource type="Shader" path="res://scenes/colors.gdshader" id="2_nxiao"]
-[ext_resource type="PackedScene" uid="uid://dbi01eg1cm6rb" path="res://scenes/bgm.tscn" id="3_vcmn6"]
+[ext_resource type="PackedScene" path="res://scenes/bgm.tscn" id="3_vcmn6"]
 [ext_resource type="PackedScene" uid="uid://cyvs3sl0lx0ca" path="res://scenes/sfx.tscn" id="4_vdw1i"]
 [ext_resource type="PackedScene" uid="uid://bgloo2lctpkwc" path="res://scenes/network.tscn" id="5_vn3xh"]
 
@@ -17,6 +17,7 @@ shader_parameter/c4 = Vector4(0, 0, 0, 1)
 script = ExtResource("1_wvlti")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 material = SubResource("ShaderMaterial_xe47a")

@@ -11,6 +11,7 @@ var enemy_board: Dictionary = {}
 var enemy_life: int = Values.BASE_LIFE
 
 signal upload()
+signal board_uploaded(success: bool, content: String)
 
 
 func reset() -> void:
@@ -28,7 +29,7 @@ func upload_board() -> void:
 
 
 func update_enemy_board(turn: int):
-	var b = fighter[4] if turn > 4 else fighter[turn - 1]
+	var b = fighter[1] if turn > 1 else fighter[turn - 1]
 	var new_board = Progress.import_board(b)
 	for i in range(8):
 		if not new_board.has(i): continue

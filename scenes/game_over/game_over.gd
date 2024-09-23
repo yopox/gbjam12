@@ -16,8 +16,7 @@ func _ready():
 		FighterData.upload_board()
 	else:
 		code.visible = false
-		FighterData.upload_board()
-#		network_label.visible = false
+		network_label.visible = false
 	Progress.heal_board()
 	board.set_towers(Progress.player_board, false, 0)
 

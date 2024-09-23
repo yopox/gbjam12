@@ -1,10 +1,8 @@
 extends Node
 
-var fighter: Array[Variant] = ["QKAJAAAA",
-							  "YKAJAAADgCAAAAA=",
-							  "ZKAJAAADQAEAAA4AgAAAAA==",
-							  "ZrAFgAADQAEAAA4AgAAAKAJAAAA=",
-							  "9kgNEAACwBYAAA4AgAAAMgCAAADQAEAAAoAkAAAA",]
+var fighters: Array = [
+		["QAAIAA==","YAAIMAJA","ZAAIMAJOAAQ=","ZgAIMAJOAAXANA==","9sAJAAIGgMKgEOAAXANA","9sAJAAIGgMKgEIQFnANA","/8AJAAIGgMKgEFQJIQFnANNQKg==","/8AJAAIGgMKgEFQJIQFnANNQKg==","/8AJLwHGgMKgENQKoQFgAIHANA==","/8AJLwHGgMKgENQKoQFmIPjICg==","/8AJLwHFoHqgENQKoQFmIPjICg==","/8AJLwHFoHqgENQKoQFmIPjICg=="],
+	]
 var current_fighter: Array = []
 var hero_boards: Array = []
 

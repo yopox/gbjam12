@@ -24,10 +24,10 @@ var LEVEL_4_RANGES: Array[Array] = [range(0, 10), range(10, 30), range(30, 75), 
 #endregion
 
 #region Fight - General
-const FIGHT_REVEAL_DELAY: float = 0.35
+const FIGHT_REVEAL_DELAY: float = 1.3
 const FIGHT_DESTROY_BULLETS_DELAY: float = 0
-const FIGHT_START_DELAY: float = 2.0
-const FIGHT_END_DELAY: float = 0.5
+const FIGHT_START_DELAY: float = 1
+const FIGHT_END_DELAY: float = 0.75
 const FIGHT_TURN_DELAY: float = 2.25
 const VIBRATION_DURATION: int = 150
 const GAME_OVER_DELAY: float = 2

@@ -5,6 +5,8 @@ class_name Slot extends Node2D
 @onready var reaction = $Reaction
 @onready var particles = $Particles
 @onready var hide_reaction = $HideReaction
+@onready var reveal: Sprite2D = $Reveal
+@onready var reveal_animation: AnimationPlayer = $Reveal/RevealAnimation
 
 @onready var stats = $Stats
 @onready var atk = $Stats/ATK
@@ -32,24 +34,34 @@ func _ready():
 	FightUtil.tower_hide.connect(_on_tower_hide)
 	FightUtil.tower_reaction.connect(_on_tower_reaction)
 	FightUtil.destroy_tower.connect(_on_destroy_tower)
+	FightUtil.reveal.connect(_on_reveal)
 	reaction.texture = reaction.texture.duplicate()
 	update_rect()
+	
+	if Util.state == Util.GameState.Fight:
+		reveal.visible = true
+		reveal.texture = reveal.texture.duplicate()
 
 
 func set_tower(tower: Tower, t: int) -> void:
 	self.team = t
+	stats.visible = tower != null and Util.state != Util.GameState.Fight
 	
 	if tower == null:
 		tower_node.empty = true
 		tower_node.tower = null
-		stats.visible = false
 	else:
 		tower_node.empty = false
 		tower_node.tower = tower
 		tower_node.tower.set_slot(self)
 		tower_node.tower.team = t
 		update_stats(tower)
-		stats.visible = true
+	
+	if Util.state == Util.GameState.Fight:
+		tower_node.visible = false
+		reveal.visible = tower != null
+		if tower != null: reveal.texture.region.position.x = reveal_x()
+		
 	tower_node.update()
 
 
@@ -105,6 +117,32 @@ func update_rect() -> void:
 func update_stats(tower: Tower) -> void:
 	hp.text = str(tower.HP)
 	atk.text = str(tower.ATK)
+
+
+func reveal_x() -> int:
+	var families = FightUtil.tower_families(tower_node.tower.type)
+	if len(families) == 0:
+		reveal.visible = false
+		tower_node.visible = true
+		return 0
+	else:
+		match families[0]:
+			Tower.Family.Spider: return 68 * 16
+			Tower.Family.Skeleton: return 69 * 16
+			Tower.Family.Ghost: return 70 * 16
+			Tower.Family.Pumpkin: return 71 * 16
+	return 0
+
+
+func _on_reveal(c: int) -> void:
+	if column != c or tower_node.tower == null or tower_node.tower.type in [Tower.Type.COIN, Tower.Type.ROCK, Tower.Type.BOMB, Tower.Type.MIRROR]: return
+	reveal_animation.play("blink")
+
+
+func reveal_end() -> void:
+	reveal.visible = false
+	stats.visible = tower_node.tower != null
+	tower_node.visible = true
 
 
 func activate() -> void:

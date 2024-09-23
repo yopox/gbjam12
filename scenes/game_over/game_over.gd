@@ -17,7 +17,6 @@ func _ready():
 	else:
 		code.visible = false
 		network_label.visible = false
-		# TODO: show code to rematch
 	Progress.heal_board()
 	board.set_towers(Progress.player_board, false, 0)
 

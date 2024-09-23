@@ -15,10 +15,14 @@ func fight():
 	var finished = false
 	var active_column = 3
 	
-	await Util.wait(Values.FIGHT_START_DELAY)
+	for i in range(4):
+		await Util.wait(Values.FIGHT_REVEAL_DELAY)
+		FightUtil.reveal.emit(i)
+	
 	FightUtil.fight_start.emit()
 	
 	var n_skip = 0
+	var short_wait = true
 	
 	while not finished:
 		active_column = (active_column + 1) % 4
@@ -37,7 +41,8 @@ func fight():
 		
 		n_skip = 0
 		
-		await Util.wait(Values.FIGHT_TURN_DELAY)
+		await Util.wait(Values.FIGHT_START_DELAY if short_wait else Values.FIGHT_TURN_DELAY)
+		short_wait = false
 		
 		# Trigger towers
 		FightUtil.activate_column.emit(active_column)

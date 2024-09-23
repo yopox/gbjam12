@@ -27,7 +27,8 @@ signal hero_shoot(team: int, column: int)
 signal destroy_bullets()
 @warning_ignore("unused_signal")
 signal tower_ghostly(tower: Tower, ghostly: bool)
-
+@warning_ignore("unused_signal")
+signal reveal(column: int)
 
 func _ready():
 	destroy_tower.connect(_on_destroy_tower)

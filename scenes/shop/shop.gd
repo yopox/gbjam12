@@ -17,6 +17,7 @@ var coins: int = 1: set = _set_coins
 var focused: Array[int] = [1, 2]
 var selected_slot: Slot = null
 var just_bought: bool = false
+var hide_popup: bool = false
 
 
 func _ready():
@@ -71,6 +72,8 @@ func _process(_delta):
 		update_status()
 	elif Input.is_action_just_pressed("b"):
 		b()
+	elif Input.is_action_just_pressed("select"):
+		select()
 
 
 func _set_state(value: State) -> void:
@@ -176,6 +179,11 @@ func b() -> void:
 		_: return
 	
 
+func select() -> void:
+	hide_popup = not hide_popup
+	update_slots()
+
+
 func hovered_slot() -> Slot:
 	if focused[1] == 1:
 		return slots.get_child(focused[0])
@@ -214,7 +222,7 @@ func update_slot(slot: Slot, dy: int) -> void:
 	var active: bool = (slot.row == focused[1] + dy and slot.column == focused[0])
 	slot.state = Slot.State.Active if active or selected else Slot.State.Idle
 	slot.update_rect()
-	slot.tower_node.show_popup(not just_bought and active, false)
+	slot.tower_node.show_popup(not just_bought and active and not hide_popup, false)
 
 
 func update_header() -> void:

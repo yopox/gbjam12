@@ -18,8 +18,6 @@ var hide_popup: bool = false
 
 
 func _ready():
-	Util.state = Util.GameState.Collection
-	
 	var spiders = [Tower.Type.S1_1, Tower.Type.S1_2, Tower.Type.S2_1, Tower.Type.S2_2, Tower.Type.S3_1, Tower.Type.S3_2, Tower.Type.S4_1, Tower.Type.S4_2]
 	var skeletons = [Tower.Type.K1_1, Tower.Type.K1_2, Tower.Type.K2_1, Tower.Type.K2_2, Tower.Type.K3_1, Tower.Type.K3_2, Tower.Type.K4_1, Tower.Type.K4_2]
 	var ghosts = [Tower.Type.G1_1, Tower.Type.G1_2, Tower.Type.G2_1, Tower.Type.G2_2, Tower.Type.G3_1, Tower.Type.G3_2, Tower.Type.G4_1, Tower.Type.G4_2]

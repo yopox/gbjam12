@@ -69,12 +69,12 @@ func base_stats(type: Tower.Type) -> Array:
 
 		Tower.Type.G1_1: return [2, 1]
 		Tower.Type.G1_2: return [1, 1]
-		Tower.Type.G2_1: return [3, 1]
-		Tower.Type.G2_2: return [2, 1]
-		Tower.Type.G3_1: return [5, 1]
-		Tower.Type.G3_2: return [4, 1]
-		Tower.Type.G4_1: return [0, 1]
-		Tower.Type.G4_2: return [6, 1]
+		Tower.Type.G2_1: return [4, 1]
+		Tower.Type.G2_2: return [3, 1]
+		Tower.Type.G3_1: return [6, 1]
+		Tower.Type.G3_2: return [3, 1]
+		Tower.Type.G4_1: return [5, 1]
+		Tower.Type.G4_2: return [5, 1]
 
 		Tower.Type.P1_1: return [3, 2]
 		Tower.Type.P1_2: return [1, 1]

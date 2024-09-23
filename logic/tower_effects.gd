@@ -207,13 +207,13 @@ func effect_g3_2(g3_2: Tower) -> void:
 
 func effect_g4_1(g4_1: Tower, ghostly: Tower) -> void:
 	if g4_1.team == ghostly.team:
-		Util.debug("[g4_1] -> %s => +1 +1 perma" % Text.debug_name(ghostly))
-		ghostly.boost(1, 1, true, false)
+		Util.debug("[g4_1] -> %s => +1 +2 perma" % Text.debug_name(ghostly))
+		ghostly.boost(1, 2, true, false)
 		
 	
 func effect_g4_2(g4_2: Tower) -> void:
-	Util.debug("[g4_2] -> %s => +1 +1 perma" % Text.debug_name(g4_2))
-	g4_2.boost(1, 1, true, false, true)
+	Util.debug("[g4_2] -> %s => +2 +1 perma" % Text.debug_name(g4_2))
+	g4_2.boost(2, 1, true, false, true)
 
 
 func effect_p2_1() -> void:

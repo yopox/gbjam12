@@ -19,6 +19,7 @@ var mute: bool = false
 
 
 func _ready():
+	Util.bgm = self
 	Util.mute.connect(_on_mute)
 
 

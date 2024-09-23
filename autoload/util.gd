@@ -3,6 +3,7 @@ extends Node
 enum GameState { Title, EnterCode, Shop, Fight, Collection, GameOver }
 
 var state: GameState = GameState.Fight: set = _set_state
+var bgm: BGM
 
 @warning_ignore("unused_signal")
 signal set_palette(palette: Palette)

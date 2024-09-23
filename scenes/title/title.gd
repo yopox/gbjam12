@@ -5,7 +5,7 @@ extends Node2D
 @onready var new_game = $NewGame
 @onready var enter_code = $EnterCode
 @onready var palette = $Palette
-@onready var sound = $Sound
+@onready var sound: Label = $Sound
 @onready var version: Label = $Version
 
 @onready var cursor: Node2D = $Cursor
@@ -17,8 +17,8 @@ var choice: bool = false
 
 func _ready():
 	recolor_logo()
-	update_cursor()
 	update_labels()
+	update_cursor()
 	version.text = "v%s" % ProjectSettings.get_setting("application/config/version")
 	choice = false
 
@@ -34,11 +34,13 @@ func _process(delta):
 	if Input.is_action_just_pressed("a"):
 		a()
 	elif Input.is_action_just_pressed("down"):
-		selected = posmod(selected + 1, 5)
+		selected = posmod(selected + 1, 4)
 		update_cursor()
+		Util.play_sfx.emit(SFX.Sfx.Move)
 	elif Input.is_action_just_pressed("up"):
-		selected = posmod(selected - 1, 5)
+		selected = posmod(selected - 1, 4)
 		update_cursor()
+		Util.play_sfx.emit(SFX.Sfx.Move)
 
 
 func recolor_logo() -> void:
@@ -63,6 +65,7 @@ func a() -> void:
 			update_labels()
 		3:
 			Util.mute.emit()
+			update_labels()
 
 
 func update_cursor():
@@ -75,3 +78,4 @@ func update_cursor():
 
 func update_labels():
 	palette.text = "Palette: %s" % Palette.current_palette
+	sound.text = "Sound: %s" % ("On" if not Util.bgm.mute else "Off")

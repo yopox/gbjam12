@@ -21,7 +21,7 @@ They can also have an effect that triggers during the fight.
 
 - **Pumpkins**: Pumpkins boost other towers. Pumpkins shoot only after receiving damage.
 - **Spiders**: Spiders have effects related to permanent boosts.
-- **Ghosts**: Ghosts can become <strong>ghostly, in this state the next shot received will not inflict any damage.
+- **Ghosts**: Ghosts can become <strong>ghostly</strong>, in this state the next shot received will not inflict any damage.
 - **Skeletons**: Skeletons have effects related to attack bonuses and shooting more often.
 
 ![](promo/description_autoween4.png#gh-dark-mode-only)
